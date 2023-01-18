@@ -8,6 +8,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("CORSPolicy", b =>
+	{
+		b
+			.AllowAnyHeader()
+			.AllowAnyMethod()
+			.WithOrigins("http://localhost:3000");
+	});
+});
+
 var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
 
