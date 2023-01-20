@@ -1,14 +1,20 @@
 using System.Text;
+using DigitalDiary;
 using Infrastructure;
+using Infrastructure.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var services = builder.Services;
 
-builder.Services.AddCors(options =>
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+
+services.AddCors(options =>
 {
 	options.AddPolicy("CORSPolicy", b =>
 	{
@@ -19,8 +25,28 @@ builder.Services.AddCors(options =>
 	});
 });
 
+services
+	.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	.AddJwtBearer(options =>
+	{
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateIssuer = true,
+			ValidIssuer = Constants.Authentication.Issuer,
+			ValidateAudience = true,
+			ValidAudience = Constants.Authentication.Audience,
+			ValidateLifetime = true,
+			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("DigitalDiarySecretKey2023")),
+			ValidateIssuerSigningKey = true
+		};
+	});
+services
+	.AddAuthorization();
+
 var connectionString = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+
+services.AddRepositories();
 
 var app = builder.Build();
 
@@ -46,6 +72,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

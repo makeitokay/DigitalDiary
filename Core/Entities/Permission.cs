@@ -10,6 +10,10 @@ public class Permission : BaseEntity
 
 	[Column("Type")]
 	public string Type { get; set; } = default!;
+
+	public virtual IEnumerable<Role> Roles { get; set; } = default!;
+
+	public virtual IEnumerable<User> Users { get; set; } = default!;
 }
 
 public enum PermissionType
