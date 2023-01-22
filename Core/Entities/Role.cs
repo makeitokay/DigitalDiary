@@ -14,6 +14,8 @@ public class Role : BaseEntity
 	public virtual School School { get; set; } = default!;
 	
 	public virtual List<Permission> Permissions { get; set; } = default!;
+
+	public virtual List<User> Users { get; set; } = default!;
 }
 
 public enum RoleType

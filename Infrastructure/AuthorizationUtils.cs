@@ -1,8 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace DigitalDiary.Controllers.Authorization;
+namespace Infrastructure;
 
 public static class AuthorizationUtils
 {

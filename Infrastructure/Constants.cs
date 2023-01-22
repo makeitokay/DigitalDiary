@@ -1,4 +1,4 @@
-﻿namespace DigitalDiary;
+﻿namespace Infrastructure;
 
 public static class Constants
 {

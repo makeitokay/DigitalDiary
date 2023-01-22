@@ -1,4 +1,5 @@
 using System.Text;
+using Core.Entities;
 using DigitalDiary;
 using Infrastructure;
 using Infrastructure.Extensions;
@@ -41,7 +42,14 @@ services
 		};
 	});
 services
-	.AddAuthorization();
+	.AddAuthorization(options =>
+	{
+		foreach (var permission in Enum.GetValues<PermissionType>().Select(p => p.ToString()))
+		{
+			options.AddPolicy(permission,
+				policy => policy.RequireClaim(Constants.ClaimTypes.Permission, permission));
+		}
+	});
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
 services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));

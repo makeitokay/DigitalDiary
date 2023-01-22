@@ -17,25 +17,17 @@ public class User : BaseEntity
 	public string PasswordHash { get; set; } = default!;
 	
 	[Column("PasswordSalt")]
-	public byte[] PasswordSalt { get; set; } =default!;
+	public byte[] PasswordSalt { get; set; } = default!;
 
-	[Column("RoleId")]
-	public int RoleId { get; set; }
-	
-	public virtual Role Role { get; set; } = default!;
+	public virtual List<Role> Roles { get; set; } = default!;
 	
 	public virtual List<Permission> GranularPermissions { get; set; } = default!;
 
 	public IEnumerable<Permission> GetAllPermissions()
 	{
-		foreach (var permission in Role.Permissions)
-		{
-			yield return permission;
-		}
-
-		foreach (var permission in GranularPermissions)
-		{
-			yield return permission;
-		}
+		return Roles
+			.SelectMany(r => r.Permissions)
+			.Concat(GranularPermissions)
+			.Distinct();
 	}
 }

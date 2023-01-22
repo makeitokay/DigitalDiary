@@ -9,7 +9,7 @@ public class Permission : BaseEntity
 	public string Category { get; set; } = default!;
 
 	[Column("Type")]
-	public string Type { get; set; } = default!;
+	public PermissionType Type { get; set; } = default!;
 
 	public virtual IEnumerable<Role> Roles { get; set; } = default!;
 
