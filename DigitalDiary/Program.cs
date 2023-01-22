@@ -42,14 +42,7 @@ services
 		};
 	});
 services
-	.AddAuthorization(options =>
-	{
-		foreach (var permission in Enum.GetValues<PermissionType>().Select(p => p.ToString()))
-		{
-			options.AddPolicy(permission,
-				policy => policy.RequireClaim(Constants.ClaimTypes.Permission, permission));
-		}
-	});
+	.AddAuthorization();
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
 services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
