@@ -2,6 +2,7 @@
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230123194912_AddSystemAdminModelMigration")]
+    partial class AddSystemAdminModelMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,17 +67,6 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Admins");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "automation@digitaldiary.site",
-                            FirstName = "Automation",
-                            LastName = "Digital Diary",
-                            PasswordHash = "27E212D81DAEF9C6DFE5133B92CE15E27B3A9319A128A8879CD748BD2BA3797BA45CBB2347F4AF2F268167A18315D2C1A8D2CC8091EF4EDB94C7FB79BE42DC3C",
-                            PasswordSalt = new byte[] { 234, 29, 227, 79, 176, 3, 140, 65, 7, 220, 1, 104, 63, 17, 12, 160 }
-                        });
                 });
 
             modelBuilder.Entity("Core.Entities.Permission", b =>
