@@ -1,10 +1,7 @@
 using System.Text;
-using Core.Entities;
-using DigitalDiary;
 using Infrastructure;
 using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,7 +42,7 @@ services
 	.AddAuthorization();
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
-services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+services.AddDbContext(connectionString);
 
 services.AddRepositories();
 

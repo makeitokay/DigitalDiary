@@ -9,6 +9,7 @@ public class ApplicationDbContext : DbContext
 	public DbSet<User> Users => Set<User>();
 	public DbSet<Role> Roles => Set<Role>();
 	public DbSet<Permission> Permissions => Set<Permission>();
+	public DbSet<Admin> Admins => Set<Admin>();
 
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 	{
