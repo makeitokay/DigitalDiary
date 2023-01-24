@@ -69,11 +69,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "automation@digitaldiary.site",
-                            FirstName = "Automation",
+                            Email = "admin@digitaldiary.site",
+                            FirstName = "Admin",
                             LastName = "Digital Diary",
-                            PasswordHash = "27E212D81DAEF9C6DFE5133B92CE15E27B3A9319A128A8879CD748BD2BA3797BA45CBB2347F4AF2F268167A18315D2C1A8D2CC8091EF4EDB94C7FB79BE42DC3C",
-                            PasswordSalt = new byte[] { 234, 29, 227, 79, 176, 3, 140, 65, 7, 220, 1, 104, 63, 17, 12, 160 }
+                            PasswordHash = "3DC41433DA906662C07D2277102485949050C1BA64E705EF152ECE98C9DD80C3E52A6A9ABC4076A8CC342C8E32B7DF140A72D9FA9F423C78F5969C76F3710892",
+                            PasswordSalt = new byte[] { 149, 52, 33, 232, 207, 38, 238, 96, 237, 48, 143, 8, 111, 199, 60, 219 }
                         });
                 });
 
