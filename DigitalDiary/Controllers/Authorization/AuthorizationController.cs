@@ -1,8 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Core.Entities;
-using DigitalDiary.AuthorizationAttributes;
 using DigitalDiary.Controllers.Authorization.Dto;
 using Infrastructure;
 using Infrastructure.Repositories;
@@ -26,7 +24,7 @@ public class AuthorizationController : ControllerBase
 	{
 		var user = await _userRepository.TryGetByEmailAsync(loginDto.Email);
 
-		if (user == null || !AuthorizationUtils.VerifyPassword(loginDto.Password, user.PasswordHash, user.PasswordSalt))
+		if (user == null || !AuthorizationHelper.VerifyPassword(loginDto.Password, user.PasswordHash, user.PasswordSalt))
 		{
 			return Unauthorized();
 		}

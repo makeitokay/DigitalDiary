@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Infrastructure;
 
-public static class AuthorizationUtils
+public static class AuthorizationHelper
 {
 	private const int HashingIterationsCount = 350000;
 	private static readonly HashAlgorithmName _hashingAlgorithm = HashAlgorithmName.SHA512;

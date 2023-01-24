@@ -9,6 +9,7 @@ public class ApplicationDbContext : DbContext
 	public DbSet<User> Users => Set<User>();
 	public DbSet<Role> Roles => Set<Role>();
 	public DbSet<Permission> Permissions => Set<Permission>();
+	public DbSet<Admin> Admins => Set<Admin>();
 
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 	{
@@ -27,6 +28,17 @@ public class ApplicationDbContext : DbContext
 				property.SetValueConverter(converter);
 			}
 		}
+
+		var passwordHash = AuthorizationHelper.GetPasswordHash("password", out var passwordSalt);
+		modelBuilder.Entity<Admin>().HasData(new Admin
+		{
+			Id = 1,
+			Email = "admin@digitaldiary.site",
+			FirstName = "Admin",
+			LastName = "Digital Diary",
+			PasswordHash = passwordHash,
+			PasswordSalt = passwordSalt
+		});
 	}
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
