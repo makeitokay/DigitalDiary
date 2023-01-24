@@ -1,5 +1,5 @@
+using Core.Services;
 using Infrastructure.Extensions;
-using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,9 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 services.AddRazorPages();
+services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
 services.AddDbContext(connectionString);
+services.AddRepositories();
 
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 	.AddCookie(options =>
@@ -17,7 +19,7 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 		options.LoginPath = "/auth/login";
 	});
 
-services.AddScoped<IAdminRepository, AdminRepository>();
+services.AddScoped<ISchoolCreateRequestService, SchoolCreateRequestService>();
 
 var app = builder.Build();
 
@@ -36,5 +38,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers();
 
 app.Run();

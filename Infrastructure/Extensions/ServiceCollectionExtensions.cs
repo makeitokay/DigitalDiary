@@ -1,4 +1,5 @@
-﻿using Infrastructure.Repositories;
+﻿using Core.Interfaces;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,5 +16,7 @@ public static class ServiceCollectionExtensions
 	{
 		services.AddScoped<IUserRepository, UserRepository>();
 		services.AddScoped<IAdminRepository, AdminRepository>();
+		services.AddScoped<ISchoolCreateRequestRepository, SchoolCreateRequestRepository>();
+		services.AddScoped<ISchoolRepository, SchoolRepository>();
 	}
 }

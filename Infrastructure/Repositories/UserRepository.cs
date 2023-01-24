@@ -1,11 +1,8 @@
 ﻿using Core.Entities;
+using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
-
-public interface IUserRepository : IBaseUserRepository<User>
-{
-}
 
 public class UserRepository : BaseUserRepository<User>, IUserRepository
 {

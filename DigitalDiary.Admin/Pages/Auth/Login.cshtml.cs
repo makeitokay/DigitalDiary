@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
+using Core.Interfaces;
 using Infrastructure;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication;
