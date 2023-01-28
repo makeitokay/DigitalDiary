@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Core.Interfaces;
 using DigitalDiary.Controllers.Authorization.Dto;
 using Infrastructure;
 using Infrastructure.Repositories;

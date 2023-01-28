@@ -1,11 +1,7 @@
 ﻿using Core.Entities;
+using Core.Interfaces;
 
 namespace Infrastructure.Repositories;
-
-public interface IAdminRepository : IBaseUserRepository<Admin>
-{
-	
-}
 
 public class AdminRepository : BaseUserRepository<Admin>, IAdminRepository
 {
