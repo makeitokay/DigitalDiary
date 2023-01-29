@@ -10,7 +10,7 @@
             @foreach (var schoolCreateRequest in Model.SchoolCreateRequests)
             {
                 <li class="list-group-item">
-                    <b>Region: </b>@schoolCreateRequest.Region
+                    <b>School: </b>@schoolCreateRequest.SchoolName in @schoolCreateRequest.City from @schoolCreateRequest.CreatorEmail
                     <br/>
                     <button class="btn btn-success" type="submit" name="approveButton" value="@schoolCreateRequest.Id">
                         Approve

@@ -1,10 +1,21 @@
+using Core.Interfaces;
 using Core.Services;
+using Infrastructure.Config;
 using Infrastructure.Extensions;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
+
+services.Configure<EmailConfig>(config =>
+{
+	config.Password = "bEnyKG1E5AnHjvdYtqXu";
+	// config.Password = Environment.GetEnvironmentVariable("DIGITAL_DIARY_Email:Password");
+	config.Username = builder.Configuration.GetValue<string>("Email:Username");
+	config.SmtpHost = builder.Configuration.GetValue<string>("Email:SmtpHost");
+});
 
 services.AddRazorPages();
 services.AddControllers();
@@ -19,6 +30,8 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 		options.LoginPath = "/auth/login";
 	});
 
+services.AddScoped<IPasswordManager, PasswordManager>();
+services.AddScoped<IEmailClient, EmailClient>();
 services.AddScoped<ISchoolCreateRequestService, SchoolCreateRequestService>();
 
 var app = builder.Build();

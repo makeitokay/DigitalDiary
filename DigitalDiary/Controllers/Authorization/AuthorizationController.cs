@@ -14,10 +14,12 @@ namespace DigitalDiary.Controllers.Authorization;
 public class AuthorizationController : ControllerBase
 {
 	private readonly IUserRepository _userRepository;
+	private readonly IPasswordManager _passwordManager;
 
-	public AuthorizationController(IUserRepository userRepository)
+	public AuthorizationController(IUserRepository userRepository, IPasswordManager passwordManager)
 	{
 		_userRepository = userRepository;
+		_passwordManager = passwordManager;
 	}
 
 	[HttpPost("login")]
@@ -25,18 +27,16 @@ public class AuthorizationController : ControllerBase
 	{
 		var user = await _userRepository.TryGetByEmailAsync(loginDto.Email);
 
-		if (user == null || !AuthorizationHelper.VerifyPassword(loginDto.Password, user.PasswordHash, user.PasswordSalt))
+		if (user == null || !_passwordManager.VerifyPassword(loginDto.Password, user.PasswordHash, user.PasswordSalt))
 		{
 			return Unauthorized();
 		}
 
-		var userClaims = new List<Claim> { new(ClaimTypes.Email, user.Email) };
-		userClaims.AddRange(user
-			.GetAllPermissions()
-			.Select(permission => new Claim(Constants.ClaimTypes.Permission, permission.Type.ToString())));
-		userClaims.AddRange(user
-			.Roles
-			.Select(role => new Claim(ClaimTypes.Role, role.Type.ToString())));
+		var userClaims = new List<Claim>
+			{
+				new(ClaimTypes.Email, user.Email),
+				new(ClaimTypes.Role, user.Role.ToString())
+			};
 
 		var jwt = new JwtSecurityToken(
 			issuer: Constants.Authentication.Issuer,

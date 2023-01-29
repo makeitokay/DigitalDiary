@@ -15,7 +15,7 @@ public static class ServiceCollectionExtensions
 	public static void AddRepositories(this IServiceCollection services)
 	{
 		services.AddScoped<IUserRepository, UserRepository>();
-		services.AddScoped<IAdminRepository, AdminRepository>();
+		services.AddScoped<IDigitalDiaryAdminRepository, DigitalDiaryAdminRepository>();
 		services.AddScoped<ISchoolCreateRequestRepository, SchoolCreateRequestRepository>();
 		services.AddScoped<ISchoolRepository, SchoolRepository>();
 	}

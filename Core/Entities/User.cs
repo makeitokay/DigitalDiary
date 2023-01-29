@@ -5,15 +5,19 @@ namespace Core.Entities;
 [Table("Users")]
 public class User : BaseUser
 {
-	public virtual List<Role> Roles { get; set; } = default!;
+	public virtual Role Role { get; set; } = default!;
+}
 
-	public virtual List<Permission> GranularPermissions { get; set; } = default!;
+[Table("SchoolCreators")]
+public class SchoolCreator : User
+{
+}
 
-	public IEnumerable<Permission> GetAllPermissions()
-	{
-		return Roles
-			.SelectMany(r => r.Permissions)
-			.Concat(GranularPermissions)
-			.Distinct();
-	}
+public enum Role
+{
+	Student,
+	Teacher,
+	Parent,
+	SchoolAdmin,
+	SchoolCreator
 }

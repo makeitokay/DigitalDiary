@@ -2,7 +2,7 @@
 
 namespace Core.Entities;
 
-[Table("Admins")]
-public class Admin : BaseUser
+[Table("DigitalDiaryAdmins")]
+public class DigitalDiaryAdmin : BaseUser
 {
 }

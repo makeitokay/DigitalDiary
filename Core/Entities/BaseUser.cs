@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Entities;
 
-[Index(nameof(Email), IsUnique = true)]
 public class BaseUser : BaseEntity
 {
 	[Column("FirstName")]
