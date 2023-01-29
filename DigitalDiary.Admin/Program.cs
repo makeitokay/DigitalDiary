@@ -9,13 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
 
-services.Configure<EmailConfig>(config =>
-{
-	config.Password = "bEnyKG1E5AnHjvdYtqXu";
-	// config.Password = Environment.GetEnvironmentVariable("DIGITAL_DIARY_Email:Password");
-	config.Username = builder.Configuration.GetValue<string>("Email:Username");
-	config.SmtpHost = builder.Configuration.GetValue<string>("Email:SmtpHost");
-});
+builder.Configuration.AddEnvironmentVariables(prefix: "DIGITAL_DIARY_");
+services.Configure<EmailConfig>(builder.Configuration.GetSection("Email"));
 
 services.AddRazorPages();
 services.AddControllers();
