@@ -1,6 +1,8 @@
 using System.Text;
+using Core.Interfaces;
 using Infrastructure;
 using Infrastructure.Extensions;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -45,6 +47,8 @@ var connectionString = builder.Configuration.GetConnectionString("Default");
 services.AddDbContext(connectionString);
 
 services.AddRepositories();
+
+services.AddScoped<IPasswordManager, PasswordManager>();
 
 var app = builder.Build();
 

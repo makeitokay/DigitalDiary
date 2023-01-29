@@ -12,11 +12,13 @@ namespace DigitalDiary.Admin.Pages.Auth;
 
 public class LoginModel : PageModel
 {
-	private readonly IAdminRepository _adminRepository;
+	private readonly IDigitalDiaryAdminRepository _digitalDiaryAdminRepository;
+	private readonly IPasswordManager _passwordManager;
 
-	public LoginModel(IAdminRepository adminRepository)
+	public LoginModel(IDigitalDiaryAdminRepository digitalDiaryAdminRepository, IPasswordManager passwordManager)
 	{
-		_adminRepository = adminRepository;
+		_digitalDiaryAdminRepository = digitalDiaryAdminRepository;
+		_passwordManager = passwordManager;
 	}
 	
 	[BindProperty]
@@ -43,9 +45,9 @@ public class LoginModel : PageModel
 		{
 			return Page();
 		}
-		var user = await _adminRepository.TryGetByEmailAsync(Input.Email);
+		var user = await _digitalDiaryAdminRepository.TryGetByEmailAsync(Input.Email);
 
-		if (user == null || !AuthorizationHelper.VerifyPassword(Input.Password, user.PasswordHash, user.PasswordSalt))
+		if (user == null || !_passwordManager.VerifyPassword(Input.Password, user.PasswordHash, user.PasswordSalt))
 		{
 			ModelState.AddModelError(string.Empty, "Пользователя не существует или введен неверный пароль.");
 			return Page();

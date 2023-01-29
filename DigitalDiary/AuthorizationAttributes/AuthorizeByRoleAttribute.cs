@@ -5,7 +5,7 @@ namespace DigitalDiary.AuthorizationAttributes;
 
 public class AuthorizeByRoleAttribute : AuthorizeAttribute
 {
-	public AuthorizeByRoleAttribute(RoleType roles)
+	public AuthorizeByRoleAttribute(Role roles)
 	{
 		Roles = roles.ToString().Replace(" ", string.Empty);
 	}

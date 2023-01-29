@@ -20,7 +20,11 @@ public class SchoolCreateRequestController : ControllerBase
 	{
 		await _schoolCreateRequestRepository.CreateAsync(new SchoolCreateRequest
 		{
-			Region = dto.Region,
+			SchoolName = dto.SchoolName,
+			City = dto.SchoolCity,
+			CreatorEmail = dto.CreatorEmail,
+			CreatorFirstName = dto.CreatorFirstName,
+			CreatorLastName = dto.CreatorLastName,
 			IsActive = true
 		});
 	}
