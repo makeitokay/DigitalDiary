@@ -1,8 +1,14 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using Core.Interfaces;
 
 namespace Infrastructure.Services;
+
+public interface IPasswordManager
+{
+	string GetPasswordHash(string password, out byte[] salt);
+	bool VerifyPassword(string password, string passwordHash, byte[] salt);
+	string GenerateRandomPassword();
+}
 
 public class PasswordManager : IPasswordManager
 {

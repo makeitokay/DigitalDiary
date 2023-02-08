@@ -1,7 +1,11 @@
-﻿using Core.Entities;
-using Core.Interfaces;
+﻿using Domain.Entities;
 
 namespace Infrastructure.Repositories;
+
+public interface IDigitalDiaryAdminRepository : IBaseUserRepository<DigitalDiaryAdmin>
+{
+	
+}
 
 public class DigitalDiaryAdminRepository : BaseUserRepository<DigitalDiaryAdmin>, IDigitalDiaryAdminRepository
 {

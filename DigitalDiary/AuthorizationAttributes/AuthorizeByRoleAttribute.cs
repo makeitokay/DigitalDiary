@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+﻿using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 
 namespace DigitalDiary.AuthorizationAttributes;

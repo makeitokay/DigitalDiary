@@ -1,10 +1,15 @@
-﻿using Core.Entities;
-using Core.Interfaces;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-
+public interface IBaseRepository<TEntity> where TEntity : BaseEntity
+{
+	Task<TEntity> CreateAsync(TEntity entity);
+	Task<TEntity> UpdateAsync(TEntity entity);
+	Task DeleteAsync(TEntity entity);
+	Task<TEntity> GetAsync(int id);
+}
 
 public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
 {

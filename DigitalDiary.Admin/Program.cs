@@ -1,5 +1,3 @@
-using Core.Interfaces;
-using Core.Services;
 using Infrastructure.Config;
 using Infrastructure.Extensions;
 using Infrastructure.Services;
@@ -27,7 +25,6 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 
 services.AddScoped<IPasswordManager, PasswordManager>();
 services.AddScoped<IEmailClient, EmailClient>();
-services.AddScoped<ISchoolCreateRequestService, SchoolCreateRequestService>();
 
 var app = builder.Build();
 

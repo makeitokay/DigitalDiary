@@ -1,7 +1,6 @@
-﻿using Core.Entities;
-using Core.Interfaces;
-using Core.Services;
+﻿using Domain.Entities;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,14 +12,22 @@ namespace DigitalDiary.Admin.Pages;
 public class IndexModel : PageModel
 {
 	private readonly ISchoolCreateRequestRepository _schoolCreateRequestRepository;
-	private readonly ISchoolCreateRequestService _schoolCreateRequestService;
+	private readonly IPasswordManager _passwordManager;
+	private readonly ISchoolRepository _schoolRepository;
+	private readonly IEmailClient _emailClient;
 
 	public ICollection<SchoolCreateRequest> SchoolCreateRequests { get; private set; }
 
-	public IndexModel(ISchoolCreateRequestService schoolCreateRequestService, ISchoolCreateRequestRepository schoolCreateRequestRepository)
+	public IndexModel(
+		IPasswordManager passwordManager,
+		ISchoolCreateRequestRepository schoolCreateRequestRepository,
+		ISchoolRepository schoolRepository,
+		IEmailClient emailClient)
 	{
-		_schoolCreateRequestService = schoolCreateRequestService;
+		_passwordManager = passwordManager;
 		_schoolCreateRequestRepository = schoolCreateRequestRepository;
+		_schoolRepository = schoolRepository;
+		_emailClient = emailClient;
 	}
 
 	public async Task OnGetAsync()
@@ -32,11 +39,43 @@ public class IndexModel : PageModel
 	{
 		if (Request.Form.TryGetValue("approveButton", out var approveRequestValues))
 		{
-			await _schoolCreateRequestService.ApproveRequestAsync(GetSchoolCreateRequestId(approveRequestValues));
+			var requestId = GetSchoolCreateRequestId(approveRequestValues);
+			
+			var request = await _schoolCreateRequestRepository.GetAsync(requestId);
+
+			var password = _passwordManager.GenerateRandomPassword();
+			var passwordHash = _passwordManager.GetPasswordHash(password, out var salt);
+			var schoolCreator = new SchoolCreator
+			{
+				Email = request.CreatorEmail,
+				FirstName = request.CreatorFirstName,
+				LastName = request.CreatorLastName,
+				PasswordHash = passwordHash,
+				PasswordSalt = salt,
+				Role = Role.SchoolCreator
+			};
+
+			var school = new School
+			{
+				Creator = schoolCreator,
+				Name = request.SchoolName,
+				City = request.City
+			};
+
+			await _schoolRepository.CreateAsync(school);
+
+			await _emailClient.SendUserCreationEmailAsync(schoolCreator, password);
+
+			request.IsActive = false;
+			await _schoolCreateRequestRepository.UpdateAsync(request);
 		}
 		else if (Request.Form.TryGetValue("rejectButton", out var rejectRequestValues))
 		{
-			await _schoolCreateRequestService.RejectRequestAsync(GetSchoolCreateRequestId(rejectRequestValues));
+			var requestId = GetSchoolCreateRequestId(rejectRequestValues);
+			var request = await _schoolCreateRequestRepository.GetAsync(requestId);
+
+			request.IsActive = false;
+			await _schoolCreateRequestRepository.UpdateAsync(request);
 		}
 		
 		return LocalRedirect("/");

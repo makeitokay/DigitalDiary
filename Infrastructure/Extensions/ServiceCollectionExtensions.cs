@@ -1,5 +1,4 @@
-﻿using Core.Interfaces;
-using Infrastructure.Repositories;
+﻿using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
