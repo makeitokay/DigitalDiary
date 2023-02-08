@@ -8,7 +8,7 @@ public class ApplicationDbContext : DbContext
 {
 	public DbSet<User> Users => Set<User>();
 	public DbSet<DigitalDiaryAdmin> DigitalDiaryAdmins => Set<DigitalDiaryAdmin>();
-	public DbSet<SchoolCreator> SchoolCreators => Set<SchoolCreator>();
+	public DbSet<SchoolAdmin> SchoolAdmins => Set<SchoolAdmin>();
 	public DbSet<SchoolCreateRequest> SchoolCreateRequests => Set<SchoolCreateRequest>();
 	public DbSet<School> Schools => Set<School>();
 
@@ -30,19 +30,18 @@ public class ApplicationDbContext : DbContext
 			}
 		}
 
-		var passwordHash =
-			modelBuilder.Entity<DigitalDiaryAdmin>()
-				.HasData(new DigitalDiaryAdmin
-				{
-					Id = 1,
-					Email = "admin@digitaldiary.site",
-					PasswordHash =
-						"E79B06F60D6344B5CD068D23EB165BA165E616F2CD15473F69CA747B6065911FB18AE463B38B225F68FEB005CA5CAAFDEC548F9DF879EC7C23AC35E9C5CC0E8D",
-					PasswordSalt =
-						new byte[] { 190, 173, 182, 127, 238, 122, 171, 208, 134, 147, 62, 47, 77, 244, 3, 125 },
-					FirstName = "Admin",
-					LastName = "Digital Diary"
-				});
+		modelBuilder.Entity<DigitalDiaryAdmin>()
+			.HasData(new DigitalDiaryAdmin
+			{
+				Id = 1,
+				Email = "admin@digitaldiary.site",
+				PasswordHash =
+					"E79B06F60D6344B5CD068D23EB165BA165E616F2CD15473F69CA747B6065911FB18AE463B38B225F68FEB005CA5CAAFDEC548F9DF879EC7C23AC35E9C5CC0E8D",
+				PasswordSalt =
+					new byte[] { 190, 173, 182, 127, 238, 122, 171, 208, 134, 147, 62, 47, 77, 244, 3, 125 },
+				FirstName = "Admin",
+				LastName = "Digital Diary"
+			});
 	}
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

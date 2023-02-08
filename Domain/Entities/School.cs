@@ -11,5 +11,5 @@ public class School : BaseEntity
 	[Column("City")]
 	public string City { get; set; } = default!;
 
-	public virtual SchoolCreator Creator { get; set; } = default!;
+	public virtual SchoolAdmin Creator { get; set; } = default!;
 }

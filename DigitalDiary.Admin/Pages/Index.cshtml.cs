@@ -45,26 +45,26 @@ public class IndexModel : PageModel
 
 			var password = _passwordManager.GenerateRandomPassword();
 			var passwordHash = _passwordManager.GetPasswordHash(password, out var salt);
-			var schoolCreator = new SchoolCreator
+			var schoolAdmin = new SchoolAdmin
 			{
 				Email = request.CreatorEmail,
 				FirstName = request.CreatorFirstName,
 				LastName = request.CreatorLastName,
 				PasswordHash = passwordHash,
 				PasswordSalt = salt,
-				Role = Role.SchoolCreator
+				Role = Role.SchoolAdmin
 			};
 
 			var school = new School
 			{
-				Creator = schoolCreator,
+				Creator = schoolAdmin,
 				Name = request.SchoolName,
 				City = request.City
 			};
 
 			await _schoolRepository.CreateAsync(school);
 
-			await _emailClient.SendUserCreationEmailAsync(schoolCreator, password);
+			await _emailClient.SendUserCreationEmailAsync(schoolAdmin, password);
 
 			request.IsActive = false;
 			await _schoolCreateRequestRepository.UpdateAsync(request);

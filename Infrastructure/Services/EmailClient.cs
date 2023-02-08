@@ -49,6 +49,5 @@ public class EmailClient : IEmailClient
 		Role.Student => "ученика",
 		Role.Parent => "родителя",
 		Role.Teacher => "учителя",
-		Role.SchoolCreator => "создателя школы"
 	};
 }
