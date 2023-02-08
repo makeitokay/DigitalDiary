@@ -1,7 +1,10 @@
-﻿using Core.Entities;
-using Core.Interfaces;
+﻿using Domain.Entities;
 
 namespace Infrastructure.Repositories;
+
+public interface ISchoolRepository : IBaseRepository<School>
+{
+}
 
 public class SchoolRepository : BaseRepository<School>, ISchoolRepository
 {

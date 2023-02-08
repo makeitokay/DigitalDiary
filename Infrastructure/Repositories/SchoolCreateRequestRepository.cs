@@ -1,8 +1,12 @@
-﻿using Core.Entities;
-using Core.Interfaces;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
+
+public interface ISchoolCreateRequestRepository : IBaseRepository<SchoolCreateRequest>
+{
+	Task<ICollection<SchoolCreateRequest>> GetActiveSchoolCreateRequestsAsync();
+}
 
 public class SchoolCreateRequestRepository : BaseRepository<SchoolCreateRequest>, ISchoolCreateRequestRepository
 {

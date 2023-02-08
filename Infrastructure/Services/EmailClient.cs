@@ -1,11 +1,15 @@
 ﻿using System.Net;
 using System.Net.Mail;
-using Core.Entities;
-using Core.Interfaces;
+using Domain.Entities;
 using Infrastructure.Config;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Services;
+
+public interface IEmailClient
+{
+	Task SendUserCreationEmailAsync(User user, string password);
+}
 
 public class EmailClient : IEmailClient
 {

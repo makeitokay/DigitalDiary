@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Entities;
+namespace Domain.Entities;
 
 [Table("Users")]
 public class User : BaseUser

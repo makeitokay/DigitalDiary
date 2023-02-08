@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-namespace Core.Entities;
+namespace Domain.Entities;
 
 public class BaseUser : BaseEntity
 {
