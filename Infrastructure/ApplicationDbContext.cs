@@ -9,6 +9,9 @@ public class ApplicationDbContext : DbContext
 	public DbSet<User> Users => Set<User>();
 	public DbSet<DigitalDiaryAdmin> DigitalDiaryAdmins => Set<DigitalDiaryAdmin>();
 	public DbSet<SchoolAdmin> SchoolAdmins => Set<SchoolAdmin>();
+	public DbSet<Teacher> Teachers => Set<Teacher>();
+	public DbSet<Parent> Parents => Set<Parent>();
+	public DbSet<Student> Students => Set<Student>();
 	public DbSet<SchoolCreateRequest> SchoolCreateRequests => Set<SchoolCreateRequest>();
 	public DbSet<School> Schools => Set<School>();
 
@@ -18,6 +21,11 @@ public class ApplicationDbContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
+		modelBuilder
+			.Entity<User>()
+			.HasIndex(u => new { u.Email, u.Role })
+			.IsUnique();
+		
 		foreach (var entityType in modelBuilder.Model.GetEntityTypes())
 		{
 			foreach (var property in entityType.GetProperties())

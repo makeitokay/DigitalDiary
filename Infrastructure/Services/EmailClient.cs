@@ -11,6 +11,14 @@ public interface IEmailClient
 	Task SendUserCreationEmailAsync(User user, string password);
 }
 
+public class EmailClientStub : IEmailClient
+{
+	public Task SendUserCreationEmailAsync(User user, string password)
+	{
+		return Task.CompletedTask;
+	}
+}
+
 public class EmailClient : IEmailClient
 {
 	private EmailConfig _emailConfig;
@@ -25,7 +33,7 @@ public class EmailClient : IEmailClient
 		var subject = "Вас зарегистрировали на DigitalDiary";
 		var text = "Здравствуйте!\n" +
 		           $"Вас зарегистрировали на DigitalDiary в качестве {GetRoleString(user.Role)}.\n\n" +
-		           "Для входа в систему в качестве логина используйте вашу почту. Сгенерированный пароль:\n" +
+		           "Для входа в систему используйте вашу почту и сгенерированный пароль:\n" +
 		           $"{password}\n" +
 		           "При первом входе в систему пароль будет необходимо сменить.";
 		

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace DigitalDiary.Controllers.Authorization.Dto;
+namespace DigitalDiary.Controllers.Dto.Authorization;
 
 [DataContract]
 public class LoginResponseDto

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public interface IBaseRepository<TEntity> where TEntity : BaseEntity
+public interface IRepository<TEntity> where TEntity : BaseEntity
 {
 	Task<TEntity> CreateAsync(TEntity entity);
 	Task<TEntity> UpdateAsync(TEntity entity);
@@ -11,13 +11,13 @@ public interface IBaseRepository<TEntity> where TEntity : BaseEntity
 	Task<TEntity> GetAsync(int id);
 }
 
-public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
 	protected ApplicationDbContext DbContext { get; }
 
-	protected DbSet<TEntity> Set { get; }
+	public DbSet<TEntity> Set { get; }
 
-	protected BaseRepository(ApplicationDbContext dbContext)
+	public Repository(ApplicationDbContext dbContext)
 	{
 		DbContext = dbContext;
 		Set = dbContext.Set<TEntity>();

@@ -1,14 +1,14 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using DigitalDiary.Controllers.Authorization.Dto;
+using DigitalDiary.Controllers.Dto.Authorization;
 using Infrastructure;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DigitalDiary.Controllers.Authorization;
+namespace DigitalDiary.Controllers;
 
 [Route("auth")]
 public class AuthorizationController : ControllerBase
@@ -35,7 +35,8 @@ public class AuthorizationController : ControllerBase
 		var userClaims = new List<Claim>
 			{
 				new(ClaimTypes.Email, user.Email),
-				new(ClaimTypes.Role, user.Role.ToString())
+				new(ClaimTypes.Role, user.Role.ToString()),
+				new(Constants.DigitalDiaryClaimTypes.SchoolId, user.School.Id.ToString())
 			};
 
 		var jwt = new JwtSecurityToken(

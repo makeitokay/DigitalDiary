@@ -13,7 +13,7 @@ public class IndexModel : PageModel
 {
 	private readonly ISchoolCreateRequestRepository _schoolCreateRequestRepository;
 	private readonly IPasswordManager _passwordManager;
-	private readonly ISchoolRepository _schoolRepository;
+	private readonly IRepository<School> _schoolRepository;
 	private readonly IEmailClient _emailClient;
 
 	public ICollection<SchoolCreateRequest> SchoolCreateRequests { get; private set; }
@@ -21,7 +21,7 @@ public class IndexModel : PageModel
 	public IndexModel(
 		IPasswordManager passwordManager,
 		ISchoolCreateRequestRepository schoolCreateRequestRepository,
-		ISchoolRepository schoolRepository,
+		IRepository<School> schoolRepository,
 		IEmailClient emailClient)
 	{
 		_passwordManager = passwordManager;
@@ -57,12 +57,15 @@ public class IndexModel : PageModel
 
 			var school = new School
 			{
-				Creator = schoolAdmin,
+				CreatorEmail = schoolAdmin.Email,
 				Name = request.SchoolName,
-				City = request.City
+				City = request.City,
 			};
 
 			await _schoolRepository.CreateAsync(school);
+
+			school.Users = new[] { schoolAdmin };
+			await _schoolRepository.UpdateAsync(school);
 
 			await _emailClient.SendUserCreationEmailAsync(schoolAdmin, password);
 

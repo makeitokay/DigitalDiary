@@ -2,11 +2,11 @@
 
 namespace Infrastructure.Repositories;
 
-public interface ISchoolRepository : IBaseRepository<School>
+public interface ISchoolRepository : IRepository<School>
 {
 }
 
-public class SchoolRepository : BaseRepository<School>, ISchoolRepository
+public class SchoolRepository : Repository<School>, ISchoolRepository
 {
 	public SchoolRepository(ApplicationDbContext dbContext) : base(dbContext)
 	{
