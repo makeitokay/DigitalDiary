@@ -17,7 +17,7 @@ public class PasswordManager : IPasswordManager
 	private const int HashingKeySize = 64;
 
 	private const string AllowedPasswordChars =
-		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&()*+,-./:;<=>?@[]^_`{|}~";
+		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&()*+-{}~";
 
 	public string GetPasswordHash(string password, out byte[] salt)
 	{

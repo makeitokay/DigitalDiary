@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public interface ISchoolCreateRequestRepository : IBaseRepository<SchoolCreateRequest>
+public interface ISchoolCreateRequestRepository : IRepository<SchoolCreateRequest>
 {
 	Task<ICollection<SchoolCreateRequest>> GetActiveSchoolCreateRequestsAsync();
 }
 
-public class SchoolCreateRequestRepository : BaseRepository<SchoolCreateRequest>, ISchoolCreateRequestRepository
+public class SchoolCreateRequestRepository : Repository<SchoolCreateRequest>, ISchoolCreateRequestRepository
 {
 	public SchoolCreateRequestRepository(ApplicationDbContext dbContext) : base(dbContext)
 	{

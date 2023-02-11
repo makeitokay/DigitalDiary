@@ -1,5 +1,6 @@
 using System.Text;
 using Infrastructure;
+using Infrastructure.Config;
 using Infrastructure.Extensions;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -8,6 +9,9 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
+
+builder.Configuration.AddEnvironmentVariables(prefix: "DIGITAL_DIARY_");
+services.Configure<EmailConfig>(builder.Configuration.GetSection("Email"));
 
 services.AddControllers();
 services.AddEndpointsApiExplorer();
@@ -48,6 +52,7 @@ services.AddDbContext(connectionString);
 services.AddRepositories();
 
 services.AddScoped<IPasswordManager, PasswordManager>();
+services.AddScoped<IEmailClient, EmailClientStub>();
 
 var app = builder.Build();
 

@@ -11,5 +11,8 @@ public class School : BaseEntity
 	[Column("City")]
 	public string City { get; set; } = default!;
 
-	public virtual SchoolCreator Creator { get; set; } = default!;
+	[Column("CreatorEmail")]
+	public string CreatorEmail { get; set; } = default!;
+
+	public virtual IEnumerable<User> Users { get; set; } = default!;
 }

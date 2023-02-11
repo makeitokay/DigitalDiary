@@ -5,19 +5,20 @@ namespace Domain.Entities;
 [Table("Users")]
 public class User : BaseUser
 {
+	protected User(Role role)
+	{
+		Role = role;
+	}
+	
 	public virtual Role Role { get; set; } = default!;
+	public virtual School School { get; set; } = default!;
 }
 
-[Table("SchoolCreators")]
-public class SchoolCreator : User
-{
-}
-
+[Flags]
 public enum Role
 {
-	Student,
-	Teacher,
-	Parent,
-	SchoolAdmin,
-	SchoolCreator
+	Student = 1,
+	Teacher = 2,
+	Parent = 4,
+	SchoolAdmin = 8
 }

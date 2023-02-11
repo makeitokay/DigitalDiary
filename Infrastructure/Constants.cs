@@ -8,8 +8,8 @@ public static class Constants
 		public const string Audience = "DigitalDiary.client";
 	}
 
-	public static class ClaimTypes
+	public static class DigitalDiaryClaimTypes
 	{
-		public const string Permission = "Permission";
+		public const string SchoolId = "School";
 	}
 }
