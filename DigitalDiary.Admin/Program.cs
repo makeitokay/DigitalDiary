@@ -24,7 +24,7 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 	});
 
 services.AddScoped<IPasswordManager, PasswordManager>();
-services.AddScoped<IEmailClient, EmailClient>();
+services.AddScoped<IEmailClient, EmailClientStub>();
 
 var app = builder.Build();
 

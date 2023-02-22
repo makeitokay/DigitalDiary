@@ -44,6 +44,7 @@ public class IndexModel : PageModel
 			var request = await _schoolCreateRequestRepository.GetAsync(requestId);
 
 			var password = _passwordManager.GenerateRandomPassword();
+			Console.WriteLine($"Generated password for {request.CreatorEmail} is {password}");
 			var passwordHash = _passwordManager.GetPasswordHash(password, out var salt);
 			var schoolAdmin = new SchoolAdmin
 			{
