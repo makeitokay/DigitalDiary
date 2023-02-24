@@ -117,7 +117,6 @@ public class UsersController : ControllerBase
 			PasswordSalt = salt
 		};
 		
-		Console.WriteLine($"Generated password for {user.Email} is {password}");
 		await _emailClient.SendUserCreationEmailAsync(user, password);
 
 		return user;

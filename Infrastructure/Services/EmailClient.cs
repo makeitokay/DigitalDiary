@@ -15,6 +15,7 @@ public class EmailClientStub : IEmailClient
 {
 	public Task SendUserCreationEmailAsync(User user, string password)
 	{
+		Console.WriteLine($"Generated password for {user.Email} is {password}");
 		return Task.CompletedTask;
 	}
 }
