@@ -7,9 +7,8 @@ public class UserDto
 	public int? Id { get; set; }
 	public string FirstName { get; set; } = default!;
 	public string LastName { get; set; } = default!;
-	public int SchoolId { get; set; }
 	public string Email { get; set; } = default!;
-	public Role? Role { get; set; }
+	public string Role { get; set; }
 }
 
 public static class UserDtoExtensions
@@ -21,9 +20,8 @@ public static class UserDtoExtensions
 			Id = user.Id,
 			FirstName = user.FirstName,
 			LastName = user.LastName,
-			SchoolId = user.School.Id,
 			Email = user.Email,
-			Role = user.Role
+			Role = user.Role.ToString()
 		};
 	}
 }

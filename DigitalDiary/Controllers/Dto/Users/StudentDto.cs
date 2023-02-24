@@ -16,9 +16,8 @@ public static class StudentDtoExtensions
 			Id = student.Id,
 			FirstName = student.FirstName,
 			LastName = student.LastName,
-			SchoolId = student.School.Id,
 			Email = student.Email,
-			Role = student.Role
+			Role = student.Role.ToString()
 		};
 	}
 }

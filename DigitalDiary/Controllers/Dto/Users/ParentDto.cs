@@ -16,9 +16,8 @@ public static class ParentDtoExtensions
 			Id = parent.Id,
 			FirstName = parent.FirstName,
 			LastName = parent.LastName,
-			SchoolId = parent.School.Id,
 			Email = parent.Email,
-			Role = parent.Role
+			Role = parent.Role.ToString()
 		};
 	}
 }

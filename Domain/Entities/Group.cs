@@ -9,10 +9,10 @@ public class Group : BaseEntity
 	public string Letter { get; set; } = default!;
 
 	[Column("Number")]
-	public int Number { get; set; } = default!;
+	public int Number { get; set; }
 
 	[Column("SchoolId")]
-	public int SchoolId { get; set; } = default!;
+	public int SchoolId { get; set; }
 
 	public virtual School School { get; set; } = default!;
 }

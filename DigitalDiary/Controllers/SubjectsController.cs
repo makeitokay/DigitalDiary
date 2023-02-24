@@ -26,7 +26,11 @@ public class SubjectsController : ControllerBase
 		var subjects = await _subjectRepository
 			.Items
 			.Where(s => s.SchoolId == schoolId)
-			.Select(s => s.Name)
+			.Select(s => new SubjectDto
+			{
+				Id = s.Id,
+				Name = s.Name
+			})
 			.ToListAsync();
 
 		return Ok(subjects);

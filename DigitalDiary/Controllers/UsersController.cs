@@ -15,18 +15,15 @@ public class UsersController : ControllerBase
 	private readonly IUserRepository _userRepository;
 	private readonly IEmailClient _emailClient;
 	private readonly IPasswordManager _passwordManager;
-	private readonly ISchoolRepository _schoolRepository;
 
 	public UsersController(
 		IUserRepository userRepository,
 		IEmailClient emailClient,
-		IPasswordManager passwordManager,
-		ISchoolRepository schoolRepository)
+		IPasswordManager passwordManager)
 	{
 		_userRepository = userRepository;
 		_emailClient = emailClient;
 		_passwordManager = passwordManager;
-		_schoolRepository = schoolRepository;
 	}
 
 	[HttpGet("teachers")]
@@ -106,13 +103,13 @@ public class UsersController : ControllerBase
 		var password = _passwordManager.GenerateRandomPassword();
 		var passwordHash = _passwordManager.GetPasswordHash(password, out var salt);
 
-		var school = await _schoolRepository.GetAsync(userDto.SchoolId);
+		var schoolId = User.Claims.GetSchoolId();
 		var user = new TUser
 		{
 			FirstName = userDto.FirstName,
 			LastName = userDto.LastName,
 			Email = userDto.Email,
-			School = school,
+			SchoolId = schoolId,
 			PasswordHash = passwordHash,
 			PasswordSalt = salt
 		};

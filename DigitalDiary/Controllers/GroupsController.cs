@@ -29,7 +29,8 @@ public class GroupsController : ControllerBase
 			.Select(g => new GroupDto
 			{
 				Letter = g.Letter,
-				Number = g.Number
+				Number = g.Number,
+				Id = g.Id
 			})
 			.ToListAsync();
 
@@ -37,7 +38,7 @@ public class GroupsController : ControllerBase
 	}
 	
 	[HttpPost]
-	public async Task<IActionResult> CreateGroupAsync([FromBody] GroupDto dto)
+	public async Task<IActionResult> CreateGroupAsync([FromBody] CreateGroupDto dto)
 	{
 		var schoolId = User.Claims.GetSchoolId();
 

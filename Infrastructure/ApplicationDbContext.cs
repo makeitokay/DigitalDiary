@@ -16,6 +16,7 @@ public class ApplicationDbContext : DbContext
 	public DbSet<School> Schools => Set<School>();
 	public DbSet<Subject> Subjects => Set<Subject>();
 	public DbSet<Group> Groups => Set<Group>();
+	public DbSet<Schedule> Schedule => Set<Schedule>();
 
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 	{
@@ -36,6 +37,11 @@ public class ApplicationDbContext : DbContext
 		modelBuilder
 			.Entity<Group>()
 			.HasIndex(g => new { g.Letter, g.Number, g.SchoolId })
+			.IsUnique();
+
+		modelBuilder
+			.Entity<Schedule>()
+			.HasIndex(s => new { s.DayOfWeek, s.GroupId, s.Order })
 			.IsUnique();
 		
 		foreach (var entityType in modelBuilder.Model.GetEntityTypes())
