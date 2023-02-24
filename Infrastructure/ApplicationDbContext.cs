@@ -14,6 +14,7 @@ public class ApplicationDbContext : DbContext
 	public DbSet<Student> Students => Set<Student>();
 	public DbSet<SchoolCreateRequest> SchoolCreateRequests => Set<SchoolCreateRequest>();
 	public DbSet<School> Schools => Set<School>();
+	public DbSet<Subject> Subjects => Set<Subject>();
 
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 	{
@@ -24,6 +25,11 @@ public class ApplicationDbContext : DbContext
 		modelBuilder
 			.Entity<User>()
 			.HasIndex(u => new { u.Email, u.Role })
+			.IsUnique();
+
+		modelBuilder
+			.Entity<Subject>()
+			.HasIndex(s => new { s.Name, s.SchoolId })
 			.IsUnique();
 		
 		foreach (var entityType in modelBuilder.Model.GetEntityTypes())

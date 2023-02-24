@@ -9,13 +9,16 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
 	Task<TEntity> UpdateAsync(TEntity entity);
 	Task DeleteAsync(TEntity entity);
 	Task<TEntity> GetAsync(int id);
+	IQueryable<TEntity> Items { get; }
 }
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
 	protected ApplicationDbContext DbContext { get; }
 
-	public DbSet<TEntity> Set { get; }
+	protected DbSet<TEntity> Set { get; }
+
+	public IQueryable<TEntity> Items => Set.AsQueryable();
 
 	public Repository(ApplicationDbContext dbContext)
 	{
