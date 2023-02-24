@@ -15,6 +15,7 @@ public class ApplicationDbContext : DbContext
 	public DbSet<SchoolCreateRequest> SchoolCreateRequests => Set<SchoolCreateRequest>();
 	public DbSet<School> Schools => Set<School>();
 	public DbSet<Subject> Subjects => Set<Subject>();
+	public DbSet<Group> Groups => Set<Group>();
 
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 	{
@@ -30,6 +31,11 @@ public class ApplicationDbContext : DbContext
 		modelBuilder
 			.Entity<Subject>()
 			.HasIndex(s => new { s.Name, s.SchoolId })
+			.IsUnique();
+		
+		modelBuilder
+			.Entity<Group>()
+			.HasIndex(g => new { g.Letter, g.Number, g.SchoolId })
 			.IsUnique();
 		
 		foreach (var entityType in modelBuilder.Model.GetEntityTypes())
