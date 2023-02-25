@@ -4,7 +4,7 @@ namespace DigitalDiary.Controllers.Dto.Users;
 
 public class StudentDto : UserDto
 {
-	
+	public IEnumerable<int> Parents { get; set; } = default!;
 }
 
 public static class StudentDtoExtensions
@@ -17,7 +17,8 @@ public static class StudentDtoExtensions
 			FirstName = student.FirstName,
 			LastName = student.LastName,
 			Email = student.Email,
-			Role = student.Role.ToString()
+			Role = student.Role.ToString(),
+			Parents = student.Parents.Select(p => p.Id)
 		};
 	}
 }

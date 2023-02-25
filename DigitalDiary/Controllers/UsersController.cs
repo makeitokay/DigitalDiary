@@ -5,6 +5,7 @@ using Infrastructure.Extensions;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DigitalDiary.Controllers;
 
@@ -76,6 +77,14 @@ public class UsersController : ControllerBase
 	public async Task<IActionResult> AddParentAsync([FromBody] ParentDto parentDto)
 	{
 		var parent = await CreateUserAsync<Parent>(parentDto);
+		var children = await _userRepository
+			.Items
+			.Where(u => parentDto.Children.Contains(u.Id))
+			.OfType<Student>()
+			.ToListAsync();
+
+		parent.Children = children;
+			
 		await _userRepository.CreateAsync(parent);
 		return Ok();
 	}

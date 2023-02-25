@@ -4,7 +4,7 @@ namespace DigitalDiary.Controllers.Dto.Users;
 
 public class ParentDto : UserDto
 {
-	
+	public IEnumerable<int> Children { get; set; } = default!;
 }
 
 public static class ParentDtoExtensions
@@ -17,7 +17,8 @@ public static class ParentDtoExtensions
 			FirstName = parent.FirstName,
 			LastName = parent.LastName,
 			Email = parent.Email,
-			Role = parent.Role.ToString()
+			Role = parent.Role.ToString(),
+			Children = parent.Children.Select(c => c.Id)
 		};
 	}
 }

@@ -8,4 +8,6 @@ public class Student : User
 	public Student() : base(Role.Student)
 	{
 	}
+	
+	public virtual IEnumerable<Parent> Parents { get; set; }
 }
