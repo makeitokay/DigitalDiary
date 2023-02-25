@@ -16,6 +16,8 @@ public class Group : BaseEntity
 
 	public virtual School School { get; set; } = default!;
 
+	public virtual Student Students { get; set; } = default!;
+
 	public override string ToString()
 	{
 		return Number + Letter;

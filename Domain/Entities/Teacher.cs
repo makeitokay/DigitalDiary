@@ -8,4 +8,6 @@ public class Teacher : User
 	public Teacher() : base(Role.Teacher)
 	{
 	}
+	
+	public virtual IEnumerable<Schedule> Schedule { get; set; }
 }

@@ -1,5 +1,7 @@
-﻿using Domain.Entities;
+﻿using System.Text.Json;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure;
@@ -17,6 +19,7 @@ public class ApplicationDbContext : DbContext
 	public DbSet<Subject> Subjects => Set<Subject>();
 	public DbSet<Group> Groups => Set<Group>();
 	public DbSet<Schedule> Schedule => Set<Schedule>();
+	public DbSet<Announcement> Announcements => Set<Announcement>();
 
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 	{
@@ -55,6 +58,13 @@ public class ApplicationDbContext : DbContext
 				property.SetValueConverter(converter);
 			}
 		}
+		
+		modelBuilder
+			.Entity<Announcement>()
+			.Property(a => a.Scope)
+			.HasConversion(
+				scope => JsonSerializer.Serialize(scope, null as JsonSerializerOptions),
+				json => JsonSerializer.Deserialize<AnnouncementScope>(json, null as JsonSerializerOptions));
 
 		modelBuilder.Entity<DigitalDiaryAdmin>()
 			.HasData(new DigitalDiaryAdmin

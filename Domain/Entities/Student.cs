@@ -9,5 +9,9 @@ public class Student : User
 	{
 	}
 	
+	[Column("GroupId")]
+	public int GroupId { get; set; }
+
+	public virtual Group Group { get; set; }
 	public virtual IEnumerable<Parent> Parents { get; set; }
 }

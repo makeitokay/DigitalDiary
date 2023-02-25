@@ -25,7 +25,7 @@ public class AuthorizationController : ControllerBase
 	[HttpPost("login")]
 	public async Task<ActionResult<LoginResponseDto>> LoginAsync([FromBody] LoginDto loginDto)
 	{
-		var user = await _userRepository.TryGetByEmailAsync(loginDto.Email);
+		var user = await _userRepository.TryGetByEmailAndRoleAsync(loginDto.Email, loginDto.Role);
 
 		if (user == null || !_passwordManager.VerifyPassword(loginDto.Password, user.PasswordHash, user.PasswordSalt))
 		{

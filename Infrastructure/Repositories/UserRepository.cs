@@ -6,6 +6,7 @@ namespace Infrastructure.Repositories;
 public interface IUserRepository : IBaseUserRepository<User>
 {
 	Task<List<User>> GetUsersInSchoolByRoleAsync(int schoolId, Role role);
+	Task<User?> TryGetByEmailAndRoleAsync(string email, Role role);
 }
 
 public class UserRepository : BaseUserRepository<User>, IUserRepository
@@ -16,6 +17,11 @@ public class UserRepository : BaseUserRepository<User>, IUserRepository
 
 	public async Task<List<User>> GetUsersInSchoolByRoleAsync(int schoolId, Role role)
 	{
-		return await Set.Where(u => u.Role == role && u.School.Id == schoolId).ToListAsync();
+		return await Set.Where(u => u.Role == role && u.SchoolId == schoolId).ToListAsync();
+	}
+
+	public async Task<User?> TryGetByEmailAndRoleAsync(string email, Role role)
+	{
+		return await Set.SingleOrDefaultAsync(user => user.Email == email && user.Role == role);
 	}
 }
