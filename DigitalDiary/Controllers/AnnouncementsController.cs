@@ -26,7 +26,7 @@ public class AnnouncementsController : ControllerBase
 	{
 		var schoolId = User.Claims.GetSchoolId();
 
-		var user = await _userRepository.TryGetByEmailAndRoleAsync(User.Claims.GetEmail(), User.Claims.GetRole());
+		var user = await _userRepository.GetByEmailAndRoleAsync(User.Claims.GetEmail(), User.Claims.GetRole());
 
 		var userGroups = user switch
 		{
@@ -97,7 +97,7 @@ public class AnnouncementsController : ControllerBase
 	{
 		var schoolId = User.Claims.GetSchoolId();
 		
-		var user = await _userRepository.TryGetByEmailAndRoleAsync(User.Claims.GetEmail(), User.Claims.GetRole());
+		var user = await _userRepository.GetByEmailAndRoleAsync(User.Claims.GetEmail(), User.Claims.GetRole());
 
 		var announcement = new Announcement
 		{
