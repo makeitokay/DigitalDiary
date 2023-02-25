@@ -40,6 +40,22 @@ public class ScheduleController : ControllerBase
 	[AuthorizeByRole(Role.SchoolAdmin)]
 	public async Task<IActionResult> CreateScheduleAsync([FromBody] CreateScheduleDto dto)
 	{
+		var collision = await _scheduleRepository
+			.Items
+			.Where(s =>
+				s.DayOfWeek == dto.DayOfWeek
+				&& s.TeacherId == dto.TeacherId
+				&& s.Order == dto.Order
+				&& s.GroupId != dto.GroupId)
+			.ToListAsync();
+
+		if (collision.Any())
+		{
+			var firstCollision = collision.First();
+			return BadRequest(
+				$"У этого учителя уже занят этот слот уроком \"{firstCollision.Subject.Name}\" у класса \"{firstCollision.Group}\"");
+		}
+		
 		var existingSchedule = await _scheduleRepository
 			.Items
 			.Where(s => s.DayOfWeek == dto.DayOfWeek && s.GroupId == dto.GroupId && s.Order == dto.Order)
