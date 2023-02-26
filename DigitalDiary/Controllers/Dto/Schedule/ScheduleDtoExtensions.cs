@@ -1,7 +1,4 @@
-﻿using DigitalDiary.Controllers.Dto.Subjects;
-using DigitalDiary.Controllers.Dto.Users;
-
-namespace DigitalDiary.Controllers.Dto.Schedule;
+﻿namespace DigitalDiary.Controllers.Dto.Schedule;
 
 public static class ScheduleDtoExtensions
 {
@@ -23,7 +20,6 @@ public static class ScheduleDtoExtensions
 
 		return new ScheduleDto
 		{
-			GroupId = groupId,
 			Items = daySchedule
 		};
 	}
