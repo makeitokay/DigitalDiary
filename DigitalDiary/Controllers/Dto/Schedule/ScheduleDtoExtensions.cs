@@ -2,7 +2,7 @@
 
 public static class ScheduleDtoExtensions
 {
-	public static ScheduleDto MapScheduleToDto(this IEnumerable<Domain.Entities.Schedule> schedule, int groupId)
+	public static ScheduleDto MapScheduleToDto(this IEnumerable<Domain.Entities.Schedule> schedule)
 	{
 		var daySchedule = schedule
 			.GroupBy(s => s.DayOfWeek)

@@ -14,4 +14,6 @@ public class Student : User
 
 	public virtual Group Group { get; set; }
 	public virtual IEnumerable<Parent> Parents { get; set; }
+	
+	public virtual IEnumerable<Mark> Marks { get; set; }
 }

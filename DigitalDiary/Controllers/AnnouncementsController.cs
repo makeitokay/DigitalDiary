@@ -26,7 +26,7 @@ public class AnnouncementsController : ControllerBase
 	{
 		var schoolId = User.Claims.GetSchoolId();
 
-		var user = await _userRepository.GetByEmailAndRoleAsync(User.Claims.GetEmail(), User.Claims.GetRole());
+		var user = await _userRepository.GetAsync(User.Claims.GetUserId());
 
 		var userGroups = user switch
 		{
@@ -44,9 +44,7 @@ public class AnnouncementsController : ControllerBase
 		var dto = announcements
 			.Where(a =>
 			{
-				var inRoleScope = a.Scope.ForRoles != null
-					? a.Scope.ForRoles!.Contains(user.Role.ToString())
-					: true;
+				var inRoleScope = a.Scope.ForRoles == null || a.Scope.ForRoles!.Contains(user.Role.ToString());
 
 				var inGroupParallelsScope = a.Scope.ForGroupParallels == null
 				                            || userGroups.Any(group => a.Scope.ForGroupParallels.Contains(group.Number))
@@ -97,7 +95,7 @@ public class AnnouncementsController : ControllerBase
 	{
 		var schoolId = User.Claims.GetSchoolId();
 		
-		var user = await _userRepository.GetByEmailAndRoleAsync(User.Claims.GetEmail(), User.Claims.GetRole());
+		var user = await _userRepository.GetAsync(User.Claims.GetUserId());
 
 		var announcement = new Announcement
 		{

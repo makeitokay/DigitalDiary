@@ -5,6 +5,7 @@ namespace DigitalDiary.Controllers.Dto.Users;
 public class StudentDto : UserDto
 {
 	public IEnumerable<int> Parents { get; set; } = default!;
+	public int GroupId { get; set; }
 }
 
 public static class StudentDtoExtensions

@@ -8,5 +8,5 @@ public class LoginDto
 	
 	public string Password { get; set; } = default!;
 
-	public Role Role { get; set; } = default!;
+	public string Role { get; set; } = default!;
 }

@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using DigitalDiary.Controllers.Dto.Authorization;
+using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
@@ -25,7 +26,8 @@ public class AuthorizationController : ControllerBase
 	[HttpPost("login")]
 	public async Task<ActionResult<LoginResponseDto>> LoginAsync([FromBody] LoginDto loginDto)
 	{
-		var user = await _userRepository.TryGetByEmailAndRoleAsync(loginDto.Email, loginDto.Role);
+		Enum.TryParse<Role>(loginDto.Role, out var role);
+		var user = await _userRepository.TryGetByEmailAndRoleAsync(loginDto.Email, role);
 
 		if (user == null || !_passwordManager.VerifyPassword(loginDto.Password, user.PasswordHash, user.PasswordSalt))
 		{
@@ -36,7 +38,8 @@ public class AuthorizationController : ControllerBase
 			{
 				new(ClaimTypes.Email, user.Email),
 				new(ClaimTypes.Role, user.Role.ToString()),
-				new(Constants.DigitalDiaryClaimTypes.SchoolId, user.School.Id.ToString())
+				new(Constants.DigitalDiaryClaimTypes.SchoolId, user.School.Id.ToString()),
+				new(Constants.DigitalDiaryClaimTypes.UserId, user.Id.ToString())
 			};
 
 		var jwt = new JwtSecurityToken(

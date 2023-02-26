@@ -59,6 +59,7 @@ public class UsersController : ControllerBase
 	public async Task<IActionResult> AddStudentAsync([FromBody] StudentDto studentDto)
 	{
 		var student = await CreateUserAsync<Student>(studentDto);
+		student.GroupId = studentDto.GroupId;
 		await _userRepository.CreateAsync(student);
 		return Ok();
 	}

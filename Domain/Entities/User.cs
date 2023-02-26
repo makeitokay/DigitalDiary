@@ -13,7 +13,7 @@ public class User : BaseUser
 	[Column("SchoolId")]
 	public int SchoolId { get; set; }
 	
-	public virtual Role Role { get; set; } = default!;
+	public Role Role { get; set; } = default!;
 	public virtual School School { get; set; } = default!;
 }
 

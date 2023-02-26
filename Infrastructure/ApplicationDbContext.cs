@@ -20,6 +20,8 @@ public class ApplicationDbContext : DbContext
 	public DbSet<Group> Groups => Set<Group>();
 	public DbSet<Schedule> Schedule => Set<Schedule>();
 	public DbSet<Announcement> Announcements => Set<Announcement>();
+	public DbSet<Lesson> Lessons => Set<Lesson>();
+	public DbSet<Mark> Marks => Set<Mark>();
 
 	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 	{
@@ -46,7 +48,13 @@ public class ApplicationDbContext : DbContext
 			.Entity<Schedule>()
 			.HasIndex(s => new { s.DayOfWeek, s.GroupId, s.Order })
 			.IsUnique();
-		
+
+		modelBuilder
+			.Entity<Mark>()
+			.HasOne(mark => mark.Student)
+			.WithMany(student => student.Marks)
+			.OnDelete(DeleteBehavior.NoAction);
+
 		foreach (var entityType in modelBuilder.Model.GetEntityTypes())
 		{
 			foreach (var property in entityType.GetProperties())

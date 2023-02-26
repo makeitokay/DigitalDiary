@@ -31,7 +31,7 @@ public class ScheduleController : ControllerBase
 			.Where(s => s.GroupId == groupId)
 			.ToListAsync();
 
-		var dto = schedule.MapScheduleToDto(groupId.Value);
+		var dto = schedule.MapScheduleToDto();
 
 		return Ok(dto);
 	}

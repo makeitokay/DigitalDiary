@@ -10,6 +10,7 @@ public static class Constants
 
 	public static class DigitalDiaryClaimTypes
 	{
+		public const string UserId = "UserID";
 		public const string SchoolId = "School";
 	}
 }

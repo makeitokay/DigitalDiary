@@ -9,6 +9,11 @@ public static class ClaimsExtensions
 	{
 		return int.Parse(claims.GetClaimValue(Constants.DigitalDiaryClaimTypes.SchoolId));
 	}
+	
+	public static int GetUserId(this IEnumerable<Claim> claims)
+	{
+		return int.Parse(claims.GetClaimValue(Constants.DigitalDiaryClaimTypes.UserId));
+	}
 
 	public static string GetEmail(this IEnumerable<Claim> claims)
 	{
