@@ -1,20 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useContext, useEffect, useState} from "react";
+import {BrowserRouter} from "react-router-dom";
+import AppRouter from "./components/AppRouter";
+import NavBar from "./components/NavBar";
+import {observer} from "mobx-react-lite";
+import {UserContext} from "./index";
 
-function App() {
+const App = observer(() => {
+    const {user,setUser} = useContext(UserContext)
+    const [loading, setLoading] = useState(true)
+    if ( localStorage.getItem("accessToken") ){
+        user.setIsAuth(true)
+        user.setUser(true)
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="container">
-          <div className="row min-vh-100">
-            <div className="col d-flex flex-column justify-content-center align-items-center">
-              <img src={logo} className="App-logo" alt="logo" />
-            </div>
-          </div>
-        </div>
-      </header>
-    </div>
+      <BrowserRouter>
+          <NavBar/>
+          <AppRouter/>
+      </BrowserRouter>
   );
-}
+})
 
 export default App;
