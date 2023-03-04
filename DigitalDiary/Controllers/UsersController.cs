@@ -32,7 +32,8 @@ public class UsersController : ControllerBase
 	{
 		var schoolId = User.Claims.GetSchoolId();
 		var users = (await _userRepository.GetUsersInSchoolByRoleAsync(schoolId, Role.Teacher))
-			.MapUsersToDto();
+			.OfType<Teacher>()
+			.Select(t => t.MapTeacherToDto());
 
 		return Ok(users);
 	}
@@ -50,7 +51,8 @@ public class UsersController : ControllerBase
 	{
 		var schoolId = User.Claims.GetSchoolId();
 		var users = (await _userRepository.GetUsersInSchoolByRoleAsync(schoolId, Role.Student))
-			.MapUsersToDto();
+			.OfType<Student>()
+			.Select(s => s.MapStudentToDto());
 
 		return Ok(users);
 	}
@@ -69,7 +71,8 @@ public class UsersController : ControllerBase
 	{
 		var schoolId = User.Claims.GetSchoolId();
 		var users = (await _userRepository.GetUsersInSchoolByRoleAsync(schoolId, Role.Parent))
-			.MapUsersToDto();
+			.OfType<Parent>()
+			.Select(p => p.MapParentToDto());
 
 		return Ok(users);
 	}
@@ -95,7 +98,8 @@ public class UsersController : ControllerBase
 	{
 		var schoolId = User.Claims.GetSchoolId();
 		var users = (await _userRepository.GetUsersInSchoolByRoleAsync(schoolId, Role.SchoolAdmin))
-			.MapUsersToDto();
+			.OfType<SchoolAdmin>()
+			.Select(a => a.MapUserToDto());
 
 		return Ok(users);
 	}

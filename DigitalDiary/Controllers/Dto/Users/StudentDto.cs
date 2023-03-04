@@ -19,7 +19,8 @@ public static class StudentDtoExtensions
 			LastName = student.LastName,
 			Email = student.Email,
 			Role = student.Role.ToString(),
-			Parents = student.Parents.Select(p => p.Id)
+			Parents = student.Parents.Select(p => p.Id),
+			GroupId = student.GroupId
 		};
 	}
 }

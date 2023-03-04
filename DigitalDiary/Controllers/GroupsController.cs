@@ -1,5 +1,6 @@
 ﻿using DigitalDiary.AuthorizationAttributes;
 using DigitalDiary.Controllers.Dto.Groups;
+using DigitalDiary.Controllers.Dto.Users;
 using Domain.Entities;
 using Infrastructure.Extensions;
 using Infrastructure.Repositories;
@@ -37,7 +38,7 @@ public class GroupsController : ControllerBase
 		}
 		else
 		{
-			var user = await _userRepository.GetByEmailAndRoleAsync(User.Claims.GetEmail(), role);
+			var user = await _userRepository.GetAsync(User.Claims.GetUserId());
 			groups = user.GetUserGroups().ToList();
 		}
 
@@ -50,6 +51,15 @@ public class GroupsController : ControllerBase
 			});
 
 		return Ok(dto);
+	}
+
+	[HttpGet("{group:int}/students")]
+	public async Task<IActionResult> GetGroupStudents(int group)
+	{
+		var students = (await _groupRepository.GetAsync(group))
+			.Students
+			.Select(s => s.MapStudentToDto());
+		return Ok(students);
 	}
 
 	[HttpPost]

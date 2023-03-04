@@ -7,6 +7,7 @@ using Infrastructure;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DigitalDiary.Controllers;
@@ -52,5 +53,22 @@ public class AuthorizationController : ControllerBase
 				SecurityAlgorithms.HmacSha256));
 
 		return new LoginResponseDto { AccessToken = new JwtSecurityTokenHandler().WriteToken(jwt) };
+	}
+
+	[HttpGet("test")]
+	public async Task TestAsync()
+	{
+		var users = await  _userRepository.Items.ToListAsync();
+		foreach (var user in users)
+		{
+			var password = "password";
+
+			var hash = _passwordManager.GetPasswordHash(password, out var salt);
+
+			user.PasswordHash = hash;
+			user.PasswordSalt = salt;
+
+			await _userRepository.UpdateAsync(user);
+		}
 	}
 }
