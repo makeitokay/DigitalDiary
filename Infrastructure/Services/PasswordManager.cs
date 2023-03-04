@@ -45,10 +45,18 @@ public class PasswordManager : IPasswordManager
 		return hashToCompare.SequenceEqual(Convert.FromHexString(passwordHash));
 	}
 
-	public string GenerateRandomPassword()
+	public virtual string GenerateRandomPassword()
 	{
 		return string.Join("", Enumerable
 			.Range(0, 12)
 			.Select(_ => AllowedPasswordChars[RandomNumberGenerator.GetInt32(0, AllowedPasswordChars.Length - 1)]));
+	}
+}
+
+public class PasswordManagerStub : PasswordManager
+{
+	public override string GenerateRandomPassword()
+	{
+		return "password";
 	}
 }

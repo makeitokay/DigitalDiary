@@ -54,21 +54,4 @@ public class AuthorizationController : ControllerBase
 
 		return new LoginResponseDto { AccessToken = new JwtSecurityTokenHandler().WriteToken(jwt) };
 	}
-
-	[HttpGet("test")]
-	public async Task TestAsync()
-	{
-		var users = await  _userRepository.Items.ToListAsync();
-		foreach (var user in users)
-		{
-			var password = "password";
-
-			var hash = _passwordManager.GetPasswordHash(password, out var salt);
-
-			user.PasswordHash = hash;
-			user.PasswordSalt = salt;
-
-			await _userRepository.UpdateAsync(user);
-		}
-	}
 }
