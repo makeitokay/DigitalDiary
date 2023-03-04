@@ -3,13 +3,14 @@ using DigitalDiary.Controllers.Dto.Announcements;
 using Domain.Entities;
 using Infrastructure.Extensions;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitalDiary.Controllers;
 
 [Route("announcements")]
-[AuthorizeByRole(Role.Teacher | Role.SchoolAdmin)]
+[Authorize]
 public class AnnouncementsController : ControllerBase
 {
 	private readonly IRepository<Announcement> _announcementRepository;
@@ -87,6 +88,7 @@ public class AnnouncementsController : ControllerBase
 	}
 
 	[HttpPost]
+	[AuthorizeByRole(Role.SchoolAdmin | Role.Teacher)]
 	public async Task<IActionResult> CreateAnnouncementAsync([FromBody] CreateAnnouncementDto dto)
 	{
 		var schoolId = User.Claims.GetSchoolId();
