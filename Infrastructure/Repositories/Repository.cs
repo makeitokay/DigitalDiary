@@ -9,7 +9,6 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
 	Task<TEntity> UpdateAsync(TEntity entity);
 	Task DeleteAsync(TEntity entity);
 	Task<TEntity> GetAsync(int id);
-	Task DeleteRangeAsync(IEnumerable<TEntity> entities);
 	IQueryable<TEntity> Items { get; }
 }
 
@@ -44,12 +43,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
 	public async Task DeleteAsync(TEntity entity)
 	{
 		Set.Remove(entity);
-		await DbContext.SaveChangesAsync();
-	}
-
-	public async Task DeleteRangeAsync(IEnumerable<TEntity> entities)
-	{
-		Set.RemoveRange(entities);
 		await DbContext.SaveChangesAsync();
 	}
 
