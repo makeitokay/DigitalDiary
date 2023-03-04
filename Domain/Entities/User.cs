@@ -3,7 +3,7 @@
 namespace Domain.Entities;
 
 [Table("Users")]
-public class User : BaseUser
+public abstract class User : BaseUser
 {
 	protected User(Role role)
 	{
@@ -15,6 +15,8 @@ public class User : BaseUser
 	
 	public Role Role { get; set; } = default!;
 	public virtual School School { get; set; } = default!;
+
+	public abstract IEnumerable<Group> GetUserGroups();
 }
 
 [Flags]

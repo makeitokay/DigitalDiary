@@ -10,4 +10,9 @@ public class Teacher : User
 	}
 	
 	public virtual IEnumerable<Schedule> Schedule { get; set; }
+	
+	public override IEnumerable<Group> GetUserGroups()
+	{
+		return Schedule.Select(s => s.Group).Distinct();
+	}
 }

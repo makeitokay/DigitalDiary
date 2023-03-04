@@ -10,4 +10,9 @@ public class Parent : User
 	}
 	
 	public virtual IEnumerable<Student> Children { get; set; }
+	
+	public override IEnumerable<Group> GetUserGroups()
+	{
+		return Children.Select(c => c.Group).Distinct();
+	}
 }

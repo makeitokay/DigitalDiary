@@ -28,14 +28,10 @@ public class AnnouncementsController : ControllerBase
 
 		var user = await _userRepository.GetAsync(User.Claims.GetUserId());
 
-		var userGroups = user switch
-		{
-			Teacher teacher => teacher.Schedule.Select(s => s.Group).Distinct().ToArray(),
-			Student student => new[] { student.Group },
-			Parent parent => parent.Children.Select(c => c.Group).Distinct().ToArray(),
-			_ => Array.Empty<Group>()
-		};
-
+		var userGroups = user
+			.GetUserGroups()
+			.ToArray();
+		
 		var announcements = await _announcementRepository
 			.Items
 			.Where(a => a.SchoolId == schoolId)

@@ -16,4 +16,9 @@ public class Student : User
 	public virtual IEnumerable<Parent> Parents { get; set; }
 	
 	public virtual IEnumerable<Mark> Marks { get; set; }
+	
+	public override IEnumerable<Group> GetUserGroups()
+	{
+		yield return Group;
+	}
 }
