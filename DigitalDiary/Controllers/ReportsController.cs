@@ -67,9 +67,13 @@ public class ReportsController : ControllerBase
 				.GroupBy(m => m.Value)
 				.ToDictionary(g => g.Key!.Value, g => g.Count());
 
+			var totalMarks = marks.Values.Sum();
+			var average = marks.Sum(m => 1.0 * m.Key * m.Value / totalMarks);
+
 			results[group.Key.Name] = new ReportSubjectDto
 			{
-				MarksCount = marks
+				MarksCount = marks,
+				AverageMark = Math.Round(average, 2)
 			};
 		}
 

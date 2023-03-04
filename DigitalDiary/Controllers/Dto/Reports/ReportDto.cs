@@ -10,4 +10,5 @@ public class ReportDto
 public class ReportSubjectDto
 {
 	public Dictionary<int, int> MarksCount { get; set; }
+	public double AverageMark { get; set; }
 }

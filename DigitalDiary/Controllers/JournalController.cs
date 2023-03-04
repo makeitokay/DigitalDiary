@@ -191,14 +191,14 @@ public class JournalController : ControllerBase
 				Order = dto.Order,
 				SubjectId = dto.SubjectId,
 				TeacherId = schedule.TeacherId,
-				Marks = dto.Marks.Select(GetMarkFromDto).ToList()
+				Marks = GetMarksFromDto()
 			};
 			await _lessonRepository.CreateAsync(lesson);
 		}
 		else
 		{
 			Console.WriteLine(lesson.Marks.Count());
-			lesson.Marks = dto.Marks.Select(GetMarkFromDto).ToList();
+			lesson.Marks = GetMarksFromDto();
 			lesson.Homework = dto.Homework;
 			await _lessonRepository.UpdateAsync(lesson);
 		}
@@ -220,6 +220,14 @@ public class JournalController : ControllerBase
 			}
 
 			return mark;
+		}
+
+		IEnumerable<Mark> GetMarksFromDto()
+		{
+			return dto.Marks
+				.Select(GetMarkFromDto)
+				.Where(m => m.Value is not null || m.Attendance is not null)
+				.ToList();
 		}
 	}
 }
