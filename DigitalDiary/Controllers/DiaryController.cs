@@ -1,4 +1,5 @@
 ﻿using DigitalDiary.AuthorizationAttributes;
+using DigitalDiary.Controllers.Dto;
 using DigitalDiary.Controllers.Dto.Diary;
 using DigitalDiary.Controllers.Dto.Journal;
 using DigitalDiary.Controllers.Dto.Users;
@@ -115,7 +116,7 @@ public class DiaryController : ControllerBase
 
 		var result = new DiaryDto
 		{
-			AvailableWeeks = Enumerable.Range(1, availableWeeks.Count).Select(i => new
+			AvailableWeeks = Enumerable.Range(1, availableWeeks.Count).Select(i => new DateOnlyRangeDto
 			{
 				Start = availableWeeks[i - 1].Start,
 				End = availableWeeks[i - 1].End,

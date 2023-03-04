@@ -4,7 +4,7 @@ namespace DigitalDiary.Controllers.Dto.Diary;
 
 public class DiaryDto
 {
-	public IEnumerable<object> AvailableWeeks { get; set; }
+	public IEnumerable<DateOnlyRangeDto> AvailableWeeks { get; set; }
 	public Dictionary<DayOfWeek, List<DiaryLessonItemDto>> Items { get; set; }
 }
 
