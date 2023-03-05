@@ -1,13 +1,14 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {Card, Container} from "react-bootstrap";
+import {Card, Container, DropdownButton} from "react-bootstrap";
 import {login} from "../http/UserAPI";
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {observer} from "mobx-react-lite"
 import {useNavigate} from "react-router-dom";
 import {MAIN_PAGES_ROUTE} from "../utils/Const";
 import {UserContext} from "../index";
 import UserStore from "../store/UserStore";
+import Dropdown from "react-bootstrap/Dropdown";
 
 
 const Auth = observer(() => {
@@ -15,11 +16,12 @@ const Auth = observer(() => {
     const history = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const [role, setRole] = useState('Выберите роль')
+    const [roleForApi, setRoleForApi] = useState('')
     const click = async () =>{
         try {
             let data
-            data = await login(email,password);
+            data = await login(email,password,roleForApi);
             let us = new UserStore()
             us.setUser(data);
             us.setIsAuth(true)
@@ -28,6 +30,26 @@ const Auth = observer(() => {
             history(MAIN_PAGES_ROUTE)
         } catch (e){
             alert(e.response.data.message)
+        }
+    }
+    const roleClick = async (name) => {
+        switch (name){
+            case "Студент":
+                setRole(name)
+                setRoleForApi("Student")
+                break;
+            case "Учитель":
+                setRole(name)
+                setRoleForApi("Teacher")
+                break;
+            case "Родитель":
+                setRole(name)
+                setRoleForApi("Parent")
+                break;
+            case "Администратор школы":
+                setRole(name)
+                setRoleForApi("SchoolAdmin")
+                break;
         }
     }
     return (
@@ -50,6 +72,12 @@ const Auth = observer(() => {
                                       value={password}
                                       onChange={e => setPassword(e.target.value)}/>
                     </Form.Group>
+                        <DropdownButton className="mb-3" id="dropdown-basic-button" title={role} drop= "end" variant="firstly" onChange={roleClick}>
+                            {['Студент', 'Учитель', 'Родитель', 'Администратор школы'].map(
+                                (roleUser)=>
+                                    <Dropdown.Item key={roleUser} onClick= {e => roleClick(roleUser)}>{roleUser}</Dropdown.Item>
+                            )}
+                        </DropdownButton>
                     <Button onClick={click}>
                         Войти
                     </Button>

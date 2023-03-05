@@ -4,8 +4,8 @@ import {
     Route, Navigate
 } from "react-router-dom";
 
-import {authRoutes, publicRoutes} from "../routes";
-import {DIARY_PAGES_ROUTE} from "../utils/Const";
+import {authRoutes, NotAuthRoutes} from "../routes";
+import {REGISTRATION_ROUTE} from "../utils/Const";
 import {UserContext} from "../index";
 
 const AppRouter = () => {
@@ -16,10 +16,10 @@ const AppRouter = () => {
                 {user.isAuth && authRoutes.map(({path, Component}) =>
                     <Route key={path} path={path} element={<Component/>} exact/>
                 )}
-                {publicRoutes.map(({path, Component}) =>
+                {!user.isAuth && NotAuthRoutes.map(({path, Component}) =>
                     <Route key={path} path={path} element={<Component/>} exact/>
                 )}
-                <Route path="*" element={<Navigate to={DIARY_PAGES_ROUTE}/>}/>
+                <Route path="*" element={<Navigate to={REGISTRATION_ROUTE}/>}/>
             </Routes>
     );
 };

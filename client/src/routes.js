@@ -7,14 +7,13 @@ export const authRoutes = [
     {
         path : MAIN_PAGES_ROUTE,
         Component: AnnouncementPage
-    }
-]
-
-export const publicRoutes = [
+    },
     {
         path : DIARY_PAGES_ROUTE,
         Component: DiaryPages
-    },
+    }
+]
+export const NotAuthRoutes = [
     {
         path: REGISTRATION_ROUTE,
         Component: Auth
