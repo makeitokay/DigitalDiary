@@ -5,13 +5,13 @@ import './index.css';
 import App from './App';
 import UserStore from "./store/UserStore";
 export const UserContext = createContext(null)
-
+export const ErrorContext = createContext(null)
 function Root() {
     const [user, setUser] = useState(new UserStore());
     return (
-        <UserContext.Provider value={{user, setUser}}>
-            <App/>
-        </UserContext.Provider>
+            <UserContext.Provider value={{user, setUser}}>
+                <App/>
+            </UserContext.Provider>
     );
 }
 
