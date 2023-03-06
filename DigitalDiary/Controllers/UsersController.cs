@@ -4,13 +4,14 @@ using Domain.Entities;
 using Infrastructure.Extensions;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitalDiary.Controllers;
 
 [Route("users")]
-[AuthorizeByRole(Role.SchoolAdmin)]
+[Authorize]
 public class UsersController : ControllerBase
 {
 	private readonly IUserRepository _userRepository;
@@ -27,6 +28,7 @@ public class UsersController : ControllerBase
 		_passwordManager = passwordManager;
 	}
 
+	[AuthorizeByRole(Role.SchoolAdmin)]
 	[HttpGet("teachers")]
 	public async Task<IActionResult> GetTeachersAsync()
 	{
@@ -38,6 +40,7 @@ public class UsersController : ControllerBase
 		return Ok(users);
 	}
 
+	[AuthorizeByRole(Role.SchoolAdmin)]
 	[HttpPost("teachers")]
 	public async Task<IActionResult> AddTeacherAsync([FromBody] TeacherDto teacherDto)
 	{
@@ -46,6 +49,7 @@ public class UsersController : ControllerBase
 		return Ok();
 	}
 	
+	[AuthorizeByRole(Role.SchoolAdmin)]
 	[HttpGet("students")]
 	public async Task<IActionResult> GetStudentsAsync()
 	{
@@ -57,6 +61,7 @@ public class UsersController : ControllerBase
 		return Ok(users);
 	}
 	
+	[AuthorizeByRole(Role.SchoolAdmin)]
 	[HttpPost("students")]
 	public async Task<IActionResult> AddStudentAsync([FromBody] StudentDto studentDto)
 	{
@@ -66,6 +71,7 @@ public class UsersController : ControllerBase
 		return Ok();
 	}
 	
+	[AuthorizeByRole(Role.SchoolAdmin)]
 	[HttpGet("parents")]
 	public async Task<IActionResult> GetParentsAsync()
 	{
@@ -77,6 +83,7 @@ public class UsersController : ControllerBase
 		return Ok(users);
 	}
 	
+	[AuthorizeByRole(Role.SchoolAdmin)]
 	[HttpPost("parents")]
 	public async Task<IActionResult> AddParentAsync([FromBody] ParentDto parentDto)
 	{
@@ -93,6 +100,7 @@ public class UsersController : ControllerBase
 		return Ok();
 	}
 	
+	[AuthorizeByRole(Role.SchoolAdmin)]
 	[HttpGet("admins")]
 	public async Task<IActionResult> GetSchoolAdminsAsync()
 	{
@@ -104,12 +112,21 @@ public class UsersController : ControllerBase
 		return Ok(users);
 	}
 	
+	[AuthorizeByRole(Role.SchoolAdmin)]
 	[HttpPost("admins")]
 	public async Task<IActionResult> AddSchoolAdminAsync([FromBody] UserDto userDto)
 	{
 		var admin = await CreateUserAsync<SchoolAdmin>(userDto);
 		await _userRepository.CreateAsync(admin);
 		return Ok();
+	}
+
+	[HttpGet("me")]
+	public async Task<IActionResult> GetMeAsync()
+	{
+		var userId = User.Claims.GetUserId();
+		var user = await _userRepository.GetAsync(userId);
+		return Ok(user.MapUserToDto());
 	}
 
 	private async Task<TUser> CreateUserAsync<TUser>(UserDto userDto) where TUser : User, new()
