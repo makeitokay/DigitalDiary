@@ -1,20 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useContext} from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import {observer} from "mobx-react-lite";
+import {UserContext} from "./index";
+import {BrowserRouter} from "react-router-dom";
+import NavBar from "./components/NavBar";
+import AppRouter from "./components/AppRouter";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div className="container">
-          <div className="row min-vh-100">
-            <div className="col d-flex flex-column justify-content-center align-items-center">
-              <img src={logo} className="App-logo" alt="logo" />
-            </div>
-          </div>
-        </div>
-      </header>
-    </div>
-  );
-}
+const App = observer(() => {
+    const {user, setUser} = useContext(UserContext)
+    if (localStorage.getItem("accessToken")) {
+        user.setIsAuth(true)
+        user.setUser(true)
+    }
+    return (
+        <BrowserRouter>
+            <NavBar/>
+            <AppRouter/>
+        </BrowserRouter>
+    );
+})
 
-export default App;
+export default App

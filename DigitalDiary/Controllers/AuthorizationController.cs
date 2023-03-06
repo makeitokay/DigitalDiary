@@ -32,7 +32,7 @@ public class AuthorizationController : ControllerBase
 
 		if (user == null || !_passwordManager.VerifyPassword(loginDto.Password, user.PasswordHash, user.PasswordSalt))
 		{
-			return Unauthorized();
+			return Unauthorized("Неверный логин или пароль");
 		}
 
 		var userClaims = new List<Claim>

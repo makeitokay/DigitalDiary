@@ -22,9 +22,9 @@ services.AddCors(options =>
 	options.AddPolicy("CORSPolicy", b =>
 	{
 		b
-			.AllowAnyHeader()
+			.WithOrigins("http://localhost:3000")
 			.AllowAnyMethod()
-			.WithOrigins("http://localhost:3000");
+			.AllowAnyHeader();
 	});
 });
 
@@ -55,6 +55,8 @@ services.AddScoped<IPasswordManager, PasswordManagerStub>();
 services.AddScoped<IEmailClient, EmailClientStub>();
 
 var app = builder.Build();
+
+app.UseCors("CORSPolicy");
 
 if (app.Environment.IsDevelopment())
 {
