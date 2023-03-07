@@ -48,6 +48,7 @@ const Auth = observer(() => {
             let us = new UserStore()
             us.setUser(data)
             us.setIsAuth(true)
+            us.setRole(roleForApi)
             setUser(us)
             console.log("auth")
             history(MAIN_PAGES_ROUTE)

@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 import {REGISTRATION_ROUTE} from "../utils/Const";
 
 const NavBar = observer(() => {
-    const {user,setUser} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
     const history = useNavigate()
     const logOut = () => {
         let us = new UserStore()
@@ -19,20 +19,69 @@ const NavBar = observer(() => {
         localStorage.removeItem("accessToken");
         history(REGISTRATION_ROUTE)
     }
+
+    function AdminSchool() {
+        return (
+            <Nav>
+                <Nav.Link href="#home">Объявления</Nav.Link>
+                <Nav.Link href="#features">Журнал</Nav.Link>
+                <Nav.Link href="#pricing">Изменение школы</Nav.Link>
+                <Nav.Link href="#pricing">Статистика</Nav.Link>
+            </Nav>
+        );
+    }
+
+    function StudentOrParent() {
+        return (
+            <Nav>
+                <Nav.Link href="#home">Объявления</Nav.Link>
+                <Nav.Link href="#features">Дневник</Nav.Link>
+                <Nav.Link href="#pricing">Четвертной отчет</Nav.Link>
+            </Nav>
+        );
+    }
+
+    function Teacher() {
+        return (
+            <Nav>
+                <Nav.Link href="#home">Объявления</Nav.Link>
+                <Nav.Link href="#features">Журнал</Nav.Link>
+            </Nav>
+        );
+    }
+
+    function CheckRole() {
+        switch (user.role) {
+            case "Parent":
+            case "Student":
+                return <StudentOrParent/>
+            case "Teacher":
+                return <Teacher/>
+            case "SchoolAdmin":
+                return <AdminSchool/>
+        }
+    }
+
     return (
-            <Navbar bg="primary" variant="dark">
-                <Container fluid>
-                    <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-                    <Nav className="me-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#features">Features</Nav.Link>
-                        <Nav.Link href="#pricing">Pricing</Nav.Link>
-                        {user.isAuth ?  <Nav.Link href="#pricing" onClick={logOut}>Выход</Nav.Link> :
-                            <Nav.Link href="#pricing" onClick={()=>history(REGISTRATION_ROUTE)}>Войти</Nav.Link>
-                        }
-                    </Nav>
-                </Container>
-            </Navbar>
+        <Navbar bg="primary" variant="dark">
+            <Container fluid>
+                <Navbar.Brand href="#home">ДНЕВНИК</Navbar.Brand>
+                <Nav className="me-auto">
+                    {
+                        user.isAuth ?
+                            <CheckRole/> :
+                            <div/>
+                    }
+                </Nav>
+                <Nav>
+                    {
+                        user.isAuth ?
+                            <Nav.Link href="#exit" onClick={logOut}>Выход</Nav.Link> :
+                            <Nav.Link href="#enter" onClick={() => history(REGISTRATION_ROUTE)}>Войти</Nav.Link>
+                    }
+                </Nav>
+            </Container>
+        </Navbar>
     );
 })
 

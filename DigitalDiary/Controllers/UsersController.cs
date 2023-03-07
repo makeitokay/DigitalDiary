@@ -129,7 +129,7 @@ public class UsersController : ControllerBase
 		return Ok(user.MapUserToDto());
 	}
 
-	private async Task<TUser> CreateUserAsync<TUser>(UserDto userDto) where TUser : User, new()
+	private async Task<TUser>   CreateUserAsync<TUser>(UserDto userDto) where TUser : User, new()
 	{
 		var password = _passwordManager.GenerateRandomPassword();
 		var passwordHash = _passwordManager.GetPasswordHash(password, out var salt);
@@ -146,7 +146,6 @@ public class UsersController : ControllerBase
 		};
 		
 		await _emailClient.SendUserCreationEmailAsync(user, password);
-
 		return user;
 	}
 }

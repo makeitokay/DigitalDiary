@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import {authRoutes, NotAuthRoutes} from "../routes";
-import {REGISTRATION_ROUTE} from "../utils/Const";
+import {MAIN_PAGES_ROUTE} from "../utils/Const";
 import {UserContext} from "../index";
 
 const AppRouter = () => {
@@ -19,7 +19,7 @@ const AppRouter = () => {
             {!user.isAuth && NotAuthRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} element={<Component/>} exact/>
             )}
-            <Route path="*" element={<Navigate to={REGISTRATION_ROUTE}/>}/>
+            <Route path="*" element={<Navigate to={MAIN_PAGES_ROUTE}/>}/>
         </Routes>
     );
 };
