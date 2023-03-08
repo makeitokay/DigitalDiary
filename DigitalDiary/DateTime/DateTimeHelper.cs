@@ -58,8 +58,8 @@ public static class DateTimeHelper
 		return results
 			.Select(range => new DateOnlyRange
 			(
-				new DateOnly(range.Start.Year, range.Start.Month, range.Start.Day),
-				new DateOnly(range.End.Year, range.End.Month, range.End.Day)
+				DateOnly.FromDateTime(range.Start),
+				DateOnly.FromDateTime(range.End)
 			));
 	}
 
@@ -67,7 +67,7 @@ public static class DateTimeHelper
 	{
 		var weeks = GetAvailableWeeks().ToList();
 		var now = DateTime.UtcNow;
-		var today = new DateOnly(now.Year, now.Month, now.Day);
+		var today = DateOnly.FromDateTime(now);
 		return Enumerable.Range(1, weeks.Count)
 			.First(i => weeks[i - 1].Start <= today && today <= weeks[i - 1].End);
 	}
@@ -95,7 +95,7 @@ public static class DateTimeHelper
 	{
 		var quarters = GetAvailableQuarters().ToList();
 		var now = DateTime.UtcNow;
-		var today = new DateOnly(now.Year, now.Month, now.Day);
+		var today = DateOnly.FromDateTime(now);
 		return Enumerable.Range(1, quarters.Count)
 			.First(i => quarters[i - 1].Start <= today && today <= quarters[i - 1].End);
 	}

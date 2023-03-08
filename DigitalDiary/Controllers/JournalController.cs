@@ -197,7 +197,6 @@ public class JournalController : ControllerBase
 		}
 		else
 		{
-			Console.WriteLine(lesson.Marks.Count());
 			lesson.Marks = GetMarksFromDto();
 			lesson.Homework = dto.Homework;
 			await _lessonRepository.UpdateAsync(lesson);
