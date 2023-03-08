@@ -3,5 +3,4 @@ export const RoleEnum = Object.freeze({
     Parent: "Parent",
     Teacher: "Teacher",
     SchoolAdmin: "SchoolAdmin",
-    default: null
 })
