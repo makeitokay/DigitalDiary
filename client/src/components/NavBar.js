@@ -7,9 +7,12 @@ import {UserContext} from "../index";
 import UserStore from "../store/UserStore";
 import {useNavigate} from "react-router-dom";
 import {REGISTRATION_ROUTE} from "../utils/Const";
+import {RoleEnum} from "../store/RoleEnum";
 
 const NavBar = observer(() => {
+    console.log("Nav")
     const {user, setUser} = useContext(UserContext)
+    console.log(user)
     const history = useNavigate()
     const logOut = () => {
         let us = new UserStore()
@@ -20,12 +23,12 @@ const NavBar = observer(() => {
         history(REGISTRATION_ROUTE)
     }
 
-    function AdminSchool() {
+    function SchoolAdmin() {
         return (
             <Nav>
                 <Nav.Link href="#home">Объявления</Nav.Link>
                 <Nav.Link href="#features">Журнал</Nav.Link>
-                <Nav.Link href="#pricing">Изменение школы</Nav.Link>
+                <Nav.Link href="#pricing">Настройка школы</Nav.Link>
                 <Nav.Link href="#pricing">Статистика</Nav.Link>
             </Nav>
         );
@@ -52,13 +55,13 @@ const NavBar = observer(() => {
 
     function CheckRole() {
         switch (user.role) {
-            case "Parent":
-            case "Student":
+            case RoleEnum.Parent:
+            case RoleEnum.Student:
                 return <StudentOrParent/>
-            case "Teacher":
+            case RoleEnum.Teacher:
                 return <Teacher/>
-            case "SchoolAdmin":
-                return <AdminSchool/>
+            case RoleEnum.SchoolAdmin:
+                return <SchoolAdmin/>
         }
     }
 

@@ -1,7 +1,7 @@
 import {DIARY_PAGES_ROUTE, MAIN_PAGES_ROUTE, REGISTRATION_ROUTE} from "./utils/Const";
 import Auth from "./pages/Auth";
 import AnnouncementPage from "./pages/AnnouncementPage";
-import DiaryPages from "./pages/DiaryPages";
+import JournalPages from "./pages/JournalPages";
 
 export const authRoutes = [
     {
@@ -10,7 +10,7 @@ export const authRoutes = [
     },
     {
         path : DIARY_PAGES_ROUTE,
-        Component: DiaryPages
+        Component: JournalPages
     }
 ]
 export const NotAuthRoutes = [
