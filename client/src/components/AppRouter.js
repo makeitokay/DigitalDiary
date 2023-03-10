@@ -4,11 +4,18 @@ import {
     Route, Navigate
 } from "react-router-dom";
 
-import {authRoutes, NotAuthRoutes} from "../routes";
-import {MAIN_PAGES_ROUTE, REGISTRATION_ROUTE} from "../utils/Const";
+import {
+    authAdminRoutes,
+    authCommonRoutes,
+    authParentOrStudentRoutes,
+    authTeacherRoutes,
+    notAuthRoutes
+} from "../routes";
+import {ANNOUNCEMENT_PAGE_ROUTE, REGISTRATION_ROUTE} from "../utils/Const";
 import {UserContext} from "../index";
 import {$authHost} from "../http/Index";
 import UserStore from "../store/UserStore";
+import {RoleEnum} from "../store/RoleEnum";
 
 const AppRouter = () => {
     const {user, setUser} = useContext(UserContext)
@@ -31,14 +38,29 @@ const AppRouter = () => {
     console.log("appRouter")
     return (
         <Routes>
-            {user.isAuth && authRoutes.map(({path, Component}) =>
+            {user.isAuth &&
+                user.role === RoleEnum.SchoolAdmin &&
+                authAdminRoutes.map(({path, Component}) =>
+                    <Route key={path} path={path} element={<Component/>} exact/>
+                )}
+            {user.isAuth &&
+                user.role === RoleEnum.Teacher &&
+                authTeacherRoutes.map(({path, Component}) =>
+                    <Route key={path} path={path} element={<Component/>} exact/>
+                )}
+            {user.isAuth &&
+                (user.role === RoleEnum.Parent || user.role === RoleEnum.Student) &&
+                authParentOrStudentRoutes.map(({path, Component}) =>
+                    <Route key={path} path={path} element={<Component/>} exact/>
+                )}
+            {user.isAuth && user.role === null && authCommonRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} element={<Component/>} exact/>
             )}
-            {!user.isAuth && NotAuthRoutes.map(({path, Component}) =>
+            {!user.isAuth && notAuthRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} element={<Component/>} exact/>
             )}
             {!user.isAuth ? <Route path="*" element={<Navigate to={REGISTRATION_ROUTE}/>}/> :
-                <Route path="*" element={<Navigate to={MAIN_PAGES_ROUTE}/>}/>
+                <Route path="*" element={<Navigate to={ANNOUNCEMENT_PAGE_ROUTE}/>}/>
             }
         </Routes>
     );

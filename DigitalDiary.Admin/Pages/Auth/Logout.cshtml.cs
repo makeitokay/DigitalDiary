@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DigitalDiary.Admin.Pages.Auth;
+namespace DigitalDiary.Admin.Pages.AuthPage;
 
 public class LogoutModel : PageModel
 {

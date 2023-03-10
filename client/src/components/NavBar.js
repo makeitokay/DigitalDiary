@@ -5,8 +5,14 @@ import {useContext} from "react";
 import {observer} from "mobx-react-lite";
 import {UserContext} from "../index";
 import UserStore from "../store/UserStore";
-import {useNavigate} from "react-router-dom";
-import {REGISTRATION_ROUTE} from "../utils/Const";
+import {NavLink, useNavigate} from "react-router-dom";
+import {
+    ANNOUNCEMENT_PAGE_ROUTE, DIARY_PAGE_ROUTE,
+    JOURNAL_PAGE_ROUTE,
+    REGISTRATION_ROUTE, REPORT_QUARTER_PAGE_ROUTE,
+    SETTINGS_PAGE_ROUTE,
+    STATISTIC_PAGE_ROUTE
+} from "../utils/Const";
 import {RoleEnum} from "../store/RoleEnum";
 
 const NavBar = observer(() => {
@@ -26,10 +32,10 @@ const NavBar = observer(() => {
     function SchoolAdmin() {
         return (
             <Nav>
-                <Nav.Link href="#home">Объявления</Nav.Link>
-                <Nav.Link href="#features">Журнал</Nav.Link>
-                <Nav.Link href="#pricing">Настройка школы</Nav.Link>
-                <Nav.Link href="#pricing">Статистика</Nav.Link>
+                <Nav.Link as={NavLink} to={ANNOUNCEMENT_PAGE_ROUTE}>Объявления</Nav.Link>
+                <Nav.Link as={NavLink} to={JOURNAL_PAGE_ROUTE}>Журнал</Nav.Link>
+                <Nav.Link as={NavLink} to={SETTINGS_PAGE_ROUTE}>Настройка школы</Nav.Link>
+                <Nav.Link as={NavLink} to={STATISTIC_PAGE_ROUTE}>Статистика</Nav.Link>
             </Nav>
         );
     }
@@ -37,9 +43,9 @@ const NavBar = observer(() => {
     function StudentOrParent() {
         return (
             <Nav>
-                <Nav.Link href="#home">Объявления</Nav.Link>
-                <Nav.Link href="#features">Дневник</Nav.Link>
-                <Nav.Link href="#pricing">Четвертной отчет</Nav.Link>
+                <Nav.Link as={NavLink} to={ANNOUNCEMENT_PAGE_ROUTE}>Объявления</Nav.Link>
+                <Nav.Link as={NavLink} to={DIARY_PAGE_ROUTE}>Дневник</Nav.Link>
+                <Nav.Link as={NavLink} to={REPORT_QUARTER_PAGE_ROUTE}>Четвертной отчет</Nav.Link>
             </Nav>
         );
     }
@@ -47,8 +53,8 @@ const NavBar = observer(() => {
     function Teacher() {
         return (
             <Nav>
-                <Nav.Link href="#home">Объявления</Nav.Link>
-                <Nav.Link href="#features">Журнал</Nav.Link>
+                <Nav.Link as={NavLink} to={ANNOUNCEMENT_PAGE_ROUTE}>Объявления</Nav.Link>
+                <Nav.Link as={NavLink} to={JOURNAL_PAGE_ROUTE}>Журнал</Nav.Link>
             </Nav>
         );
     }

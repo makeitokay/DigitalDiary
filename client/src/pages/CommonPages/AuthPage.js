@@ -1,18 +1,18 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {Card, Container, DropdownButton} from "react-bootstrap";
-import {login} from "../http/UserAPI";
+import {login} from "../../http/UserAPI";
 import React, {useContext, useState} from "react";
 import {observer} from "mobx-react-lite"
 import {useNavigate} from "react-router-dom";
-import {MAIN_PAGES_ROUTE} from "../utils/Const";
-import {UserContext} from "../index";
-import UserStore from "../store/UserStore";
+import {ANNOUNCEMENT_PAGE_ROUTE} from "../../utils/Const";
+import {UserContext} from "../../index";
+import UserStore from "../../store/UserStore";
 import Dropdown from "react-bootstrap/Dropdown";
 import {toast, ToastContainer} from "react-toastify"
 
 
-const Auth = observer(() => {
+const AuthPage = observer(() => {
     const notify = (name) => {
         toast.error(name, {
             position: "top-right",
@@ -51,7 +51,7 @@ const Auth = observer(() => {
             us.setRole(roleForApi)
             setUser(us)
             console.log("auth")
-            history(MAIN_PAGES_ROUTE)
+            history(ANNOUNCEMENT_PAGE_ROUTE)
         } catch (e) {
             if (e.response.status === 401) {
                 notify(e.response.data)
@@ -117,4 +117,4 @@ const Auth = observer(() => {
     );
 })
 
-export default Auth;
+export default AuthPage;
