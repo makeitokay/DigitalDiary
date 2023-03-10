@@ -1,4 +1,7 @@
 export const REGISTRATION_ROUTE = '/login'
-export const MAIN_PAGES_ROUTE = '/main'
-
-export const DIARY_PAGES_ROUTE = '/diary'
+export const ANNOUNCEMENT_PAGE_ROUTE = '/announcement'
+export const DIARY_PAGE_ROUTE = '/diary'
+export const JOURNAL_PAGE_ROUTE = '/journal'
+export const SETTINGS_PAGE_ROUTE = '/setting'
+export const REPORT_QUARTER_PAGE_ROUTE = '/report'
+export const STATISTIC_PAGE_ROUTE = '/statistic'
