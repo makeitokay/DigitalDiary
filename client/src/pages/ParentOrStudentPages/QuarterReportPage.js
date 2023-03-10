@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ReportQuarterPage = () => {
+const QuarterReportPage = () => {
     return (
         <div>
             отчет
@@ -8,4 +8,4 @@ const ReportQuarterPage = () => {
     );
 };
 
-export default ReportQuarterPage;
+export default QuarterReportPage;

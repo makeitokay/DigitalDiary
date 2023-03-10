@@ -5,10 +5,10 @@ import {
 } from "react-router-dom";
 
 import {
-    authAdminRoutes,
+    adminRoutes,
     authCommonRoutes,
-    authParentOrStudentRoutes,
-    authTeacherRoutes,
+    parentOrStudentRoutes,
+    teacherRoutes,
     notAuthRoutes
 } from "../routes";
 import {ANNOUNCEMENT_PAGE_ROUTE, REGISTRATION_ROUTE} from "../utils/Const";
@@ -40,17 +40,17 @@ const AppRouter = () => {
         <Routes>
             {user.isAuth &&
                 user.role === RoleEnum.SchoolAdmin &&
-                authAdminRoutes.map(({path, Component}) =>
+                adminRoutes.map(({path, Component}) =>
                     <Route key={path} path={path} element={<Component/>} exact/>
                 )}
             {user.isAuth &&
                 user.role === RoleEnum.Teacher &&
-                authTeacherRoutes.map(({path, Component}) =>
+                teacherRoutes.map(({path, Component}) =>
                     <Route key={path} path={path} element={<Component/>} exact/>
                 )}
             {user.isAuth &&
                 (user.role === RoleEnum.Parent || user.role === RoleEnum.Student) &&
-                authParentOrStudentRoutes.map(({path, Component}) =>
+                parentOrStudentRoutes.map(({path, Component}) =>
                     <Route key={path} path={path} element={<Component/>} exact/>
                 )}
             {user.isAuth && user.role === null && authCommonRoutes.map(({path, Component}) =>

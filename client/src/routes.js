@@ -9,7 +9,7 @@ import AnnouncementPage from "./pages/CommonPages/AnnouncementPage";
 import JournalPage from "./pages/JournalPage";
 import SettingPage from "./pages/AdminPages/SettingPage";
 import StatisticPage from "./pages/AdminPages/StatisticPage";
-import ReportQuarterPage from "./pages/ParentOrStudentPages/ReportQuarterPage";
+import QuarterReportPage from "./pages/ParentOrStudentPages/QuarterReportPage";
 import DiaryPage from "./pages/ParentOrStudentPages/DiaryPage";
 
 export const authCommonRoutes = [
@@ -31,14 +31,14 @@ export const authCommonRoutes = [
     },
     {
         path : REPORT_QUARTER_PAGE_ROUTE,
-        Component: ReportQuarterPage
+        Component: QuarterReportPage
     },
     {
         path : DIARY_PAGE_ROUTE,
         Component: DiaryPage
     }
 ]
-export const authAdminRoutes = [
+export const adminRoutes = [
     {
         path : ANNOUNCEMENT_PAGE_ROUTE,
         Component: AnnouncementPage
@@ -56,7 +56,7 @@ export const authAdminRoutes = [
         Component: JournalPage
     }
 ]
-export const authTeacherRoutes = [
+export const teacherRoutes = [
     {
         path : ANNOUNCEMENT_PAGE_ROUTE,
         Component: AnnouncementPage
@@ -66,14 +66,14 @@ export const authTeacherRoutes = [
         Component: JournalPage
     }
 ]
-export const authParentOrStudentRoutes = [
+export const parentOrStudentRoutes = [
     {
         path : ANNOUNCEMENT_PAGE_ROUTE,
         Component: AnnouncementPage
     },
     {
         path : REPORT_QUARTER_PAGE_ROUTE,
-        Component: ReportQuarterPage
+        Component: QuarterReportPage
     },
     {
         path : DIARY_PAGE_ROUTE,
