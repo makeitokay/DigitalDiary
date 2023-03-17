@@ -4,13 +4,13 @@ import {
     REGISTRATION_ROUTE, REPORT_QUARTER_PAGE_ROUTE,
     SETTINGS_PAGE_ROUTE, STATISTIC_PAGE_ROUTE
 } from "./utils/Const";
-import AuthPage from "./pages/CommonPages/AuthPage";
-import AnnouncementPage from "./pages/CommonPages/AnnouncementPage";
+import AuthPage from "./pages/commonPages/AuthPage";
+import AnnouncementPage from "./pages/commonPages/AnnouncementPage";
 import JournalPage from "./pages/JournalPage";
-import SettingPage from "./pages/AdminPages/SettingPage";
-import StatisticPage from "./pages/AdminPages/StatisticPage";
-import QuarterReportPage from "./pages/ParentOrStudentPages/QuarterReportPage";
-import DiaryPage from "./pages/ParentOrStudentPages/DiaryPage";
+import SettingPage from "./pages/adminPages/SettingPage";
+import StatisticPage from "./pages/adminPages/StatisticPage";
+import QuarterReportPage from "./pages/parentOrStudentPages/QuarterReportPage";
+import DiaryPage from "./pages/parentOrStudentPages/DiaryPage";
 
 export const authCommonRoutes = [
     {
