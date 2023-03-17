@@ -15,6 +15,9 @@ const AddClass = () => {
     let mainNumber = useRef('');
 
     function SelectLetter({numberForm}) {
+        if (mainLetter === undefined) {
+            mainLetter = mainArray[Number(numberForm) - 1][0]
+        }
         if (mainLetter.current === '') {
             mainLetter = mainArray[Number(numberForm) - 1][0]
         }
@@ -89,14 +92,12 @@ const AddClass = () => {
     }
 
     function click() {
-        try {
-            getAllClasses(mainLetter, mainNumber).then(_ => {
-                LoadNumbers()
-            })
+        getAllClasses(mainLetter, mainNumber).then(_ => {
+            LoadNumbers()
             goodNotify("класс добавлен.")
-        } catch (e) {
-            notify("Не удалось добавить класс.")
-        }
+        }).catch(function (_) {
+            notify("произошла ошибка.")
+        })
     }
 
     useEffect(() => {

@@ -39,7 +39,6 @@ const AuthPage = observer(() => {
             us.setIsAuth(true)
             us.setRole(roleForApi)
             setUser(us)
-            console.log("auth")
             history(ANNOUNCEMENT_PAGE_ROUTE)
         } catch (e) {
             if (e.response.status === 401) {
