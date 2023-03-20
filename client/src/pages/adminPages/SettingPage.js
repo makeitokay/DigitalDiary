@@ -1,6 +1,6 @@
 import React from 'react';
 import {Tab, Tabs} from "react-bootstrap";
-import AddClass from "./settingPages/AddClass";
+import AddGroups from "./settingPages/AddGroups";
 
 const SettingPage = () => {
     return (
@@ -14,7 +14,7 @@ const SettingPage = () => {
 
             </Tab>
             <Tab eventKey="profile" title="Добавление класса">
-                <AddClass/>
+                <AddGroups/>
             </Tab>
             <Tab eventKey="longer-tab" title="Добавление предмета">
             </Tab>

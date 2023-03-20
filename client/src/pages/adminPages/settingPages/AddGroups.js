@@ -3,30 +3,26 @@ import {$authHost} from "../../../http/Index";
 import Form from "react-bootstrap/Form";
 import {FormGroup, FormLabel} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import {getAllClasses} from "../../../http/ItemAPI";
+import {getAllGroups} from "../../../http/ItemAPI";
 import {ToastContainer} from "react-toastify";
-import {goodNotify, notify} from "../../../components/Notifications";
+import {success, error} from "../../../components/Notifications";
 
-let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+let letters = ["А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"];
 let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
-const AddClass = () => {
+const AddGroups = () => {
     const [mainArray, setMainArray] = useState([[], [], [], [], [], [], [], [], [], [], []]);
     let mainLetter = useRef('');
     let mainNumber = useRef('');
 
     function SelectLetter({numberForm}) {
-        if (mainLetter === undefined) {
-            mainLetter = mainArray[Number(numberForm) - 1][0]
-        }
-        if (mainLetter.current === '') {
-            mainLetter = mainArray[Number(numberForm) - 1][0]
-        }
+        mainLetter = mainArray[Number(numberForm) - 1][0]
         for (let i = 0; i < 11; i++) {
             if (i + 1 === Number(numberForm)) {
                 return (
                     <Form.Select aria-label="Default select example" onChange={e => mainLetter = e.target.value}>
                         {mainArray[i]?.map(
-                            (letter) => <option key={letter}>{letter}</option>
+                            (letter) => letter === mainArray[i][0] ? <option selected key={letter}>{letter}</option> :
+                                <option key={letter}>{letter}</option>
                         )
                         }
                     </Form.Select>
@@ -92,11 +88,11 @@ const AddClass = () => {
     }
 
     function click() {
-        getAllClasses(mainLetter, mainNumber).then(_ => {
+        getAllGroups(mainLetter, mainNumber).then(_ => {
             LoadNumbers()
-            goodNotify("класс добавлен.")
+            success("Класс добавлен.")
         }).catch(function (_) {
-            notify("произошла ошибка.")
+            error("Произошла ошибка.")
         })
     }
 
@@ -112,4 +108,4 @@ const AddClass = () => {
     );
 };
 
-export default AddClass;
+export default AddGroups;

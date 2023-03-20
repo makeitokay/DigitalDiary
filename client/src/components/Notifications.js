@@ -1,6 +1,6 @@
 import {toast} from "react-toastify";
 
-export const goodNotify = (name) => {
+export const success = (name) => {
     toast.success(name, {
         position: "top-right",
         autoClose: 5000,
@@ -12,7 +12,7 @@ export const goodNotify = (name) => {
         theme: "light",
     });
 }
-export const notify = (name) => {
+export const error = (name) => {
     toast.error(name, {
         position: "top-right",
         autoClose: 5000,

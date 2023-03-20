@@ -10,7 +10,7 @@ import {UserContext} from "../../index";
 import UserStore from "../../store/UserStore";
 import Dropdown from "react-bootstrap/Dropdown";
 import {ToastContainer} from "react-toastify"
-import {notify} from "../../components/Notifications";
+import {error} from "../../components/Notifications";
 
 
 const AuthPage = observer(() => {
@@ -22,13 +22,13 @@ const AuthPage = observer(() => {
     const [roleForApi, setRoleForApi] = useState('')
     const click = async () => {
         if (password === "") {
-            notify("Пароль не введен")
+            error("Пароль не введен")
             return
         } else if (email === "") {
-            notify("Введите почту")
+            error("Введите почту")
             return
         } else if (roleForApi === "") {
-            notify("Выберите роль")
+            error("Выберите роль")
             return
         }
         try {
@@ -42,7 +42,7 @@ const AuthPage = observer(() => {
             history(ANNOUNCEMENT_PAGE_ROUTE)
         } catch (e) {
             if (e.response.status === 401) {
-                notify(e.response.data)
+                error(e.response.data)
             }
         }
     }

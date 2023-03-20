@@ -1,5 +1,5 @@
 import {$authHost} from "./Index";
 
-export const getAllClasses = async (letter, number) => {
+export const getAllGroups = async (letter, number) => {
         await $authHost.post('groups', {letter, number});
 }
