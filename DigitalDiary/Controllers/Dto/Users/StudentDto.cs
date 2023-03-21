@@ -1,11 +1,12 @@
-﻿using Domain.Entities;
+﻿using DigitalDiary.Controllers.Dto.Groups;
+using Domain.Entities;
 
 namespace DigitalDiary.Controllers.Dto.Users;
 
 public class StudentDto : UserDto
 {
 	public IEnumerable<int> Parents { get; set; } = default!;
-	public int GroupId { get; set; }
+	public GroupDto Group { get; set; }
 }
 
 public static class StudentDtoExtensions
@@ -20,7 +21,12 @@ public static class StudentDtoExtensions
 			Email = student.Email,
 			Role = student.Role.ToString(),
 			Parents = student.Parents.Select(p => p.Id),
-			GroupId = student.GroupId
+			Group = new GroupDto
+			{
+				Id = student.Group.Id,
+				Number = student.Group.Number,
+				Letter = student.Group.Letter
+			}
 		};
 	}
 }

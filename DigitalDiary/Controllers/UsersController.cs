@@ -17,15 +17,18 @@ public class UsersController : ControllerBase
 	private readonly IUserRepository _userRepository;
 	private readonly IEmailClient _emailClient;
 	private readonly IPasswordManager _passwordManager;
+	private readonly IRepository<Group> _groupRepository;
 
 	public UsersController(
 		IUserRepository userRepository,
 		IEmailClient emailClient,
-		IPasswordManager passwordManager)
+		IPasswordManager passwordManager,
+		IRepository<Group> groupRepository)
 	{
 		_userRepository = userRepository;
 		_emailClient = emailClient;
 		_passwordManager = passwordManager;
+		_groupRepository = groupRepository;
 	}
 
 	[AuthorizeByRole(Role.SchoolAdmin)]
@@ -66,7 +69,13 @@ public class UsersController : ControllerBase
 	public async Task<IActionResult> AddStudentAsync([FromBody] StudentDto studentDto)
 	{
 		var student = await CreateUserAsync<Student>(studentDto);
-		student.GroupId = studentDto.GroupId;
+		var group = await _groupRepository
+			.Items
+			.SingleAsync(g =>
+				g.SchoolId == User.Claims.GetSchoolId()
+				&& g.Letter == studentDto.Group.Letter
+				&& g.Number == studentDto.Group.Number);
+		student.Group = group;
 		await _userRepository.CreateAsync(student);
 		return Ok();
 	}
