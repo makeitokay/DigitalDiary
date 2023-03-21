@@ -9,23 +9,12 @@ import {ANNOUNCEMENT_PAGE_ROUTE} from "../../utils/Const";
 import {UserContext} from "../../index";
 import UserStore from "../../store/UserStore";
 import Dropdown from "react-bootstrap/Dropdown";
-import {toast, ToastContainer} from "react-toastify"
+import {ToastContainer} from "react-toastify"
+import {error} from "../../components/Notifications";
 
 
 const AuthPage = observer(() => {
-    const notify = (name) => {
-        toast.error(name, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-    }
-    const {user, setUser} = useContext(UserContext)
+    const {_, setUser} = useContext(UserContext)
     const history = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -33,13 +22,13 @@ const AuthPage = observer(() => {
     const [roleForApi, setRoleForApi] = useState('')
     const click = async () => {
         if (password === "") {
-            notify("Пароль не введен")
+            error("Пароль не введен")
             return
         } else if (email === "") {
-            notify("Введите почту")
+            error("Введите почту")
             return
         } else if (roleForApi === "") {
-            notify("Выберите роль")
+            error("Выберите роль")
             return
         }
         try {
@@ -50,11 +39,10 @@ const AuthPage = observer(() => {
             us.setIsAuth(true)
             us.setRole(roleForApi)
             setUser(us)
-            console.log("auth")
             history(ANNOUNCEMENT_PAGE_ROUTE)
         } catch (e) {
             if (e.response.status === 401) {
-                notify(e.response.data)
+                error(e.response.data)
             }
         }
     }
@@ -78,6 +66,7 @@ const AuthPage = observer(() => {
                 break;
         }
     }
+    console.log("dddd")
     return (
         <div>
             <Container
@@ -103,7 +92,7 @@ const AuthPage = observer(() => {
                             {['Студент', 'Учитель', 'Родитель', 'Администратор школы'].map(
                                 (roleUser) =>
                                     <Dropdown.Item key={roleUser}
-                                                   onClick={e => roleClick(roleUser)}>{roleUser}</Dropdown.Item>
+                                                   onClick={_ => roleClick(roleUser)}>{roleUser}</Dropdown.Item>
                             )}
                         </DropdownButton>
                         <Button onClick={click}>
