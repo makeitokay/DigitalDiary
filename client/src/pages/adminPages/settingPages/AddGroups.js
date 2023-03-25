@@ -3,8 +3,7 @@ import {$authHost} from "../../../http/Index";
 import Form from "react-bootstrap/Form";
 import {FormGroup, FormLabel} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import {getAllGroups} from "../../../http/ItemAPI";
-import {ToastContainer} from "react-toastify";
+import {setGroup} from "../../../http/ItemAPI";
 import {success, error} from "../../../components/Notifications";
 
 let letters = ["А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"];
@@ -88,7 +87,7 @@ const AddGroups = () => {
     }
 
     function click() {
-        getAllGroups(mainLetter, mainNumber).then(_ => {
+        setGroup(mainLetter, mainNumber).then(_ => {
             LoadNumbers()
             success("Класс добавлен.")
         }).catch(function (_) {
@@ -103,7 +102,6 @@ const AddGroups = () => {
         <div>
             <SelectNumber array={numbers}/>
             <Button variant="outline-primary" onClick={click}>Primary</Button>
-            <ToastContainer/>
         </div>
     );
 };
