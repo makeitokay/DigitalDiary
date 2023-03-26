@@ -14,7 +14,7 @@ const AddParent = ({firstName,lastName,email}) => {
             }
         )
     },[])
-    function addChild(arrayOfId){
+    function addChildren(arrayOfId){
         setChildren(arrayOfId)
     }
     function click(){
@@ -32,7 +32,7 @@ const AddParent = ({firstName,lastName,email}) => {
         <div>
             <Form.Group className="mb-3">
                 <Form.Label>Выберите детей</Form.Label>
-                <AddChild array={allStudents} change={addChild}/>
+                <AddChild array={allStudents} change={addChildren}/>
             </Form.Group>
             <Button onClick={click}>Добавить</Button>
         </div>
