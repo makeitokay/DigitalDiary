@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import Select from "react-select";
 const AddChild = ({array,change}) => {
-    const [localArray, setLocalArray]= useState([])
+    const [allStudents, setAllStudents]= useState([])
     useEffect(()=>{
         if (array.length!==0){
             let arr = [];
             for (let i = 0; i< array.length; i++){
-                arr.push({label: array[i].firstName +
-                        " " + array[i].lastName +
+                arr.push({label: array[i].lastName +
+                        " " + array[i].firstName +
                         " " + array[i].group.number+array[i].group.letter,
                 value: array[i].id})
             }
-            localArray.value = arr
-            setLocalArray(localArray.value)
+            allStudents.value = arr
+            setAllStudents(allStudents.value)
         }
     },[array])
     function setChange(e){
@@ -27,7 +27,7 @@ const AddChild = ({array,change}) => {
             <Select
                 isMulti
                 name="children"
-                options={localArray}
+                options={allStudents}
                 className="basic-multi-select"
                 classNamePrefix="select"
                 onChange={setChange}

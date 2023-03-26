@@ -6,7 +6,7 @@ import {error, success} from "../../../../components/Notifications";
 import Form from "react-bootstrap/Form";
 const AddParent = ({firstName,lastName,email}) => {
     const [allStudents, setAllStudents] = useState([])
-    const [childArray,setChildArray] = useState([])
+    const [children,setChildren] = useState([])
     useEffect(()=>{
         getAllStudents().then(
             data=>{
@@ -15,14 +15,14 @@ const AddParent = ({firstName,lastName,email}) => {
         )
     },[])
     function addChild(arrayOfId){
-        setChildArray(arrayOfId)
+        setChildren(arrayOfId)
     }
     function click(){
-        if (firstName ==="" || lastName === "" || email ==="" || childArray.length === 0){
+        if (firstName ==="" || lastName === "" || email ==="" || children.length === 0){
             error("Заполните все поля.")
             return
         }
-        setParent(firstName,lastName,email,childArray).then(_=>{
+        setParent(firstName,lastName,email,children).then(_=>{
             success("Родитель добавлен.")
         }).catch(_ =>{
             error("Не удалось добавить родителя.")
@@ -34,7 +34,7 @@ const AddParent = ({firstName,lastName,email}) => {
                 <Form.Label>Выберите детей</Form.Label>
                 <AddChild array={allStudents} change={addChild}/>
             </Form.Group>
-            <Button onClick={click}>Добавить родителя</Button>
+            <Button onClick={click}>Добавить</Button>
         </div>
     );
 };
