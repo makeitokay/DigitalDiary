@@ -8,58 +8,66 @@ import AddAdmin from "./addUsersPages/AddAdmin";
 
 const AddUser = () => {
     const [role, setRole] = useState(RoleEnum.Parent)
-    const [firstName, setFirstName]= useState('')
+    const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
+
     function CreatePageByRole() {
-        switch (role){
+        switch (role) {
             case RoleEnum.Student:
-                return(
-                    <AddStudent firstName={firstName} lastName={lastName} email={email}/>
+                return (
+                    <AddStudent firstName={firstName} lastName={lastName} email={email} change={clickButton}/>
                 )
             case RoleEnum.Parent:
-                return(
-                    <AddParent firstName={firstName} lastName={lastName} email={email}/>
+                return (
+                    <AddParent firstName={firstName} lastName={lastName} email={email} change={clickButton}/>
                 )
             case RoleEnum.Teacher:
                 return (
-                    <AddTeacher firstName={firstName} lastName={lastName} email={email}/>
+                    <AddTeacher firstName={firstName} lastName={lastName} email={email} change={clickButton}/>
                 )
             case RoleEnum.SchoolAdmin:
                 return (
-                    <AddAdmin firstName={firstName} lastName={lastName} email={email}/>
-            )
+                    <AddAdmin firstName={firstName} lastName={lastName} email={email} change={clickButton}/>
+                )
             default:
                 return (<div/>)
         }
     }
+
+    function clickButton() {
+        setFirstName('')
+        setLastName('')
+        setEmail('')
+    }
+
     return (
         <div>
-        <Form>
-            <Form.Group className="mb-3">
-                <Form.Label> Выберите роль пользователя</Form.Label>
-                <Form.Select onChange={e => setRole(e.target.value)}>
-                    <option value={RoleEnum.Parent}>Родитель</option>
-                    <option value={RoleEnum.Student}>Студент</option>
-                    <option value={RoleEnum.Teacher}>Учитель</option>
-                    <option value={RoleEnum.SchoolAdmin}>Администратор</option>
-                </Form.Select>
-            </Form.Group>
-        </Form>
-                <Form>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Введите имя пользователя</Form.Label>
-                        <Form.Control value={firstName} onChange={e => setFirstName(e.target.value)}></Form.Control>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Введите фамилию пользователя</Form.Label>
-                        <Form.Control value={lastName} onChange={e => setLastName(e.target.value)}></Form.Control>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Введите email пользователя</Form.Label>
-                        <Form.Control value={email} onChange={e => setEmail(e.target.value)}></Form.Control>
-                    </Form.Group>
-                </Form>
+            <Form>
+                <Form.Group className="mb-3">
+                    <Form.Label> Выберите роль пользователя</Form.Label>
+                    <Form.Select onChange={e => setRole(e.target.value)}>
+                        <option value={RoleEnum.Parent}>Родитель</option>
+                        <option value={RoleEnum.Student}>Студент</option>
+                        <option value={RoleEnum.Teacher}>Учитель</option>
+                        <option value={RoleEnum.SchoolAdmin}>Администратор</option>
+                    </Form.Select>
+                </Form.Group>
+            </Form>
+            <Form>
+                <Form.Group className="mb-3">
+                    <Form.Label>Введите имя пользователя</Form.Label>
+                    <Form.Control value={firstName} onChange={e => setFirstName(e.target.value)}></Form.Control>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Введите фамилию пользователя</Form.Label>
+                    <Form.Control value={lastName} onChange={e => setLastName(e.target.value)}></Form.Control>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Введите email пользователя</Form.Label>
+                    <Form.Control value={email} onChange={e => setEmail(e.target.value)}></Form.Control>
+                </Form.Group>
+            </Form>
             <CreatePageByRole/>
         </div>
     );

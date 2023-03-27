@@ -20,7 +20,9 @@ import {RoleEnum} from "../store/RoleEnum";
 const AppRouter = () => {
     const {user, setUser} = useContext(UserContext)
     if (localStorage.getItem("accessToken")) {
-        user.setIsAuth(true)
+        if (user.user !== "error"){
+            user.setIsAuth(true)
+        }
     }
     useEffect(() => {
         if (localStorage.getItem("accessToken")) {
@@ -32,7 +34,12 @@ const AppRouter = () => {
                     us.setRole(data.data.role)
                     setUser(us)
                 }
-            )
+            ).catch(_=>{
+                let us = new UserStore()
+                us.setUser("error")
+                us.setIsAuth(false)
+                setUser(us)
+            })
         }
     }, [])
     console.log("appRouter")
