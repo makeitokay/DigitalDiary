@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import AddChild from "../../../../components/addUserComponents/AddChild";
+import AddChild from "../../../../components/settingComponents/AddChild";
 import {getAllStudents, setParent} from "../../../../http/ItemAPI";
 import Button from "react-bootstrap/Button";
 import {error, success} from "../../../../components/Notifications";
