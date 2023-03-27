@@ -7,9 +7,11 @@ import {UserContext} from "../index";
 import UserStore from "../store/UserStore";
 import {NavLink, useNavigate} from "react-router-dom";
 import {
-    ANNOUNCEMENT_PAGE_ROUTE, DIARY_PAGE_ROUTE,
+    ANNOUNCEMENT_PAGE_ROUTE,
+    DIARY_PAGE_ROUTE,
     JOURNAL_PAGE_ROUTE,
-    REGISTRATION_ROUTE, REPORT_QUARTER_PAGE_ROUTE,
+    REGISTRATION_ROUTE,
+    REPORT_QUARTER_PAGE_ROUTE,
     SETTINGS_PAGE_ROUTE,
     STATISTIC_PAGE_ROUTE
 } from "../utils/Const";

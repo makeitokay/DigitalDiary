@@ -1,16 +1,7 @@
 import React, {useContext, useEffect} from 'react';
-import {
-    Routes,
-    Route, Navigate
-} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 
-import {
-    adminRoutes,
-    authCommonRoutes,
-    parentOrStudentRoutes,
-    teacherRoutes,
-    notAuthRoutes
-} from "../routes";
+import {adminRoutes, authCommonRoutes, notAuthRoutes, parentOrStudentRoutes, teacherRoutes} from "../routes";
 import {ANNOUNCEMENT_PAGE_ROUTE, REGISTRATION_ROUTE} from "../utils/Const";
 import {UserContext} from "../index";
 import {$authHost} from "../http/Index";
@@ -20,7 +11,9 @@ import {RoleEnum} from "../store/RoleEnum";
 const AppRouter = () => {
     const {user, setUser} = useContext(UserContext)
     if (localStorage.getItem("accessToken")) {
-        user.setIsAuth(true)
+        if (user.user !== "error") {
+            user.setIsAuth(true)
+        }
     }
     useEffect(() => {
         if (localStorage.getItem("accessToken")) {
@@ -32,7 +25,12 @@ const AppRouter = () => {
                     us.setRole(data.data.role)
                     setUser(us)
                 }
-            )
+            ).catch(_ => {
+                let us = new UserStore()
+                us.setUser("error")
+                us.setIsAuth(false)
+                setUser(us)
+            })
         }
     }, [])
     console.log("appRouter")
