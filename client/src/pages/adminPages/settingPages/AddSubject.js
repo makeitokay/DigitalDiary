@@ -6,8 +6,9 @@ import {error, success} from "../../../components/Notifications";
 
 const AddSubject = () => {
     const [nameOfSubject, setNameOfSubject] = useState("")
-    function click(){
-        if (nameOfSubject === ""){
+
+    function click() {
+        if (nameOfSubject === "") {
             error("Заполните все поля.")
             return
         }
@@ -15,15 +16,17 @@ const AddSubject = () => {
                 success("Предмет добавлен.")
                 setNameOfSubject("")
             }
-        ).catch(_=>{
+        ).catch(_ => {
             error("Ошибка при добавлении предмета.")
         })
     }
+
     return (
         <div>
-            <Form.Group className = "mb-3">
+            <Form.Group className="mb-3">
                 <Form.Label>Введите название предмета</Form.Label>
-                <Form.Control placeholder="введите название предмета" value={nameOfSubject} onChange={e => setNameOfSubject(e.target.value)}></Form.Control>
+                <Form.Control placeholder="введите название предмета" value={nameOfSubject}
+                              onChange={e => setNameOfSubject(e.target.value)}></Form.Control>
             </Form.Group>
             <Button onClick={click}>Добавить</Button>
         </div>
