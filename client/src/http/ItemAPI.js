@@ -26,3 +26,6 @@ export const setTeacher = async (firstName, lastName, email) => {
 export const setAdmin = async (firstName, lastName, email) => {
     await $authHost.post('users/admins', {firstName, lastName, email});
 }
+export const setSubject = async (name) => {
+    await $authHost.post('subjects', {name});
+}
