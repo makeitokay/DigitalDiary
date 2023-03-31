@@ -5,16 +5,16 @@ import {setSubject} from "../../../http/ItemAPI";
 import {error, success} from "../../../components/Notifications";
 
 const AddSubject = () => {
-    const [nameOfSubject, setNameOfSubject] = useState("")
+    const [subjectName, setSubjectName] = useState("")
 
     function click() {
-        if (nameOfSubject === "") {
+        if (subjectName === "") {
             error("Заполните все поля.")
             return
         }
-        setSubject(nameOfSubject).then(() => {
+        setSubject(subjectName).then(() => {
                 success("Предмет добавлен.")
-                setNameOfSubject("")
+                setSubjectName("")
             }
         ).catch(_ => {
             error("Ошибка при добавлении предмета.")
@@ -25,8 +25,8 @@ const AddSubject = () => {
         <div>
             <Form.Group className="mb-3">
                 <Form.Label>Введите название предмета</Form.Label>
-                <Form.Control placeholder="введите название предмета" value={nameOfSubject}
-                              onChange={e => setNameOfSubject(e.target.value)}></Form.Control>
+                <Form.Control placeholder="введите название предмета" value={subjectName}
+                              onChange={e => setSubjectName(e.target.value)}></Form.Control>
             </Form.Group>
             <Button onClick={click}>Добавить</Button>
         </div>
