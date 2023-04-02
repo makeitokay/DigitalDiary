@@ -1,17 +1,28 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Table} from "react-bootstrap";
 import Schedule from "./Schedule";
+import './Schedule.css'
 
 const DaySchedule = ({teachers, subjects, lessons, dayOfWeek, groupId}) => {
-    let schedules = [1, 2, 3, 4, 5, 6, 7]
+    const [orderSchedules, setOrderSchedules] = useState([])
 
-    function RenderSchedule({id, schedule}) {
+    function RenderSchedule({order, schedule}) {
         return (
             <Schedule teachers={teachers} schedule={schedule} subjects={subjects} dayOfWeek={dayOfWeek}
-                      groupId={groupId} id={id}/>
+                      groupId={groupId} order={order}/>
         )
     }
 
+    useEffect(() => {
+        let localOrderGroups = new Array(7)
+        for (let i = 0; i < localOrderGroups.length; i++) {
+            localOrderGroups[i] = i + 1;
+        }
+        setOrderSchedules(localOrderGroups)
+    }, [])
+    if (groupId === undefined) {
+        return <div/>
+    }
     return (
         <div>
             <h1>{dayOfWeek.label}</h1>
@@ -22,10 +33,9 @@ const DaySchedule = ({teachers, subjects, lessons, dayOfWeek, groupId}) => {
                     <th>Предмет</th>
                 </tr>
                 </thead>
-
                 <tbody>
-                {schedules.map(id => <RenderSchedule key={id} id={id}
-                                                     schedule={lessons?.items.find(item => item.order === id)}/>)}
+                {orderSchedules.map(order => <RenderSchedule key={order} order={order}
+                                                             schedule={lessons?.items.find(item => item.order === order)}/>)}
                 </tbody>
             </Table>
         </div>

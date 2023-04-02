@@ -41,7 +41,7 @@ export const getAllSchedule = async (groupId) => {
     if (groupId === undefined) {
         return null
     }
-    return await $authHost.get(`schedule?groupId=${groupId}`);
+    return await $authHost.get(`schedule`, {params: {groupId: groupId}});
 }
 export const setSchedule = async (dayOfWeek, subjectId, teacherId, order, groupId) => {
     await $authHost.post('schedule', {dayOfWeek, subjectId, teacherId, order, groupId});

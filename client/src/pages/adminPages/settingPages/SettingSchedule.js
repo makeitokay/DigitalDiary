@@ -6,16 +6,20 @@ import Col from "react-bootstrap/Col";
 import {DayOFWeekEnum} from "../../../store/DayOFWeekEnum";
 import Select from "react-select";
 import Form from "react-bootstrap/Form";
+import '../../../components/settingComponents/Schedule.css';
+import PacmanLoader from "react-spinners/ClipLoader";
 
 const SettingSchedule = () => {
-    const idFistColum = [1, 2, 3];
-    const idSecondColum = [4, 5, 6];
+    const fistColumn = [1, 2, 3];
+    const secondColumn = [4, 5, 6];
     const [schedulesByDay, setSchedulesByDay] = useState([null, null, null, null, null, null])
     const [teachers, setTeachers] = useState([])
     const [subjects, setSubjects] = useState([])
     const [groups, setGroups] = useState([])
     const [groupId, setGroupId] = useState()
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
+        setLoading(true)
         getAllTeacher().then(data => {
             for (let i = 0; i < data.data.length; i++) {
                 setTeachers(data.data)
@@ -43,36 +47,18 @@ const SettingSchedule = () => {
             }
             setGroups(localGroups.sort((x, y) => x.label > y.label ? 1 : x.label === y.label ? 0 : -1))
         })
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
     }, [groupId])
 
     function Day({id}) {
-        switch (id) {
-            case 1:
+        for (let dayOfWeek in DayOFWeekEnum) {
+            if (DayOFWeekEnum[dayOfWeek].value === id) {
                 return <DaySchedule groupId={groupId} teachers={teachers} subjects={subjects}
-                                    dayOfWeek={DayOFWeekEnum.Monday}
-                                    lessons={schedulesByDay[0]}/>;
-            case 2:
-                return <DaySchedule groupId={groupId} teachers={teachers} subjects={subjects}
-                                    dayOfWeek={DayOFWeekEnum.Tuesday}
-                                    lessons={schedulesByDay[1]}/>;
-            case 3:
-                return <DaySchedule groupId={groupId} teachers={teachers} subjects={subjects}
-                                    dayOfWeek={DayOFWeekEnum.Wednesday}
-                                    lessons={schedulesByDay[2]}/>;
-            case 4:
-                return <DaySchedule groupId={groupId} teachers={teachers} subjects={subjects}
-                                    dayOfWeek={DayOFWeekEnum.Thursday}
-                                    lessons={schedulesByDay[3]}/>;
-            case 5:
-                return <DaySchedule groupId={groupId} teachers={teachers} subjects={subjects}
-                                    dayOfWeek={DayOFWeekEnum.Friday}
-                                    lessons={schedulesByDay[4]}/>;
-            case 6:
-                return <DaySchedule groupId={groupId} teachers={teachers} subjects={subjects}
-                                    dayOfWeek={DayOFWeekEnum.Saturday}
-                                    lessons={schedulesByDay[5]}/>;
-            default:
-                return <div/>
+                                    dayOfWeek={DayOFWeekEnum[dayOfWeek]}
+                                    lessons={schedulesByDay[id - 1]}/>;
+            }
         }
     }
 
@@ -81,23 +67,38 @@ const SettingSchedule = () => {
     }
 
     return (
-        <div>
+        <div className="tb">
             <Form.Group className="mb-3">
                 <Form.Label>Выберите класс</Form.Label>
                 <Select options={groups} onChange={changeGroup}/>
             </Form.Group>
-            <Row>
-                <Col>
-                    <div>
-                        {idFistColum.map((id) => <Day key={id} id={id}/>)}
-                    </div>
-                </Col>
-                <Col md={{offset: 1}}>
-                    <div>
-                        {idSecondColum.map((id) => <Day key={id} id={id}/>)}
-                    </div>
-                </Col>
-            </Row>
+            {loading ?
+                <div className="clip">
+                    <PacmanLoader
+
+                        color={"#36a0d6"}
+                        loading={loading}
+                        cssOverride={{}}
+                        size={30}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                </div> :
+                <div>
+                    <Row>
+                        <Col>
+                            <div>
+                                {fistColumn.map((id) => <Day key={id} id={id}/>)}
+                            </div>
+                        </Col>
+                        <Col md={{offset: 1}}>
+                            <div>
+                                {secondColumn.map((id) => <Day key={id} id={id}/>)}
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+            }
         </div>
     );
 };

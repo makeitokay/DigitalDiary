@@ -4,40 +4,61 @@ import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import Col from 'react-bootstrap/Col';
 import {setSchedule} from "../../http/ItemAPI";
+import './Schedule.css'
 
-const Schedule = ({teachers, subjects, schedule, dayOfWeek, id, groupId}) => {
-    const [header, setHeader] = useState('пусто')
+const Schedule = ({teachers, subjects, schedule, dayOfWeek, order, groupId}) => {
+    const [header, setHeader] = useState('Не выбрано.')
     const [teacher, setTeacher] = useState(undefined)
     const [subject, setSubject] = useState(undefined)
-    const [teachersForSelect, setTeachersForSelect] = useState([])
-    const [subjectsForSelect, setSubjectsForSelect] = useState([])
-    const [synchronization, setSynchronization] = useState("Синхронизован.")
+    const [availableTeachers, setAvailableTeachers] = useState([])
+    const [availableSubjects, setAvailableSubjects] = useState([])
+    const [synchronization, setSynchronization] = useState("Сохранено")
+    const [isAlertVisible, setIsAlertVisible] = React.useState(false);
 
     function changeSubject(e) {
         let localSubject = subjects?.find(sub => sub.id === e.value)
         if (teacher !== undefined) {
             setHeader(teacher.firstName + " " + teacher.lastName + ", " + localSubject.name)
+            setSchedule(dayOfWeek.value, localSubject.id, teacher.id, order, groupId).then(() => {
+                setSynchronization("Сохранено")
+            }).catch(function (e) {
+                if (e.response.status === 400) {
+                    setSynchronization(e.response.data)
+                } else {
+                    setSynchronization("Не сохранено")
+                }
+            })
+            setIsAlertVisible(true);
         } else {
             setHeader(localSubject.name)
         }
         setSubject(localSubject)
-        setSynchronization("Не синхронизован")
+        setTimeout(() => {
+            setIsAlertVisible(false);
+        }, 3000);
     }
 
     function changeTeacher(e) {
         let localTeacher = teachers?.find(teacher => teacher.id === e.value)
         if (subject !== undefined) {
             setHeader(localTeacher.firstName + " " + localTeacher.lastName + ", " + subject.name)
-            setSchedule(dayOfWeek.value, subject.id, localTeacher.id, id, groupId).then(() => {
-                setSynchronization("Синхронизован")
+            setSchedule(dayOfWeek.value, subject.id, localTeacher.id, order, groupId).then(() => {
+                setSynchronization("Сохранено")
             }).catch(function (e) {
-                setSynchronization(e.response.data)
+                if (e.response.status === 400) {
+                    setSynchronization(e.response.data)
+                } else {
+                    setSynchronization("Не сохранено")
+                }
             })
+            setIsAlertVisible(true);
         } else {
             setHeader(localTeacher.firstName + " " + localTeacher.lastName)
-            setSynchronization("Не синхронизован")
         }
         setTeacher(localTeacher)
+        setTimeout(() => {
+            setIsAlertVisible(false);
+        }, 3000);
     }
 
     useEffect(() => {
@@ -47,13 +68,13 @@ const Schedule = ({teachers, subjects, schedule, dayOfWeek, id, groupId}) => {
             for (let i = 0; i < teachers.length; i++) {
                 localTeachers.push({label: teachers[i].firstName + " " + teachers[i].lastName, value: teachers[i].id})
             }
-            setTeachersForSelect(localTeachers)
+            setAvailableTeachers(localTeachers)
         }
         if (subjects !== undefined) {
             for (let i = 0; i < subjects.length; i++) {
                 localSubjects.push({label: subjects[i].name, value: subjects[i].id})
             }
-            setSubjectsForSelect(localSubjects)
+            setAvailableSubjects(localSubjects)
         }
         let localTeacher = teachers?.find(teacher => teacher.id === schedule?.teacherId)
         let localSubject = subjects?.find(subject => subject.id === schedule?.subjectId)
@@ -66,7 +87,12 @@ const Schedule = ({teachers, subjects, schedule, dayOfWeek, id, groupId}) => {
 
     return (
         <tr>
-            <td>{id + ". " + synchronization}</td>
+            <td>
+                <div>{order} {isAlertVisible ?
+                    <div>{synchronization === "Сохранено" ? <div className="success">{synchronization}</div>
+                        : <div className="error">{synchronization}</div>}
+                    </div> : <div/>}</div>
+            </td>
             <td>
                 <Accordion>
                     <Accordion.Item eventKey="0">
@@ -76,12 +102,19 @@ const Schedule = ({teachers, subjects, schedule, dayOfWeek, id, groupId}) => {
                                 <Row>
                                     <Form.Group as={Col}>
                                         <Form.Label>Выберите предмет</Form.Label>
-                                        <Select options={subjectsForSelect} onChange={changeSubject}>
+                                        <Select options={availableSubjects} onChange={changeSubject}
+                                                value={{
+                                                    label: subject !== undefined ? subject?.name : "",
+                                                    value: subject !== undefined ? subject?.id : -1
+                                                }}>
                                         </Select>
                                     </Form.Group>
                                     <Form.Group as={Col}>
                                         <Form.Label>Выберите учителя</Form.Label>
-                                        <Select options={teachersForSelect} onChange={changeTeacher}>
+                                        <Select options={availableTeachers} onChange={changeTeacher} value={{
+                                            label: teacher !== undefined ? teacher?.firstName + " " + teacher?.lastName : "",
+                                            value: teacher !== undefined ? teacher?.id : -1
+                                        }}>
                                         </Select>
                                     </Form.Group>
                                 </Row>
