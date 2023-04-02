@@ -10,7 +10,7 @@ import '../../../components/settingComponents/Schedule.css';
 import PacmanLoader from "react-spinners/ClipLoader";
 
 const SettingSchedule = () => {
-    const fistColumn = [1, 2, 3];
+    const firstColumn = [1, 2, 3];
     const secondColumn = [4, 5, 6];
     const [schedulesByDay, setSchedulesByDay] = useState([null, null, null, null, null, null])
     const [teachers, setTeachers] = useState([])
@@ -52,12 +52,12 @@ const SettingSchedule = () => {
         }, 500)
     }, [groupId])
 
-    function Day({id}) {
+    function Day({dayId}) {
         for (let dayOfWeek in DayOFWeekEnum) {
-            if (DayOFWeekEnum[dayOfWeek].value === id) {
+            if (DayOFWeekEnum[dayOfWeek].value === dayId) {
                 return <DaySchedule groupId={groupId} teachers={teachers} subjects={subjects}
                                     dayOfWeek={DayOFWeekEnum[dayOfWeek]}
-                                    lessons={schedulesByDay[id - 1]}/>;
+                                    schedule={schedulesByDay[dayId - 1]}/>;
             }
         }
     }
@@ -88,12 +88,12 @@ const SettingSchedule = () => {
                     <Row>
                         <Col>
                             <div>
-                                {fistColumn.map((id) => <Day key={id} id={id}/>)}
+                                {firstColumn.map((id) => <Day key={id} dayId={id}/>)}
                             </div>
                         </Col>
                         <Col md={{offset: 1}}>
                             <div>
-                                {secondColumn.map((id) => <Day key={id} id={id}/>)}
+                                {secondColumn.map((id) => <Day key={id} dayId={id}/>)}
                             </div>
                         </Col>
                     </Row>

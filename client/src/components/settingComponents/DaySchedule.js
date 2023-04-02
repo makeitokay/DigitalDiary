@@ -3,7 +3,7 @@ import {Table} from "react-bootstrap";
 import Schedule from "./Schedule";
 import './Schedule.css'
 
-const DaySchedule = ({teachers, subjects, lessons, dayOfWeek, groupId}) => {
+const DaySchedule = ({teachers, subjects, schedule, dayOfWeek, groupId}) => {
     const [orderSchedules, setOrderSchedules] = useState([])
 
     function RenderSchedule({order, schedule}) {
@@ -35,7 +35,7 @@ const DaySchedule = ({teachers, subjects, lessons, dayOfWeek, groupId}) => {
                 </thead>
                 <tbody>
                 {orderSchedules.map(order => <RenderSchedule key={order} order={order}
-                                                             schedule={lessons?.items.find(item => item.order === order)}/>)}
+                                                             schedule={schedule?.items.find(item => item.order === order)}/>)}
                 </tbody>
             </Table>
         </div>

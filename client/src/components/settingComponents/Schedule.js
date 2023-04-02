@@ -101,7 +101,7 @@ const Schedule = ({teachers, subjects, schedule, dayOfWeek, order, groupId}) => 
                             <Form>
                                 <Row>
                                     <Form.Group as={Col}>
-                                        <Form.Label>Выберите предмет</Form.Label>
+                                        <Form.Label>Предмет</Form.Label>
                                         <Select options={availableSubjects} onChange={changeSubject}
                                                 value={{
                                                     label: subject !== undefined ? subject?.name : "",
@@ -110,7 +110,7 @@ const Schedule = ({teachers, subjects, schedule, dayOfWeek, order, groupId}) => 
                                         </Select>
                                     </Form.Group>
                                     <Form.Group as={Col}>
-                                        <Form.Label>Выберите учителя</Form.Label>
+                                        <Form.Label>Учитель</Form.Label>
                                         <Select options={availableTeachers} onChange={changeTeacher} value={{
                                             label: teacher !== undefined ? teacher?.firstName + " " + teacher?.lastName : "",
                                             value: teacher !== undefined ? teacher?.id : -1
