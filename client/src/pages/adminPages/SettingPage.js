@@ -25,6 +25,7 @@ const SettingPage = () => {
                     <AddSubject/>
                 </Tab>
                 <Tab eventKey="contact" title="Настройка рассписания">
+                    <SettingSchedule/>
                 </Tab>
             </Tabs>
             <ToastContainer/>

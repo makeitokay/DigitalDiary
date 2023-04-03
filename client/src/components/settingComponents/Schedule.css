@@ -1,0 +1,33 @@
+.success {
+    color: lightskyblue;
+    float: right;
+    font-size: smaller;
+}
+
+.error {
+    color: red;
+    float: right;
+    font-size: smaller;
+}
+
+Table {
+    table-layout: fixed;
+}
+
+table td:nth-of-type(1),
+table th:nth-of-type(1) {
+    width: 200px;
+}
+
+.tb {
+    padding-inline: 50px;
+}
+
+.clip {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    height: 100vh;
+}
