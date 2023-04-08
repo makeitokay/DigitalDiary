@@ -1,0 +1,40 @@
+.overlay {
+    position: absolute;
+    margin-left: 75%;
+}
+
+.parent {
+    padding: 1rem
+}
+
+.child {
+    position: relative;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.data {
+    position: relative;
+    margin-left: 35%;
+    --bs-text-opacity: 1;
+    color: #6c757d;
+}
+
+.date {
+    margin-left: auto !important;
+    color: #6c757d !important;
+    text-align: right !important;
+}
+
+.a {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+}
+
+.button {
+    position: sticky;
+    top: 10px;
+    margin-left: 105%;
+    width: 200px;
+}

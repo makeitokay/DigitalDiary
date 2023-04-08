@@ -47,3 +47,10 @@ export const setSchedule = async (dayOfWeek, subjectId, teacherId, order, groupI
     await $authHost.post('schedule', {dayOfWeek, subjectId, teacherId, order, groupId});
 }
 
+export const setAnnouncement = async (header, text, forGroups, forGroupParallels, forRoles) => {
+    await $authHost.post('Announcements', {header, text, scope: {forGroups, forGroupParallels, forRoles}})
+}
+export const getAnnouncement = async () => {
+    return await $authHost.get('Announcements');
+}
+
