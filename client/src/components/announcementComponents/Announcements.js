@@ -4,10 +4,10 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import '../../../src/pages/commonPages/announcementPagesByRole/Announcement.css';
 import {getAnnouncement} from "../../http/ItemAPI";
-import Modal from "./Modal";
+import "./Modal.css";
+import {Stack} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import AddAnnouncementModal from "./AddAnnouncementModal";
-import {Stack} from "react-bootstrap";
 import {RoleEnum} from "../../store/RoleEnum";
 
 const Announcements = ({role}) => {
