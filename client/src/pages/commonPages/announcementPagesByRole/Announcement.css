@@ -32,6 +32,10 @@
     margin-bottom: 5%;
 }
 
+.text {
+    height: 200px;
+}
+
 .button {
     position: sticky;
     top: 10px;

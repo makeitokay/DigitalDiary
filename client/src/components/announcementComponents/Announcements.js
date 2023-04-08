@@ -12,19 +12,13 @@ import {RoleEnum} from "../../store/RoleEnum";
 
 const Announcements = ({role}) => {
     const [announcements, setAnnouncements] = useState([])
-    const [showModal, setShowModal] = useState(false)
     const [showAddModal, setShowAddModal] = useState(false)
-    const [modalAnnouncement, setModalAnnouncement] = useState(undefined)
     const [reload, setReload] = useState(false)
 
-    function Announcement({announcement, onClick}) {
-        function click() {
-            onClick()
-            setModalAnnouncement(announcement)
-        }
+    function Announcement({announcement}) {
 
         return (
-            <div onClick={click}>
+            <div>
                 <Card className="announcement">
                     <Card.Body>
                         <Card.Title>{announcement?.header}</Card.Title>
@@ -66,12 +60,11 @@ const Announcements = ({role}) => {
                     {Array.from({length: announcements.length}).map((_, idx) => (
                         <div key={idx}>
                             <Col>
-                                <Announcement announcement={announcements[idx]} onClick={() => setShowModal(true)}/>
+                                <Announcement announcement={announcements[idx]}/>
                             </Col>
                         </div>
                     ))}
                 </Row>
-                <Modal show={showModal} close={() => setShowModal(false)} announcement={modalAnnouncement}/>
                 <AddAnnouncementModal show={showAddModal} close={() => setShowAddModal(false)}
                                       reload={addAnnouncement}/>
             </div>

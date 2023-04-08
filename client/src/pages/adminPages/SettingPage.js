@@ -7,6 +7,7 @@ import AddSubject from "./settingPages/AddSubject";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import "./Settings.css"
+import {ToastContainer} from "react-toastify";
 
 const SettingPage = () => {
     return (
@@ -47,6 +48,7 @@ const SettingPage = () => {
                     </Col>
                 </Row>
             </Tab.Container>
+            <ToastContainer/>
         </div>
     );
 };

@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Accordion, CloseButton, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {
+    Accordion, CloseButton, OverlayTrigger, Tooltip
+} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import Button from "react-bootstrap/Button";
@@ -60,6 +62,8 @@ const AddAnnouncementModal = ({close, show, reload}) => {
         }).catch(function (_) {
             error("Не удалось добавить объявление.")
         })
+        reload(true)
+        close()
     }
 
     const renderTooltip = (props) => (
@@ -104,6 +108,7 @@ const AddAnnouncementModal = ({close, show, reload}) => {
             document.body.removeEventListener("keydown", closeOnEscapeKeyDown);
         };
     }, [])
+
     return ReactDOM.createPortal(
         <CSSTransition
             in={show}
@@ -117,14 +122,16 @@ const AddAnnouncementModal = ({close, show, reload}) => {
                         <h4 className="mb-3">
                             Создание объявления
                         </h4>
-                        <Accordion defaultActiveKey="0" className="mb-3" alwaysOpen>
+                        <Accordion className="mb-3" defaultActiveKey="0" alwaysOpen>
                             <Accordion.Item eventKey="0">
-                                <Accordion.Header>
-                                    <Form.Control placeholder="Введите заголовoк." value={header}
-                                                  onChange={e => setHeader(e.target.value)}/>
+                                <Accordion.Header defaultValue={"slfksdl;fds"}>
+                                    {header === "" ? "Заголовок." : header}
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    <Form.Control as="textarea" value={text} placeholder="Введите текст"
+                                    <Form.Control className="mb-3" placeholder="Введите заголовoк." value={header}
+                                                  onChange={e => setHeader(e.target.value)}/>
+                                    <Form.Control className="text" as="textarea" value={text}
+                                                  placeholder="Введите текст."
                                                   onChange={e => setText(e.target.value)}/>
                                 </Accordion.Body>
                             </Accordion.Item>
