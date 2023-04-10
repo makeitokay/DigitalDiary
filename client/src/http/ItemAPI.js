@@ -53,4 +53,7 @@ export const setAnnouncement = async (header, text, forGroups, forGroupParallels
 export const getAnnouncement = async () => {
     return await $authHost.get('Announcements');
 }
+export const getAllAnnouncement = async () => {
+    return await $authHost.get('Announcements/all');
+}
 

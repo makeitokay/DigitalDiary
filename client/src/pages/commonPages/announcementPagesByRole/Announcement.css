@@ -42,3 +42,10 @@
     margin-left: 105%;
     width: 200px;
 }
+
+.select {
+    position: relative;
+    margin-top: -3.2%;
+    margin-bottom: 3%;
+    width: 320px;
+}

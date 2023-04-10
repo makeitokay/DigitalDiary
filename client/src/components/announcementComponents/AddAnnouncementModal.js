@@ -122,7 +122,7 @@ const AddAnnouncementModal = ({close, show, reload}) => {
                         <h4 className="mb-3">
                             Создание объявления
                         </h4>
-                        <Accordion className="mb-3" defaultActiveKey="0" alwaysOpen>
+                        <Accordion className="mb-3" defaultActiveKey="0">
                             <Accordion.Item eventKey="0">
                                 <Accordion.Header defaultValue={"slfksdl;fds"}>
                                     {header === "" ? "Заголовок." : header}

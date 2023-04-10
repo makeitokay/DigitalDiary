@@ -3,17 +3,19 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import '../../../src/pages/commonPages/announcementPagesByRole/Announcement.css';
-import {getAnnouncement} from "../../http/ItemAPI";
+import {getAllAnnouncement, getAnnouncement} from "../../http/ItemAPI";
 import "./Modal.css";
 import {Stack} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import AddAnnouncementModal from "./AddAnnouncementModal";
 import {RoleEnum} from "../../store/RoleEnum";
+import Form from 'react-bootstrap/Form';
 
 const Announcements = ({role}) => {
     const [announcements, setAnnouncements] = useState([])
     const [showAddModal, setShowAddModal] = useState(false)
     const [reload, setReload] = useState(false)
+    const [showAllAnnouncements, setShowAllAnnouncements] = useState(false)
 
     function Announcement({announcement}) {
 
@@ -39,20 +41,43 @@ const Announcements = ({role}) => {
         )
     }
 
+    function readAnnouncements(e) {
+        if (e.target.value === "true") {
+            setShowAllAnnouncements(true);
+        } else {
+            setShowAllAnnouncements(false);
+        }
+        setReload(true);
+    }
+
     function addAnnouncement(e) {
         setReload(e)
     }
 
     useEffect(() => {
-        getAnnouncement().then(data => {
-            setAnnouncements(data.data.reverse())
-        })
+        if (showAllAnnouncements) {
+            getAllAnnouncement().then(data => {
+                setAnnouncements(data.data.reverse())
+            })
+        } else {
+            getAnnouncement().then(data => {
+                setAnnouncements(data.data.reverse())
+            })
+        }
         setReload(false)
     }, [reload])
     return (
         <div className="child">
             {(role === RoleEnum.Teacher || role === RoleEnum.SchoolAdmin) ?
                 <Button className="button" onClick={() => setShowAddModal(true)}>Добавить новость</Button> :
+                <div/>
+            }
+            {role === RoleEnum.SchoolAdmin ?
+                <Form.Select onChange={readAnnouncements} className="select">
+                    <option value={"false"}>Объявления для администраторов.</option>
+                    <option value={"true"}>Все уведомления.</option>
+                </Form.Select>
+                :
                 <div/>
             }
             <div>
@@ -67,6 +92,9 @@ const Announcements = ({role}) => {
                 </Row>
                 <AddAnnouncementModal show={showAddModal} close={() => setShowAddModal(false)}
                                       reload={addAnnouncement}/>
+            </div>
+            <div>
+                {showAllAnnouncements}
             </div>
         </div>
     );
