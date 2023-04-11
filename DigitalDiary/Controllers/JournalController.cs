@@ -165,6 +165,7 @@ public class JournalController : ControllerBase
 	{
 		var lesson = await _lessonRepository
 			.Items
+			.Include(l => l.Marks)
 			.Where(l => l.GroupId == dto.GroupId && l.SubjectId == dto.SubjectId && l.Order == dto.Order && l.Date == dto.Date)
 			.SingleOrDefaultAsync();
 
