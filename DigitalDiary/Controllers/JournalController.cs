@@ -126,7 +126,7 @@ public class JournalController : ControllerBase
 			}
 		}
 
-		return Ok(results);
+		return Ok(results.OrderBy(r => r.Date));
 	}
 
 	[HttpGet("lesson")]
