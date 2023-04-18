@@ -1,5 +1,5 @@
 import {
-    ANNOUNCEMENT_PAGE_ROUTE,
+    ANNOUNCEMENT_PAGE_ROUTE, DAY_JOURNAL,
     DIARY_PAGE_ROUTE, JOURNAL_PAGE_ROUTE,
     REGISTRATION_ROUTE, REPORT_QUARTER_PAGE_ROUTE,
     SETTINGS_PAGE_ROUTE, STATISTIC_PAGE_ROUTE
@@ -11,6 +11,7 @@ import SettingPage from "./pages/adminPages/SettingPage";
 import StatisticPage from "./pages/adminPages/StatisticPage";
 import QuarterReportPage from "./pages/parentOrStudentPages/QuarterReportPage";
 import DiaryPage from "./pages/parentOrStudentPages/DiaryPage";
+import DayJournalPage from "./pages/DayJournalPage";
 
 export const authCommonRoutes = [
     {
@@ -54,6 +55,10 @@ export const adminRoutes = [
     {
         path : JOURNAL_PAGE_ROUTE,
         Component: JournalPage
+    },
+    {
+        path : DAY_JOURNAL,
+        Component: DayJournalPage
     }
 ]
 export const teacherRoutes = [
@@ -64,6 +69,10 @@ export const teacherRoutes = [
     {
         path : JOURNAL_PAGE_ROUTE,
         Component: JournalPage
+    },
+    {
+        path : DAY_JOURNAL,
+        Component: DayJournalPage
     }
 ]
 export const parentOrStudentRoutes = [

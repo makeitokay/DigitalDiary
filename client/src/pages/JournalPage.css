@@ -1,0 +1,57 @@
+table {
+    border-collapse: collapse;
+    width: 900px;
+}
+
+.dayTable {
+    border-collapse: collapse;
+    width: 400px;
+}
+
+td, th {
+    border: 1px solid #999;
+    text-align: center;
+}
+
+.name {
+    border: 1px solid #999;
+    text-align: left;
+}
+
+.n {
+    font-size: 0;
+}
+
+.dayMark {
+    border: 0;
+}
+
+input {
+    width: 20px;
+}
+
+.app {
+    height: 200px;
+}
+
+.hw {
+    max-height: 170px;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: -3%;
+}
+
+.textSpace {
+    height: 110px;
+    max-height: 110px;
+    min-height: 110px;
+}
+
+.page {
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+input:disabled {
+    background-color: white;
+}
