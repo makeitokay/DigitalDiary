@@ -81,6 +81,16 @@ export const getDayFromJournal = async (groupId, subjectId, date, order) => {
         }
     })
 }
-export const postDayJournal = async (date,order,marks,groupId,homework,subjectId) =>{
-    await $authHost.post('journal/lesson',{date,order,marks,groupId,homework,subjectId})
+export const postDayJournal = async (date, order, marks, groupId, homework, subjectId) => {
+    await $authHost.post('journal/lesson', {date, order, marks, groupId, homework, subjectId})
+}
+
+export const getDiaryApi = async (week, childId = null) => {
+    if (childId === null) {
+        return await $authHost.get('diary', {params: {week: week}})
+    }
+    return await $authHost.get('diary', {params: {childId: childId, week: week}})
+}
+export const getChildren = async () => {
+    return await $authHost.get('diary/children')
 }
