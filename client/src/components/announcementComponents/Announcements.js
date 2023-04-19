@@ -90,8 +90,11 @@ const Announcements = ({role}) => {
                         </div>
                     ))}
                 </Row>
-                <AddAnnouncementModal show={showAddModal} close={() => setShowAddModal(false)}
-                                      reload={addAnnouncement}/>
+                {role === RoleEnum.Teacher || role === RoleEnum.SchoolAdmin ?
+                    <AddAnnouncementModal show={showAddModal} close={() => setShowAddModal(false)}
+                                          reload={addAnnouncement}/>
+                    : <div/>
+                }
             </div>
             <div>
                 {showAllAnnouncements}

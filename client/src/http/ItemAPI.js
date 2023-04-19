@@ -94,3 +94,7 @@ export const getDiaryApi = async (week, childId = null) => {
 export const getChildren = async () => {
     return await $authHost.get('diary/children')
 }
+
+export const getReport = async (childId = null, quarter = null) => {
+    return await $authHost.get('reports', {params: {childId: childId, quarter: quarter}})
+}
