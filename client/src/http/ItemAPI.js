@@ -57,3 +57,44 @@ export const getAllAnnouncement = async () => {
     return await $authHost.get('Announcements/all');
 }
 
+
+export const getGroupsAndSubjectsForJournal = async () => {
+    return await $authHost.get('journal/subjects-groups');
+}
+
+export const getJournal = async (groupId, subjectId, month) => {
+    return await $authHost.get(`journal`, {params: {groupId: groupId, subjectId: subjectId, month: month}});
+}
+
+
+export const getStudentsByGroup = async (groupId) => {
+    return await $authHost.get(`groups/${groupId}/students`)
+}
+
+export const getDayFromJournal = async (groupId, subjectId, date, order) => {
+    return await $authHost.get('journal/lesson', {
+        params: {
+            groupId: groupId,
+            subjectId: subjectId,
+            date: date,
+            order: order
+        }
+    })
+}
+export const postDayJournal = async (date, order, marks, groupId, homework, subjectId) => {
+    await $authHost.post('journal/lesson', {date, order, marks, groupId, homework, subjectId})
+}
+
+export const getDiaryApi = async (week, childId = null) => {
+    if (childId === null) {
+        return await $authHost.get('diary', {params: {week: week}})
+    }
+    return await $authHost.get('diary', {params: {childId: childId, week: week}})
+}
+export const getChildren = async () => {
+    return await $authHost.get('diary/children')
+}
+
+export const getReport = async (childId = null, quarter = null) => {
+    return await $authHost.get('reports', {params: {childId: childId, quarter: quarter}})
+}
