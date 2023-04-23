@@ -65,6 +65,7 @@ public class ReportsController : ControllerBase
 				.SelectMany(g => g.Marks)
 				.Where(m => m.StudentId == student.Id)
 				.GroupBy(m => m.Value)
+				.Where(g => g.Key is not null)
 				.ToDictionary(g => g.Key!.Value, g => g.Count());
 
 			var totalMarks = marks.Values.Sum();
