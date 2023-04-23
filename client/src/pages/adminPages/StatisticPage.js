@@ -37,15 +37,15 @@ function StatisticPage() {
         let end;
         if (optionDate === null) {
             if (date.length > 0) {
-                const offset = date[0].getTimezoneOffset()
-                let qw = new Date(date[0].getTime() - (offset * 60 * 1000))
+                const offset = dateAttendance[0].getTimezoneOffset()
+                let qw = new Date(dateAttendance[0].getTime() - (offset * 60 * 1000))
                 start = qw.toISOString().split('T')[0]
-                const offset2 = date[1].getTimezoneOffset()
-                qw = new Date(date[1].getTime() - (offset2 * 60 * 1000))
+                const offset2 = dateAttendance[1].getTimezoneOffset()
+                qw = new Date(dateAttendance[1].getTime() - (offset2 * 60 * 1000))
                 end = qw.toISOString().split('T')[0]
             } else {
-                const offset = date.getTimezoneOffset()
-                let qw = new Date(date.getTime() - (offset * 60 * 1000))
+                const offset = dateAttendance.getTimezoneOffset()
+                let qw = new Date(dateAttendance.getTime() - (offset * 60 * 1000))
                 start = qw.toISOString().split('T')[0]
                 end = qw.toISOString().split('T')[0]
             }
