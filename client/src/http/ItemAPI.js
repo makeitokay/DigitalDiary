@@ -98,3 +98,26 @@ export const getChildren = async () => {
 export const getReport = async (childId = null, quarter = null) => {
     return await $authHost.get('reports', {params: {childId: childId, quarter: quarter}})
 }
+
+
+export const getStatisticMarks = async (groupId = null, teacherId = null, subjectId = null, start = null, end = null) => {
+    return await $authHost.get('statistics/marks', {
+        params: {
+            group: groupId,
+            teacher: teacherId,
+            subject: subjectId,
+            start: start,
+            end: end
+        }
+    })
+}
+export const getStatisticAttendance = async (groupId = null, attendance = null, start, end) => {
+    return await $authHost.get('statistics/attendance', {
+        params: {
+            groupId: groupId,
+            attendance: attendance,
+            start:start,
+            end:end
+        }
+    })
+}
