@@ -1,7 +1,7 @@
 ﻿version: "3.6"
 services:
   digital_diary_admin:
-    image: digital_diary_admin
+    image: makeitokay/digital_diary_admin
     build:
       context: .
     environment:
@@ -11,7 +11,7 @@ services:
     ports:
       - "3000:80"
   digital_diary:
-    image: digital_diary
+    image: makeitokay/digital_diary
     build:
       context: .
       target: DigitalDiary
@@ -22,7 +22,7 @@ services:
     ports:
       - "8000:80"
   client:
-    image: client
+    image: makeitokay/digital_diary_client
     build:
       context: client
     ports:
