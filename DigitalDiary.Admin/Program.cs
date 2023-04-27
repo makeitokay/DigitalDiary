@@ -23,8 +23,16 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 		options.LoginPath = "/auth/login";
 	});
 
-services.AddScoped<IPasswordManager, PasswordManagerStub>();
-services.AddScoped<IEmailClient, EmailClientStub>();
+if (builder.Environment.IsProduction())
+{
+	services.AddScoped<IPasswordManager, PasswordManager>();
+	services.AddScoped<IEmailClient, EmailClient>();
+}
+else
+{
+	services.AddScoped<IPasswordManager, PasswordManagerStub>();
+	services.AddScoped<IEmailClient, EmailClientStub>();
+}
 
 var app = builder.Build();
 
