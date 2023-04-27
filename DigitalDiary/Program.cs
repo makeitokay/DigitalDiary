@@ -22,7 +22,7 @@ services.AddCors(options =>
 	options.AddPolicy("CORSPolicy", b =>
 	{
 		b
-			.WithOrigins("http://localhost:3000")
+			.AllowAnyOrigin()
 			.AllowAnyMethod()
 			.AllowAnyHeader();
 	});

@@ -1,0 +1,22 @@
+﻿name: Release
+
+on: pull_request
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create env file
+        uses: 1arp/create-a-file-action@0.2
+        with:
+          file: .env
+          content: POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+      - name: Deploy to VPS
+        uses: TapTap21/docker-remote-deployment-action@v1.0
+        with:
+          remote_docker_host: root@94.142.141.72
+          ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+          ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+          args: --env-file ./.env up -d
