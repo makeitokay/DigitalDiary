@@ -4,12 +4,10 @@ services:
     image: digital_diary_admin
     build:
       context: .
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     environment:
       - DOTNET_ENVIRONMENT=Production
       - DIGITAL_DIARY_Email:Password=${EMAIL_PASSWORD}
-      - DIGITAL_DIARY_ConnectionStrings:Default=User ID=digitaldiary;Password=${POSTGRES_PASSWORD};Server=host.docker.internal;Port=5432;Database=digitaldiary;Pooling=true;
+      - DIGITAL_DIARY_ConnectionStrings:Default=User ID=digitaldiary;Password=${POSTGRES_PASSWORD};Server=94.142.141.72;Port=5432;Database=digitaldiary;Pooling=true;
     ports:
       - "3000:80"
   digital_diary:
@@ -19,15 +17,13 @@ services:
       target: DigitalDiary
     environment:
       - DOTNET_ENVIRONMENT=Production
-      - DIGITAL_DIARY_ConnectionStrings:Default=User ID=digitaldiary;Password=${POSTGRES_PASSWORD};Server=host.docker.internal;Port=5432;Database=digitaldiary;Pooling=true;
+      - DIGITAL_DIARY_ConnectionStrings:Default=User ID=digitaldiary;Password=${POSTGRES_PASSWORD};Server=94.142.141.72;Port=5432;Database=digitaldiary;Pooling=true;
     ports:
       - "8000:80"
   client:
     image: client
     build:
       context: client
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "80:3000"
     environment:
