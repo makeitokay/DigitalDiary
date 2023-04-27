@@ -12,7 +12,9 @@ jobs:
         uses: 1arp/create-a-file-action@0.2
         with:
           file: .env
-          content: POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          content: |
+            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            EMAIL_PASSWORD=$ {{ secrets.EMAIL_PASSWORD }}
       - name: Deploy to VPS
         uses: TapTap21/docker-remote-deployment-action@v1.0
         with:
