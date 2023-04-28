@@ -1,7 +1,9 @@
 ﻿version: "3.6"
 services:
   nginx:
-    image: nginx
+    image: makeitokay/digital_diary_nginx:latest
+    build:
+      context: nginx
     ports:
       - "80:80"
       - "443:443"
