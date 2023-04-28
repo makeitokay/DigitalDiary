@@ -31,7 +31,7 @@ jobs:
         uses: TapTap21/docker-remote-deployment-action@v1.0
         with:
           stack_file_name: docker-compose.production.yaml
-          remote_docker_host: root@94.142.141.72
+          remote_docker_host: root@188.120.245.245
           ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
           args: --env-file ./.env up -d --force-recreate
