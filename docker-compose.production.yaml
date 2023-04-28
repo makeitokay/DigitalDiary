@@ -12,7 +12,7 @@ services:
     depends_on:
       - digital_diary
       - digital_diary_admin
-      - client
+      - digital_diary_client
   digital_diary_admin:
     image: makeitokay/digital_diary_admin:latest
     build:
