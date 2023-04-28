@@ -1,5 +1,17 @@
 ﻿version: "3.6"
 services:
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/digitaldiary.site:/etc/nginx/certs
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - digital_diary
+      - digital_diary_admin
+      - client
   digital_diary_admin:
     image: makeitokay/digital_diary_admin:latest
     build:
@@ -8,8 +20,6 @@ services:
       - DOTNET_ENVIRONMENT=Production
       - DIGITAL_DIARY_Email:Password=${EMAIL_PASSWORD}
       - DIGITAL_DIARY_ConnectionStrings:Default=User ID=digitaldiary;Password=${POSTGRES_PASSWORD};Server=188.120.245.245;Port=5432;Database=digitaldiary;Pooling=true;
-    ports:
-      - "3000:80"
   digital_diary:
     image: makeitokay/digital_diary:latest
     build:
@@ -19,13 +29,9 @@ services:
       - DOTNET_ENVIRONMENT=Production
       - DIGITAL_DIARY_Email:Password=${EMAIL_PASSWORD}
       - DIGITAL_DIARY_ConnectionStrings:Default=User ID=digitaldiary;Password=${POSTGRES_PASSWORD};Server=188.120.245.245;Port=5432;Database=digitaldiary;Pooling=true;
-    ports:
-      - "8000:80"
   client:
     image: makeitokay/digital_diary_client:latest
     build:
       context: client
-    ports:
-      - "80:3000"
     environment:
-      - REACT_APP_API_BASE_URL=http://188.120.245.245:8000
+      - REACT_APP_API_BASE_URL=https://api.digitaldiary.site
