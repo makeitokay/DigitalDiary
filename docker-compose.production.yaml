@@ -8,7 +8,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /etc/letsencrypt/live/digitaldiary.site:/etc/nginx/certs
+      - /etc/letsencrypt/live/digitaldiary.site/fullchain.pem:/etc/nginx/certs/fullchain.pem
+      - /etc/letsencrypt/live/digitaldiary.site/privkey.pem:/etc/nginx/certs/privkey.pem
     depends_on:
       - digital_diary
       - digital_diary_admin
