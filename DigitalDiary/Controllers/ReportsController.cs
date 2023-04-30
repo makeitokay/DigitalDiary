@@ -61,12 +61,17 @@ public class ReportsController : ControllerBase
 
 		foreach (var group in lessons.GroupBy(l => l.Subject))
 		{
-			var marks = group
-				.SelectMany(g => g.Marks)
-				.Where(m => m.StudentId == student.Id)
-				.GroupBy(m => m.Value)
-				.Where(g => g.Key is not null)
-				.ToDictionary(g => g.Key!.Value, g => g.Count());
+			var marks = Enumerable
+				.Range(1, 5)
+				.ToDictionary(i => i, i => 0);
+			foreach (var markGroup in group
+				         .SelectMany(g => g.Marks)
+				         .Where(m => m.StudentId == student.Id)
+				         .GroupBy(m => m.Value)
+				         .Where(g => g.Key is not null))
+			{
+				marks[markGroup.Key!.Value] = markGroup.Count();
+			}
 
 			var totalMarks = marks.Values.Sum();
 			var average = marks.Sum(m => 1.0 * m.Key * m.Value / totalMarks);
