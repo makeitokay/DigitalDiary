@@ -264,7 +264,7 @@ function StatisticPage() {
                             labels: labelForMarks,
                             datasets: [
                                 {
-                                    label: 'GitHub Commits',
+                                    label: 'Статистика оценок',
                                     backgroundColor: '#ebd723',
                                     data: valueForMarks,
                                 },
@@ -282,7 +282,7 @@ function StatisticPage() {
                             )),
                             datasets: [
                                 {
-                                    label: 'GitHub Commits',
+                                    label: 'Статистика посещения',
                                     backgroundColor: '#0da9d9',
                                     data: Object.keys(dataForAttendance).map(key => (
                                         dataForAttendance[key]

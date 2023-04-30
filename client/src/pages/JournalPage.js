@@ -189,13 +189,17 @@ const JournalPage = () => {
                                     <tr {...headerGroup.getHeaderGroupProps()}>
                                         {headerGroup.headers.map((column, idx2) => {
                                             if (idx === 0 && idx2 === 0) {
-                                                return <th rowSpan="2" {...column.getHeaderProps()}>
+                                                return <th rowSpan="2" className="topThL" {...column.getHeaderProps()}>
+                                                    {column.render("Header")}
+                                                </th>
+                                            } else if(idx === 0 && idx2 ===  1){
+                                                return <th rowSpan="1" className="topThF" {...column.getHeaderProps()}>
                                                     {column.render("Header")}
                                                 </th>
                                             } else if (idx === 1 && idx2 === 0) {
                                                 return null
                                             } else {
-                                                return <th
+                                                return <th className="Th"
                                                     onClick={event => chooseDay(idx2)} {...column.getHeaderProps()}>
                                                     {column.render("Header")}
                                                 </th>

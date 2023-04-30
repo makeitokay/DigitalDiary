@@ -16,6 +16,7 @@ import {
     STATISTIC_PAGE_ROUTE
 } from "../utils/Const";
 import {RoleEnum} from "../store/RoleEnum";
+import "./NavBar.css"
 
 const NavBar = observer(() => {
     console.log("Nav")
@@ -74,7 +75,7 @@ const NavBar = observer(() => {
     }
 
     return (
-        <Navbar bg="primary" variant="dark">
+        <Navbar className="navbar navbar-custom">
             <Container fluid>
                 <Navbar.Brand href="#home">ДНЕВНИК</Navbar.Brand>
                 <Nav className="me-auto">
