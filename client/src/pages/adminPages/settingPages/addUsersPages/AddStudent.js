@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import CreatableSelect from "react-select/creatable";
 import Form from "react-bootstrap/Form";
 
-const AddStudent = ({firstName, lastName, email, change}) => {
+const AddStudent = ({firstName, lastName, email, change, reload}) => {
     const [allGroups, setAllGroups] = useState([])
     const [group, setGroup] = useState("")
 
@@ -25,7 +25,7 @@ const AddStudent = ({firstName, lastName, email, change}) => {
 
     useEffect(() => {
         getGroups()
-    }, [])
+    }, [reload])
 
     function changeGroup(e) {
         setGroup(e.label)

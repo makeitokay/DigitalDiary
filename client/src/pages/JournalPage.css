@@ -1,29 +1,63 @@
 table {
     border-collapse: collapse;
-    width: 900px;
+    margin: 25px 0;
+    font-size: 0.9em;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
-
-.dayTable {
-    border-collapse: collapse;
-    width: 400px;
+thead tr {
+    background-color: #256578;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
 }
-
-td, th {
-    border: 1px solid #999;
+.topThL{
+    border-top: 0;
+    border-right: 1px solid white;
+}
+.topThF{
+    border-top: 0;
+    border-left: 1px solid white;
+}
+.Th{
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    width: 40px;
+}
+.Th:hover{
+    background: #3276b1;
+    cursor: pointer;
+}
+th,td{
     text-align: center;
+    padding: 3px 7px;
 }
-
+tbody tr{
+    border-bottom: 1px solid #dddddd;
+}
+td{
+    border-right: 1px solid #dddddd;
+}
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+tbody tr:last-of-type {
+    border-bottom: 2px solid #256578;
+}
 .name {
-    border: 1px solid #999;
     text-align: left;
 }
-
 .n {
     font-size: 0;
 }
 
 .dayMark {
     border: 0;
+    background-color: rgba(52, 52, 52, 0);
+}
+.dayMark:disabled{
+    background-color: rgba(52, 52, 52, 0);
 }
 
 input {
@@ -54,4 +88,36 @@ input {
 
 input:disabled {
     background-color: white;
+}
+
+/* default button */
+.btn-default {
+    background-color: #FFF;
+    color: #333;
+    border-color: #adadad;
+    border-radius: 25px;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active    {
+    background-color: #ebebeb;
+    color: #333;
+    border-color: #adadad;
+}
+
+/* primary button */
+.btn-primary {
+    background-color: #256578;
+    color: white;
+    border-color: #256578;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active    {
+    background-color: #3276b1;
+    color: #FFF;
+    border-color: #285e8e;
+}
+.test{
+    top: 0;
 }

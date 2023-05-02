@@ -130,17 +130,27 @@ const DayJournalPage = () => {
                 <div className="page">
                     {studentsForTable.length !== 0 ?
                         <div>
-                            <Button className="mb-3" onClick={saveDay}>Сохранить</Button>
-                            <Button className="ms-3 mb-3" onClick={exit}>Вернуться обратно</Button>
-                            <Stack direction="horizontal" gap={2}>
+                            <Button variant="primary" onClick={saveDay}>Сохранить</Button>
+                            <Button className="ms-3" onClick={exit}>Вернуться обратно</Button>
+                            <Stack direction="horizontal" className="align-items-baseline" gap={2}>
                                 <table className="dayTable" {...getTableProps()}>
                                     <thead>
-                                    {headerGroups.map((headerGroup) => (
+                                    {headerGroups.map((headerGroup, idx) => (
                                         <tr {...headerGroup.getHeaderGroupProps()}>
-                                            {headerGroup.headers.map((column) => {
-                                                return <th  {...column.getHeaderProps()}>
-                                                    {column.render("Header")}
-                                                </th>
+                                            {headerGroup.headers.map((column, idx2) => {
+                                                if (idx === 0 && idx2 === 0) {
+                                                    return <th rowSpan="2" className="topThL" {...column.getHeaderProps()}>
+                                                        {column.render("Header")}
+                                                    </th>
+                                                } else if (idx === 0 && idx2 === 2) {
+                                                    return <th rowSpan="1" className="topThF" {...column.getHeaderProps()}>
+                                                        {column.render("Header")}
+                                                    </th>
+                                                } else {
+                                                    return <th  {...column.getHeaderProps()}>
+                                                        {column.render("Header")}
+                                                    </th>
+                                                }
                                             })}
                                         </tr>
                                     ))}
@@ -188,7 +198,7 @@ const DayJournalPage = () => {
                                     }
                                     </tbody>
                                 </table>
-                                <Card style={{width: 400, height: 160}} className={"p-1 ms-4"}>
+                                <Card style={{width: 400, height: 160}} className={"p-1 ms-4 test"}>
                                     <Form className="hw">
                                         <Form.Group className="mb-3">
                                             <Form.Label>Домашнее задание</Form.Label>
