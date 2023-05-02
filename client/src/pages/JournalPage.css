@@ -25,6 +25,10 @@ thead tr {
     border-left: 1px solid white;
     width: 40px;
 }
+.Th:hover{
+    background: #3276b1;
+    cursor: pointer;
+}
 th,td{
     text-align: center;
     padding: 3px 7px;
@@ -113,4 +117,7 @@ input:disabled {
     background-color: #3276b1;
     color: #FFF;
     border-color: #285e8e;
+}
+.test{
+    top: 0;
 }

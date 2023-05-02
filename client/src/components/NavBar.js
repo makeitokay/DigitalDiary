@@ -77,7 +77,7 @@ const NavBar = observer(() => {
     return (
         <Navbar className="navbar navbar-custom">
             <Container fluid>
-                <Navbar.Brand href="#home">ДНЕВНИК</Navbar.Brand>
+                <Navbar.Brand href="#home">Цифровой Дневник</Navbar.Brand>
                 <Nav className="me-auto">
                     {
                         user.isAuth ?

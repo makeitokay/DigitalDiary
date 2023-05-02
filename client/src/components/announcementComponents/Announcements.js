@@ -69,13 +69,13 @@ const Announcements = ({role}) => {
     return (
         <div className="child">
             {(role === RoleEnum.Teacher || role === RoleEnum.SchoolAdmin) ?
-                <Button className="button" onClick={() => setShowAddModal(true)}>Добавить новость</Button> :
+                <Button className="button" onClick={() => setShowAddModal(true)}>Создать объявление</Button> :
                 <div/>
             }
             {role === RoleEnum.SchoolAdmin ?
                 <Form.Select onChange={readAnnouncements} className="select">
-                    <option value={"false"}>Объявления для администраторов.</option>
-                    <option value={"true"}>Все уведомления.</option>
+                    <option value={"false"}>Объявления для администраторов</option>
+                    <option value={"true"}>Все объявления</option>
                 </Form.Select>
                 :
                 <div/>

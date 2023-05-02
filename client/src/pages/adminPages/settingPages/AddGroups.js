@@ -43,7 +43,7 @@ const AddGroups = () => {
         return (
             <Form>
                 <FormGroup className="mb-3">
-                    <FormLabel>Введите номер класса.</FormLabel>
+                    <FormLabel>Выберите номер класса</FormLabel>
                     <Form.Select aria-label="Default select example" onChange={e => {
                         mainNumber = e.target.value;
                         setNumber(e.target.value)
@@ -55,7 +55,7 @@ const AddGroups = () => {
                     </Form.Select>
                 </FormGroup>
                 <FormGroup className="mb-3">
-                    <FormLabel>Введите букву класса.</FormLabel>
+                    <FormLabel>Выберите букву класса</FormLabel>
                     <SelectLetter numberForm={number}/>
                 </FormGroup>
             </Form>
@@ -101,7 +101,7 @@ const AddGroups = () => {
     return (
         <div>
             <SelectNumber array={numbers}/>
-            <Button variant="outline-primary" onClick={click}>Primary</Button>
+            <Button onClick={click}>Добавить</Button>
         </div>
     );
 };

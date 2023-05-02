@@ -132,7 +132,7 @@ const DayJournalPage = () => {
                         <div>
                             <Button variant="primary" onClick={saveDay}>Сохранить</Button>
                             <Button className="ms-3" onClick={exit}>Вернуться обратно</Button>
-                            <Stack direction="horizontal" gap={2}>
+                            <Stack direction="horizontal" className="align-items-baseline" gap={2}>
                                 <table className="dayTable" {...getTableProps()}>
                                     <thead>
                                     {headerGroups.map((headerGroup, idx) => (
@@ -198,7 +198,7 @@ const DayJournalPage = () => {
                                     }
                                     </tbody>
                                 </table>
-                                <Card style={{width: 400, height: 160}} className={"p-1 ms-4"}>
+                                <Card style={{width: 400, height: 160}} className={"p-1 ms-4 test"}>
                                     <Form className="hw">
                                         <Form.Group className="mb-3">
                                             <Form.Label>Домашнее задание</Form.Label>

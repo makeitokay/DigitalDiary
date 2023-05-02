@@ -26,7 +26,7 @@ const SettingPage = () => {
                                 <Nav.Link eventKey="longer-tab">Добавление предмета</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="contact">Настройка рассписания</Nav.Link>
+                                <Nav.Link eventKey="contact">Настройка расписания</Nav.Link>
                             </Nav.Item>
                         </Nav>
                     </Col>
