@@ -18,7 +18,6 @@ const Announcements = ({role}) => {
     const [showAllAnnouncements, setShowAllAnnouncements] = useState(false)
 
     function Announcement({announcement}) {
-
         return (
             <div>
                 <Card className="announcement">
@@ -67,37 +66,47 @@ const Announcements = ({role}) => {
         setReload(false)
     }, [reload])
     return (
-        <div className="child">
-            {(role === RoleEnum.Teacher || role === RoleEnum.SchoolAdmin) ?
-                <Button className="button" onClick={() => setShowAddModal(true)}>Создать объявление</Button> :
-                <div/>
-            }
-            {role === RoleEnum.SchoolAdmin ?
-                <Form.Select onChange={readAnnouncements} className="select">
-                    <option value={"false"}>Объявления для администраторов</option>
-                    <option value={"true"}>Все объявления</option>
-                </Form.Select>
+        <div>
+            {announcements.length === 0 && role !== RoleEnum.Teacher && role !== RoleEnum.SchoolAdmin ?
+                <div>Объявлений нет</div>
                 :
                 <div/>
             }
-            <div>
-                <Row xs={1} md={1} className="g-4">
-                    {Array.from({length: announcements.length}).map((_, idx) => (
-                        <div key={idx}>
-                            <Col>
-                                <Announcement announcement={announcements[idx]}/>
-                            </Col>
-                        </div>
-                    ))}
-                </Row>
-                {role === RoleEnum.Teacher || role === RoleEnum.SchoolAdmin ?
-                    <AddAnnouncementModal show={showAddModal} close={() => setShowAddModal(false)}
-                                          reload={addAnnouncement}/>
-                    : <div/>
+            <div className="child">
+                {(role === RoleEnum.Teacher || role === RoleEnum.SchoolAdmin) ?
+                    <Button className="button" onClick={() => setShowAddModal(true)}>Создать объявление</Button> :
+                    <div/>
                 }
-            </div>
-            <div>
-                {showAllAnnouncements}
+                {role === RoleEnum.SchoolAdmin ?
+                    <Form.Select onChange={readAnnouncements} className="select">
+                        <option value={"false"}>Объявления для администраторов</option>
+                        <option value={"true"}>Все объявления</option>
+                    </Form.Select>
+                    :
+                    <div/>
+                }
+                <div>
+                    {announcements.length === 0 && (role === RoleEnum.Teacher || role === RoleEnum.SchoolAdmin) ?
+                        <div>Объявлений нет</div>
+                        :
+                        <Row xs={1} md={1} className="g-4">
+                            {Array.from({length: announcements.length}).map((_, idx) => (
+                                <div key={idx}>
+                                    <Col>
+                                        <Announcement announcement={announcements[idx]}/>
+                                    </Col>
+                                </div>
+                            ))}
+                        </Row>}
+                    {role === RoleEnum.Teacher || role === RoleEnum.SchoolAdmin ?
+                        <AddAnnouncementModal show={showAddModal} close={() => setShowAddModal(false)}
+                                              reload={addAnnouncement}/>
+                        : <div/>
+                    }
+                </div>
+                <div>
+                    {showAllAnnouncements}
+                </div>
             </div>
         </div>
     );

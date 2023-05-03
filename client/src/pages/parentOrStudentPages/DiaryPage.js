@@ -84,7 +84,7 @@ const DiaryPage = () => {
         if (diary !== null) {
             let notNullLessons = diary[dayOfWeek]
             for (let i = 0; i < notNullLessons.length; i++) {
-                dayLessons[i] = notNullLessons[i]
+                dayLessons[Number(notNullLessons[i].order)-1] = notNullLessons[i]
             }
         }
         return (
@@ -93,10 +93,10 @@ const DiaryPage = () => {
                 <Table striped bordered hover size="sm">
                     <thead>
                     <tr>
-                        <th>№</th>
-                        <th>Предмет</th>
+                        <th width="40">№</th>
+                        <th width="200">Предмет</th>
                         <th>Домашняя работа</th>
-                        <th>Оценка</th>
+                        <th width="80">Оценка</th>
                     </tr>
                     </thead>
                     <tbody>

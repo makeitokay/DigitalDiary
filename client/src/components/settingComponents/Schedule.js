@@ -94,6 +94,7 @@ const Schedule = ({teachers, subjects, schedule, dayOfWeek, order, groupId}) => 
                     </div> : <div/>}</div>
             </td>
             <td>
+
                 <Accordion>
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>{header}</Accordion.Header>

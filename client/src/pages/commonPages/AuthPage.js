@@ -48,7 +48,7 @@ const AuthPage = observer(() => {
     }
     const roleClick = async (name) => {
         switch (name) {
-            case "Студент":
+            case "Ученик":
                 setRole(name)
                 setRoleForApi("Student")
                 break;
@@ -89,7 +89,7 @@ const AuthPage = observer(() => {
                         </Form.Group>
                         <DropdownButton className="mb-3" id="dropdown-basic-button" title={role} drop="end"
                                         variant="firstly" onChange={roleClick}>
-                            {['Студент', 'Учитель', 'Родитель', 'Администратор школы'].map(
+                            {['Ученик', 'Учитель', 'Родитель', 'Администратор школы'].map(
                                 (roleUser) =>
                                     <Dropdown.Item key={roleUser}
                                                    onClick={_ => roleClick(roleUser)}>{roleUser}</Dropdown.Item>

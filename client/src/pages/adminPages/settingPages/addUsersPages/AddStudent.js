@@ -1,31 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {getAllGroups, setStudent} from "../../../../http/ItemAPI";
+import React, {useState} from 'react';
+import {setStudent} from "../../../../http/ItemAPI";
 import {error, success} from "../../../../components/Notifications";
 import Button from "react-bootstrap/Button";
 import CreatableSelect from "react-select/creatable";
 import Form from "react-bootstrap/Form";
 
-const AddStudent = ({firstName, lastName, email, change, reload}) => {
-    const [allGroups, setAllGroups] = useState([])
+const AddStudent = ({firstName, lastName, email, change, allGroups ,getGroups}) => {
     const [group, setGroup] = useState("")
-
-    function getGroups() {
-        getAllGroups().then(data => {
-            let array = data.data;
-            let local = []
-            for (let i = 0; i < array.length; i++) {
-                local.push({label: array[i].number + array[i].letter, value: array[i].id})
-            }
-            allGroups.value = local
-            setAllGroups(allGroups.value)
-        }).catch(function (_) {
-            error("Произошла ошибка.")
-        })
-    }
-
-    useEffect(() => {
-        getGroups()
-    }, [reload])
 
     function changeGroup(e) {
         setGroup(e.label)
@@ -36,7 +17,9 @@ const AddStudent = ({firstName, lastName, email, change, reload}) => {
             error("Заполните все поля.")
             return
         }
-        setStudent(firstName, lastName, email, group[1], group[0]).then(_ => {
+        let letter = group.substring(group.length-1)
+        let number = group.substring(0, group.length-1)
+        setStudent(firstName, lastName, email, letter, number).then(_ => {
                 getGroups()
                 success("Ученик добавлен")
                 change()

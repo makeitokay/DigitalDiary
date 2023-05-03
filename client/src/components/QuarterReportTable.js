@@ -76,6 +76,9 @@ const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarte
         data: subjectsWithMarks
     })
     return (
+        subjectsWithMarks.length === 0 ?
+            <div>Недостаточно данных для отчета.</div>
+            :
         <table {...getTableProps}>
             <thead>
             {headerGroups.map((headerGroup, idx) => (
@@ -87,7 +90,7 @@ const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarte
                             </th>
                         } else if (idx === 1 && idx2 === 0) {
                             return null
-                        } else if (idx === 1 && idx2 === 5) {
+                        } else if (idx === 1 && idx2 === 6) {
                             return null
                         } else {
                             return <th {...column.getHeaderProps()}>
