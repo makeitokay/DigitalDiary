@@ -183,7 +183,7 @@ const JournalPage = () => {
                 {studentsForTable.length !== 0 ?
                     <div className="App">
                         <div>
-                            <table {...getTableProps()}>
+                            <table className="journal" {...getTableProps()}>
                                 <thead>
                                 {headerGroups.map((headerGroup, idx) => (
                                     <tr {...headerGroup.getHeaderGroupProps()}>

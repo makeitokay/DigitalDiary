@@ -84,7 +84,7 @@ const DiaryPage = () => {
         if (diary !== null) {
             let notNullLessons = diary[dayOfWeek]
             for (let i = 0; i < notNullLessons.length; i++) {
-                dayLessons[i] = notNullLessons[i]
+                dayLessons[Number(notNullLessons[i].order)-1] = notNullLessons[i]
             }
         }
         return (

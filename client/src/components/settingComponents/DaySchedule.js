@@ -26,7 +26,7 @@ const DaySchedule = ({teachers, subjects, schedule, dayOfWeek, groupId}) => {
     return (
         <div>
             <h1>{dayOfWeek.label}</h1>
-            <Table striped bordered hover size="sm">
+            <Table striped bordered hover size="sm" className="schedule">
                 <thead>
                 <tr>
                     <th width="100">№</th>

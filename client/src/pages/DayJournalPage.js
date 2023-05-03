@@ -133,7 +133,7 @@ const DayJournalPage = () => {
                             <Button variant="primary" onClick={saveDay}>Сохранить</Button>
                             <Button className="ms-3" onClick={exit}>Вернуться обратно</Button>
                             <Stack direction="horizontal" className="align-items-baseline" gap={2}>
-                                <table className="dayTable" {...getTableProps()}>
+                                <table className="journal" {...getTableProps()}>
                                     <thead>
                                     {headerGroups.map((headerGroup, idx) => (
                                         <tr {...headerGroup.getHeaderGroupProps()}>
@@ -163,7 +163,7 @@ const DayJournalPage = () => {
                                                 <tr {...row.getRowProps()}>
                                                     {row.cells.map((cell, idx2) => {
                                                         if (idx2 === 0) {
-                                                            return <td {...cell.getCellProps()}>
+                                                            return <td className="name" {...cell.getCellProps()}>
                                                                 {cell.render("Cell")}
                                                             </td>
                                                         } else if (idx2 === 1) {

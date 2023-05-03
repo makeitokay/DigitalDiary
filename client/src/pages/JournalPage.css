@@ -1,4 +1,4 @@
-table {
+table.journal {
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
@@ -6,7 +6,7 @@ table {
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
-thead tr {
+table.journal thead tr {
     background-color: #256578;
     color: #ffffff;
     text-align: left;
@@ -29,20 +29,20 @@ thead tr {
     background: #3276b1;
     cursor: pointer;
 }
-th,td{
+table.journal th,td{
     text-align: center;
     padding: 3px 7px;
 }
-tbody tr{
+table.journal tbody tr{
     border-bottom: 1px solid #dddddd;
 }
-td{
+table.journal td{
     border-right: 1px solid #dddddd;
 }
-tbody tr:nth-of-type(even) {
+table.journal tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
-tbody tr:last-of-type {
+table.journal tbody tr:last-of-type {
     border-bottom: 2px solid #256578;
 }
 .name {
@@ -123,4 +123,58 @@ input:disabled {
 }
 .test{
     top: 0;
+}
+
+
+
+
+
+table.schedule {
+    /* Change these properties */
+    --border: 1px solid #dddddd;
+    border-radius: 10px;
+    /* Don't change these properties */
+    border-spacing: 0;
+    border-collapse: separate;
+    border: var(--border);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+table.schedule th:first-of-type {
+    border-top-left-radius: 10px;
+}
+table.schedule th:last-of-type {
+    border-top-right-radius: 10px;
+}
+table.schedule tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 10px;
+}
+table.schedule tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 10px;
+}
+table.schedule th {
+    background: #256578;
+    color: white;
+}
+table.schedule td,th{
+    border-style: none;
+}
+table.schedule th:not(:last-child){
+    border-right: 1px solid white;
+}
+table.schedule td:not(:last-child) {
+    border-right: 1px solid #dddddd;
+}
+
+table.schedule>thead>tr:not(:last-child)>th,
+table.schedule>thead>tr:not(:last-child)>td,
+table.schedule>tbody>tr:not(:last-child)>th,
+table.schedule>tbody>tr:not(:last-child)>td,
+table.schedule>tfoot>tr:not(:last-child)>th,
+table.schedule>tfoot>tr:not(:last-child)>td,
+table.schedule>tr:not(:last-child)>td,
+table.schedule>tr:not(:last-child)>th,
+table.schedule>thead:not(:last-child),
+table.schedule>tbody:not(:last-child),
+table.schedule>tfoot:not(:last-child) {
+    border-bottom: 1px solid #dddddd;
 }
