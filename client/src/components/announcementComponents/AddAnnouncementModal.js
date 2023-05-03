@@ -149,6 +149,7 @@ const AddAnnouncementModal = ({close, show, reload}) => {
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     <div className="mb-3">
+
                                         Можно заполнить не все поля.
                                     </div>
                                     <Form.Group>
