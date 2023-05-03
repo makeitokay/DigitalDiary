@@ -14,11 +14,6 @@ Table {
     table-layout: fixed;
 }
 
-
-.tb {
-    padding-inline: 50px;
-}
-
 .clip {
     text-align: center;
     display: flex;

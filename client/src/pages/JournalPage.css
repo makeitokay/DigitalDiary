@@ -55,6 +55,9 @@ tbody tr:last-of-type {
 .dayMark {
     border: 0;
     background-color: rgba(52, 52, 52, 0);
+    width: 100%;
+    max-width: 40px;
+    text-align: center;
 }
 .dayMark:disabled{
     background-color: rgba(52, 52, 52, 0);

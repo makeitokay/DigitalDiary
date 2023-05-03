@@ -23,7 +23,7 @@ const AddAnnouncementModal = ({close, show, reload}) => {
         {value: RoleEnum.Teacher, label: "учитель"},
         {value: RoleEnum.SchoolAdmin, label: "администратор"},
         {value: RoleEnum.Parent, label: "родитель"},
-        {value: RoleEnum.Student, label: "студент"}])
+        {value: RoleEnum.Student, label: "ученик"}])
     const [parallels, setParallels] = useState([])
     const [userRoles, setUserRoles] = useState([])
     const [groups, setGroups] = useState([])

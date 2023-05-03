@@ -67,7 +67,7 @@ const SettingSchedule = () => {
     }
 
     return (
-        <div className="tb">
+        <div >
             <Form.Group className="mb-3">
                 <Form.Label>Выберите класс</Form.Label>
                 <Select options={groups} onChange={changeGroup}/>

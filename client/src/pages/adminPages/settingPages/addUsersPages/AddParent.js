@@ -1,20 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import AddChild from "../../../../components/addUserComponents/AddChild";
-import {getAllStudents, setParent} from "../../../../http/ItemAPI";
+import {setParent} from "../../../../http/ItemAPI";
 import Button from "react-bootstrap/Button";
 import {error, success} from "../../../../components/Notifications";
 import Form from "react-bootstrap/Form";
 
-const AddParent = ({firstName, lastName, email, change}) => {
-    const [allStudents, setAllStudents] = useState([])
+const AddParent = ({firstName, lastName, email, change,allStudents}) => {
     const [children, setChildren] = useState([])
-    useEffect(() => {
-        getAllStudents().then(
-            data => {
-                setAllStudents(data.data)
-            }
-        )
-    }, [])
 
     function addChildren(arrayOfId) {
         setChildren(arrayOfId)
