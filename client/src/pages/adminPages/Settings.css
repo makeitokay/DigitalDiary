@@ -1,8 +1,14 @@
 .menu {
-    max-width: 400px;
+    width: 300px;
 }
 
 .page {
     margin-top: 1em;
     margin-left: 1em;
+}
+.nav-pills .nav-link.active{
+    background: #256578;
+}
+.nav{
+    --bs-nav-link-color: #256578;
 }
