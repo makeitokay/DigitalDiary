@@ -53,11 +53,23 @@ const AddAnnouncementModal = ({close, show, reload}) => {
     }
 
     function addAnnouncement() {
-        if (header === "" || text === "" || (groups.length === 0 && userRoles.length === 0 && parallels.length === 0)) {
+        if (header === "" || text === "") {
             error("Заполните все необходимые данные.")
             return
         }
-        setAnnouncement(header, text, groups, parallels, userRoles).then(() => {
+        let localGroups
+        let localParallels
+        let localRoles
+        if (groups.length === 0 && userRoles.length === 0 && parallels.length === 0){
+            localGroups = null
+            localParallels = null
+            localRoles = null
+        } else{
+            localGroups = groups
+            localParallels = parallels
+            localRoles = userRoles
+        }
+        setAnnouncement(header, text, localGroups, localParallels, localRoles).then(() => {
             success("Объявление добавлено.")
         }).catch(function (_) {
             error("Не удалось добавить объявление.")
