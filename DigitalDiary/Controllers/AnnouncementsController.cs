@@ -42,10 +42,6 @@ public class AnnouncementsController : ControllerBase
 		var dto = announcements
 			.Where(a =>
 			{
-				if (a.Id == 9)
-				{
-					Console.WriteLine("hello");
-				}
 				var inRoleScope = a.Scope.ForRoles.IsNullOrEmpty() || a.Scope.ForRoles!.Contains(user.Role.ToString());
 
 				var inGroupParallelsScope = a.Scope.ForGroupParallels == null
