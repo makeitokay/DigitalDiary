@@ -6,6 +6,7 @@ using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DigitalDiary.Controllers;
 
@@ -41,7 +42,11 @@ public class AnnouncementsController : ControllerBase
 		var dto = announcements
 			.Where(a =>
 			{
-				var inRoleScope = a.Scope.ForRoles == null || a.Scope.ForRoles!.Contains(user.Role.ToString());
+				if (a.Id == 9)
+				{
+					Console.WriteLine("hello");
+				}
+				var inRoleScope = a.Scope.ForRoles.IsNullOrEmpty() || a.Scope.ForRoles!.Contains(user.Role.ToString());
 
 				var inGroupParallelsScope = a.Scope.ForGroupParallels == null
 				                            || userGroups.Any(group => a.Scope.ForGroupParallels.Contains(group.Number))
