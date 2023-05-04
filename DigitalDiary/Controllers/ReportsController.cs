@@ -85,12 +85,8 @@ public class ReportsController : ControllerBase
 
 		return Ok(new ReportDto
 		{
-			AvailableQuarters = Enumerable.Range(1, availableQuarters.Count).Select(i => new DateOnlyRangeDto
-			{
-				Start = availableQuarters[i - 1].Start,
-				End = availableQuarters[i - 1].End,
-				Number = i
-			}),
+			AvailableQuarters = Enumerable.Range(1, availableQuarters.Count).Select(i => availableQuarters[i - 1].MapToDto(quarterNumber.Value)),
+			SelectedQuarter = quarter.MapToDto(quarterNumber.Value),
 			Items = results
 		});
 	}

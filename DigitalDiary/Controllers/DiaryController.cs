@@ -116,12 +116,8 @@ public class DiaryController : ControllerBase
 
 		var result = new DiaryDto
 		{
-			AvailableWeeks = Enumerable.Range(1, availableWeeks.Count).Select(i => new DateOnlyRangeDto
-			{
-				Start = availableWeeks[i - 1].Start,
-				End = availableWeeks[i - 1].End,
-				Number = i
-			}),
+			AvailableWeeks = Enumerable.Range(1, availableWeeks.Count).Select(i => availableWeeks[i - 1].MapToDto(i)),
+			SelectedWeek = week.MapToDto(weekNumber.Value),
 			Items = results
 		};
 

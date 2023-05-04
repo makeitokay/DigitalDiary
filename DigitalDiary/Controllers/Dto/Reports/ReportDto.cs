@@ -3,6 +3,7 @@
 public class ReportDto
 {
 	public IEnumerable<DateOnlyRangeDto> AvailableQuarters { get; set; }
+	public DateOnlyRangeDto SelectedQuarter { get; set; }
 	
 	public Dictionary<string, ReportSubjectDto> Items { get; set; }
 }

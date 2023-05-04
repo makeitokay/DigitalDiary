@@ -94,7 +94,7 @@ public class JournalController : ControllerBase
 
 		var results = lessons
 			.Where(l => DateTimeHelper.IsCurrentSchoolYear(l.Date))
-			.Select(lesson => new JournalDto
+			.Select(lesson => new JournalItemDto
 			{
 				Date = lesson.Date,
 				Order = lesson.Order,
@@ -117,7 +117,7 @@ public class JournalController : ControllerBase
 						continue;
 					}
 					
-					results.Add(new JournalDto
+					results.Add(new JournalItemDto
 					{
 						Date = new DateOnly(DateTimeHelper.GetYearForMonth(month.Value), month.Value, day),
 						Order = lesson.Order
@@ -126,7 +126,13 @@ public class JournalController : ControllerBase
 			}
 		}
 
-		return Ok(results.OrderBy(r => r.Date));
+		var dto = new JournalDto
+		{
+			SelectedMonth = month.Value,
+			Items = results.OrderBy(r => r.Date)
+		};
+		
+		return Ok(dto);
 	}
 
 	[HttpGet("lesson")]
