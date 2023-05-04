@@ -90,13 +90,13 @@ const DiaryPage = () => {
         return (
             <div>
                 <h1>{DayOFWeekEnum[dayOfWeek].label}</h1>
-                <Table striped bordered hover size="sm">
+                <Table className="journal" striped bordered hover size="sm">
                     <thead>
                     <tr>
-                        <th width="40">№</th>
-                        <th width="200">Предмет</th>
-                        <th>Домашняя работа</th>
-                        <th width="80">Оценка</th>
+                        <th className="Th" width="40">№</th>
+                        <th className="Th" width="200">Предмет</th>
+                        <th className="Th">Домашняя работа</th>
+                        <th className="Th" width="80">Оценка</th>
                     </tr>
                     </thead>
                     <tbody>

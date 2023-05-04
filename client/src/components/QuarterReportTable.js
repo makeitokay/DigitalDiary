@@ -79,13 +79,13 @@ const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarte
         subjectsWithMarks.length === 0 ?
             <div>Недостаточно данных для отчета.</div>
             :
-        <table {...getTableProps}>
+        <table className="journal" {...getTableProps}>
             <thead>
             {headerGroups.map((headerGroup, idx) => (
                 <tr{...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column, idx2) => {
                         if (idx === 0 && idx2 === 0 || idx === 0 && idx2 === 2) {
-                            return <th rowSpan="2" {...column.getHeaderProps()}>
+                            return <th className="Th" rowSpan="2" {...column.getHeaderProps()}>
                                 {column.render("Header")}
                             </th>
                         } else if (idx === 1 && idx2 === 0) {
@@ -93,7 +93,7 @@ const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarte
                         } else if (idx === 1 && idx2 === 6) {
                             return null
                         } else {
-                            return <th {...column.getHeaderProps()}>
+                            return <th className="Th" {...column.getHeaderProps()}>
                                 {column.render("Header")}
                             </th>
                         }
