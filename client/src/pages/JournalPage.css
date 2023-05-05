@@ -6,48 +6,67 @@ table.journal {
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
+
 table.journal thead tr {
     background-color: #256578;
     color: #ffffff;
     text-align: left;
     font-weight: bold;
 }
-.topThL{
+
+.topThL {
     border-top: 0;
     border-right: 1px solid white;
 }
-.topThF{
+
+.topThF {
     border-top: 0;
     border-left: 1px solid white;
 }
-.Th{
+
+.Th {
     border-top: 1px solid white;
-    border-left: 1px solid white;
     width: 40px;
 }
-.Th:hover{
+
+.ThWithoutHover {
+    border-top: 1px solid white;
+}
+
+.Th:hover {
     background: #3276b1;
     cursor: pointer;
 }
-table.journal th,td{
+
+table.journal th {
+    border-left: 1px solid white;
+}
+
+table.journal th, td {
     text-align: center;
     padding: 3px 7px;
 }
-table.journal tbody tr{
+
+table.journal tbody tr {
     border-bottom: 1px solid #dddddd;
 }
-table.journal td{
+
+table.journal td {
     border-right: 1px solid #dddddd;
 }
+
 table.journal tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
+
 table.journal tbody tr:last-of-type {
     border-bottom: 2px solid #256578;
 }
+
 .name {
     text-align: left;
 }
+
 .n {
     font-size: 0;
 }
@@ -59,7 +78,8 @@ table.journal tbody tr:last-of-type {
     max-width: 40px;
     text-align: center;
 }
-.dayMark:disabled{
+
+.dayMark:disabled {
     background-color: rgba(52, 52, 52, 0);
 }
 
@@ -100,9 +120,10 @@ input:disabled {
     border-color: #adadad;
     border-radius: 25px;
 }
+
 .btn-default:hover,
 .btn-default:focus,
-.btn-default:active    {
+.btn-default:active {
     background-color: #ebebeb;
     color: #333;
     border-color: #adadad;
@@ -114,19 +135,18 @@ input:disabled {
     color: white;
     border-color: #256578;
 }
+
 .btn-primary:hover,
 .btn-primary:focus,
-.btn-primary:active    {
+.btn-primary:active {
     background-color: #3276b1;
     color: #FFF;
     border-color: #285e8e;
 }
-.test{
+
+.test {
     top: 0;
 }
-
-
-
 
 
 table.schedule {
@@ -139,42 +159,50 @@ table.schedule {
     border: var(--border);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
+
 table.schedule th:first-of-type {
     border-top-left-radius: 10px;
 }
+
 table.schedule th:last-of-type {
     border-top-right-radius: 10px;
 }
+
 table.schedule tr:last-of-type td:first-of-type {
     border-bottom-left-radius: 10px;
 }
+
 table.schedule tr:last-of-type td:last-of-type {
     border-bottom-right-radius: 10px;
 }
+
 table.schedule th {
     background: #256578;
     color: white;
 }
-table.schedule td,th{
+
+table.schedule td, th {
     border-style: none;
 }
-table.schedule th:not(:last-child){
+
+table.schedule th:not(:last-child) {
     border-right: 1px solid white;
 }
+
 table.schedule td:not(:last-child) {
     border-right: 1px solid #dddddd;
 }
 
-table.schedule>thead>tr:not(:last-child)>th,
-table.schedule>thead>tr:not(:last-child)>td,
-table.schedule>tbody>tr:not(:last-child)>th,
-table.schedule>tbody>tr:not(:last-child)>td,
-table.schedule>tfoot>tr:not(:last-child)>th,
-table.schedule>tfoot>tr:not(:last-child)>td,
-table.schedule>tr:not(:last-child)>td,
-table.schedule>tr:not(:last-child)>th,
-table.schedule>thead:not(:last-child),
-table.schedule>tbody:not(:last-child),
-table.schedule>tfoot:not(:last-child) {
+table.schedule > thead > tr:not(:last-child) > th,
+table.schedule > thead > tr:not(:last-child) > td,
+table.schedule > tbody > tr:not(:last-child) > th,
+table.schedule > tbody > tr:not(:last-child) > td,
+table.schedule > tfoot > tr:not(:last-child) > th,
+table.schedule > tfoot > tr:not(:last-child) > td,
+table.schedule > tr:not(:last-child) > td,
+table.schedule > tr:not(:last-child) > th,
+table.schedule > thead:not(:last-child),
+table.schedule > tbody:not(:last-child),
+table.schedule > tfoot:not(:last-child) {
     border-bottom: 1px solid #dddddd;
 }

@@ -39,7 +39,7 @@ const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarte
                     averageMark: data.data.items[key].averageMark
                 })
             })
-            changeQuart({label:data.data.selectedQuarter.number,value:data.data.selectedQuarter.number})
+            changeQuart({label: data.data.selectedQuarter.number, value: data.data.selectedQuarter.number})
             setMarksColumns(marksForTable)
             setSubjectsWithMarks(localSubjectsWithMarks)
         })
@@ -80,45 +80,49 @@ const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarte
         subjectsWithMarks.length === 0 ?
             <div>Недостаточно данных для отчета.</div>
             :
-        <table className="journal" {...getTableProps}>
-            <thead>
-            {headerGroups.map((headerGroup, idx) => (
-                <tr{...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column, idx2) => {
-                        if (idx === 0 && idx2 === 0 || idx === 0 && idx2 === 2) {
-                            return <th className="Th" rowSpan="2" {...column.getHeaderProps()}>
-                                {column.render("Header")}
-                            </th>
-                        } else if (idx === 1 && idx2 === 0) {
-                            return null
-                        } else if (idx === 1 && idx2 === 6) {
-                            return null
-                        } else {
-                            return <th className="Th" {...column.getHeaderProps()}>
-                                {column.render("Header")}
-                            </th>
-                        }
-                    })}
-                </tr>
-            ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-            {
-                rows.map((row) => {
-                    prepareRow(row)
-                    return (
-                        <tr{...row.getRowProps()}>
-                            {row.cells.map((cell) => {
-                                return <td {...cell.getCellProps()}>
-                                    {cell.render("Cell")}
-                                </td>
-                            })}
-                        </tr>
-                    )
-                })
-            }
-            </tbody>
-        </table>
+            <table className="journal" {...getTableProps}>
+                <thead>
+                {headerGroups.map((headerGroup, idx) => (
+                    <tr{...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map((column, idx2) => {
+                            if (idx === 0 && idx2 === 0 || idx === 0 && idx2 === 2) {
+                                return <th rowSpan="2" {...column.getHeaderProps()}>
+                                    {column.render("Header")}
+                                </th>
+                            } else if (idx === 1 && idx2 === 0) {
+                                return null
+                            } else if (idx === 1 && idx2 === 6) {
+                                return null
+                            } else if (idx === 0 && idx2 === 1) {
+                                return <th {...column.getHeaderProps()}>
+                                    {column.render("Header")}
+                                </th>
+                            } else {
+                                return <th className="ThWithoutHover" {...column.getHeaderProps()}>
+                                    {column.render("Header")}
+                                </th>
+                            }
+                        })}
+                    </tr>
+                ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                {
+                    rows.map((row) => {
+                        prepareRow(row)
+                        return (
+                            <tr{...row.getRowProps()}>
+                                {row.cells.map((cell) => {
+                                    return <td {...cell.getCellProps()}>
+                                        {cell.render("Cell")}
+                                    </td>
+                                })}
+                            </tr>
+                        )
+                    })
+                }
+                </tbody>
+            </table>
     );
 };
 
