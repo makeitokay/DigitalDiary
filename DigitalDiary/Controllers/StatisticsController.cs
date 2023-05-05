@@ -79,12 +79,8 @@ public class StatisticsController : ControllerBase
 
 		var results = new Dictionary<DateOnly, double>();
 
-		var marksBefore = marks
-			.Where(m => m.Lesson.Date < start && m.Value is not null)
-			.ToList();
-
-		var sum = marksBefore.Sum(m => m.Value) ?? 0;
-		var count = marksBefore.Count;
+		var sum = 0;
+		var count = 0;
 
 		while (start <= end)
 		{

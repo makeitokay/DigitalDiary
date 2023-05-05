@@ -3,7 +3,7 @@ import {getReport} from "../http/ItemAPI";
 import {useTable} from "react-table";
 import "../pages/parentOrStudentPages/QuarterReport.css"
 
-const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarter}) => {
+const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarters: changeQuarters, changeQuart}) => {
     const [subjectsWithMarks, setSubjectsWithMarks] = useState([])
     const [marksColumns, setMarksColumns] = useState([])
 
@@ -15,7 +15,7 @@ const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarte
                 value: data.data.availableQuarters[i].number
             })
         }
-        changeQuarter(localQuarters)
+        changeQuarters(localQuarters)
     }
 
     useEffect(() => {
@@ -39,6 +39,7 @@ const QuarterReportTable = ({childId = null, currentQuarter = null, changeQuarte
                     averageMark: data.data.items[key].averageMark
                 })
             })
+            changeQuart({label:data.data.selectedQuarter.number,value:data.data.selectedQuarter.number})
             setMarksColumns(marksForTable)
             setSubjectsWithMarks(localSubjectsWithMarks)
         })

@@ -17,7 +17,7 @@ const DiaryPage = () => {
     const secondColumn = [4, 5, 6];
     const [availableWeeks, setAvailableWeeks] = useState([])
     const [diary, setDiary] = useState(null)
-    const [week, setWeek] = useState('')
+    const [week, setWeek] = useState(null)
     const [availableChildren, setAvailableChildren] = useState([])
     const [child, setChild] = useState("")
 
@@ -40,8 +40,10 @@ const DiaryPage = () => {
                 + " - " + data.data.availableWeeks[i].end.substring(8, 10) + "." + data.data.availableWeeks[i].end.substring(5, 7)
             localWeeks.push({label: strTime, value: data.data.availableWeeks[i].number})
         }
-        if (funcWeek === 1) {
-            setWeek(localWeeks[0])
+        if (funcWeek === null) {
+            let strTime = data.data.selectedWeek.start.substring(8, 10) + "." + data.data.selectedWeek.start.substring(5, 7)
+                + " - " + data.data.selectedWeek.end.substring(8, 10) + "." + data.data.selectedWeek.end.substring(5, 7)
+            setWeek({label: strTime, value: data.data.selectedWeek.number})
         }
         setAvailableWeeks(localWeeks)
         setDiary(data.data.items)
@@ -57,8 +59,8 @@ const DiaryPage = () => {
     }
 
     function selectChild(e) {
-        if (week === "") {
-            getDiaryByRole(1, e.value)
+        if (week === null) {
+            getDiaryByRole(null, e.value)
         } else {
             getDiaryByRole(week.value, e.value)
         }
@@ -120,7 +122,7 @@ const DiaryPage = () => {
         $authHost.get('users/me').then(data => {
             setRole(data.data.role)
             if (data.data.role === "Student") {
-                getDiaryByRole(1)
+                getDiaryByRole(null)
             } else {
                 getChildren().then(data => {
                     let localChildren = []

@@ -17,7 +17,7 @@ const QuarterReportPage = () => {
     const [availableQuarters, setAvailableQuarters] = useState([])
 
     function changeQuarter(e) {
-        setCurrentQuarter(e.value)
+        setCurrentQuarter(e)
     }
 
     function changeAllQuarters(e) {
@@ -52,11 +52,11 @@ const QuarterReportPage = () => {
                     : <div/>}
                 <Form.Group className="sel">
                     <Form.Label>Четверть</Form.Label>
-                    <Select options={availableQuarters} onChange={changeQuarter}/>
+                    <Select options={availableQuarters} onChange={changeQuarter} value={currentQuarter}/>
                 </Form.Group>
             </Stack>
-            <QuarterReportTable childId={currentChild} currentQuarter={currentQuarter}
-                                changeQuarter={changeAllQuarters}/>
+            <QuarterReportTable childId={currentChild} currentQuarter={currentQuarter?.value}
+                                changeQuarters={changeAllQuarters} changeQuart = {changeQuarter}/>
         </div>
     );
 };

@@ -13,7 +13,7 @@ import {DAY_JOURNAL} from "../utils/Const";
 const JournalPage = () => {
     const [subject, setSubject] = useState("")
     const [group, setGroup] = useState("")
-    const [month, setMonth] = useState("")
+    const [month, setMonth] = useState(null)
     const [availableGroupsAndSubjects, setAvailableGroupsAndSubjects] = useState([])
     const [availableMonths, setAvailableMonths] = useState([])
     const [journal, setJournal] = useState([])
@@ -30,21 +30,20 @@ const JournalPage = () => {
         setCurrentSubjectAndGroup({group: stringGroupAndSubject[1], subject: stringGroupAndSubject[0]})
         setGroup(e.value.group)
         setSubject(e.value.subject)
-        if (month !== "") {
             getJournal(e.value.group, e.value.subject, month).then(data => {
-                setJournal(data.data)
+                setMonth( {label:MonthEnum[data.data.selectedMonth],value: data.data.selectedMonth})
+                setJournal(data.data.items)
             })
             getStudentsByGroup(e.value.group).then(data => {
                 setStudents(data.data)
             })
-        }
     }
 
     function chooseMonth(e) {
-        setMonth(e.value)
+        setMonth(e)
         if (group !== "" && subject !== "") {
             getJournal(group, subject, e.value).then(data => {
-                setJournal(data.data)
+                setJournal(data.data.items)
             })
             getStudentsByGroup(group).then(data => {
                 setStudents(data.data)
@@ -59,7 +58,7 @@ const JournalPage = () => {
                 subject: {id: subject, label: currentSubjectAndGroup.subject},
                 date: journal[order - 1].date,
                 order: journal[order - 1].order,
-                students: students, month: month
+                students: students, month: month.value
             }
         })
     }
@@ -67,11 +66,12 @@ const JournalPage = () => {
     useEffect(() => {
         if (DataFromDayJournal.state !== null) {
             getJournal(DataFromDayJournal.state.group.id, DataFromDayJournal.state.subject.id, DataFromDayJournal.state.month).then(data => {
-                setJournal(data.data)
+                setJournal(data.data.items)
             })
             getStudentsByGroup(DataFromDayJournal.state.group.id).then(data => {
                 setStudents(data.data)
             })
+            setMonth({ label:MonthEnum[DataFromDayJournal.state.month], value: DataFromDayJournal.state.month})
             setPreloading(false)
         }
     }, [preloading])
@@ -137,7 +137,7 @@ const JournalPage = () => {
     const column = React.useMemo(() => studentsForTable[0] ? Object.keys(studentsForTable[0]).map((key) => {
         if (key === "marks") {
             return {
-                Header: String(MonthEnum[month]),
+                Header: String(MonthEnum[month.value]),
                 columns: marksColumns
             }
         } else {
@@ -173,9 +173,7 @@ const JournalPage = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Выберите месяц.</Form.Label>
-                        <Select options={availableMonths} onChange={chooseMonth} defaultValue={
-                            {label: MonthEnum[DataFromDayJournal.state?.month], value: DataFromDayJournal.state?.month}
-                        }></Select>
+                        <Select options={availableMonths} onChange={chooseMonth} value={month}/>
                     </Form.Group>
                 </Stack>
             </Form>

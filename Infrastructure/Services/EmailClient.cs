@@ -31,12 +31,11 @@ public class EmailClient : IEmailClient
 	
 	public async Task SendUserCreationEmailAsync(User user, string password)
 	{
-		var subject = "Вас зарегистрировали на DigitalDiary";
+		var subject = "Доступ в Цифровой Дневник";
 		var text = "Здравствуйте!\n" +
-		           $"Вас зарегистрировали на DigitalDiary в качестве {GetRoleString(user.Role)}.\n\n" +
-		           "Для входа в систему используйте вашу почту и сгенерированный пароль:\n" +
-		           $"{password}\n" +
-		           "При первом входе в систему пароль будет необходимо сменить.";
+		           $"Вас зарегистрировали в системе «Цифровой Дневник» в качестве {GetRoleString(user.Role)}.\n" +
+		           "Цифровой Дневник доступен по адресу: https://digitaldiary.site\n" +
+		           $"Для входа в систему используйте вашу почту и сгенерированный пароль: {password}";
 		
 		using var smtpClient = new SmtpClient(_emailConfig.SmtpHost)
 		{
