@@ -30,7 +30,7 @@ const JournalPage = () => {
         setCurrentSubjectAndGroup({group: stringGroupAndSubject[1], subject: stringGroupAndSubject[0]})
         setGroup(e.value.group)
         setSubject(e.value.subject)
-            getJournal(e.value.group, e.value.subject, month).then(data => {
+            getJournal(e.value.group, e.value.subject, month?.value).then(data => {
                 setMonth( {label:MonthEnum[data.data.selectedMonth],value: data.data.selectedMonth})
                 setJournal(data.data.items)
             })
@@ -132,6 +132,8 @@ const JournalPage = () => {
             }
             setMarksColumns(localMarksColumns)
             setStudentsForTable(localDataForTable)
+        } else{
+            setStudentsForTable([])
         }
     }, [journal, students])
     const column = React.useMemo(() => studentsForTable[0] ? Object.keys(studentsForTable[0]).map((key) => {
@@ -159,7 +161,7 @@ const JournalPage = () => {
             <Form className="mb-3">
                 <Stack direction="horizontal" gap={3}>
                     <Form.Group>
-                        <Form.Label>Выберите класс и предмет.</Form.Label>
+                        <Form.Label>Выберите класс и предмет</Form.Label>
                         <Select options={availableGroupsAndSubjects} defaultValue={
                             {
                                 label: DataFromDayJournal.state !== null ? DataFromDayJournal.state?.subject.label + ", " + DataFromDayJournal.state?.group.label : null,
@@ -172,7 +174,7 @@ const JournalPage = () => {
                                 onChange={chooseGroupAndSubject}></Select>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Выберите месяц.</Form.Label>
+                        <Form.Label>Выберите месяц</Form.Label>
                         <Select options={availableMonths} onChange={chooseMonth} value={month}/>
                     </Form.Group>
                 </Stack>
@@ -230,7 +232,8 @@ const JournalPage = () => {
                                 </tbody>
                             </table>
                         </div>
-                    </div> : <div/>
+                    </div> :
+                    <div>Недостаточно данных.</div>
                 }
             </div>
         </div>
