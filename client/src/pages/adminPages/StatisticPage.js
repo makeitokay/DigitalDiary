@@ -284,6 +284,7 @@ function StatisticPage() {
                                 {
                                     label: 'Статистика посещения',
                                     backgroundColor: '#0da9d9',
+
                                     data: Object.keys(dataForAttendance).map(key => (
                                         dataForAttendance[key]
                                     )),
