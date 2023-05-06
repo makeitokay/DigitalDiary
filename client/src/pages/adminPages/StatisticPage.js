@@ -36,7 +36,7 @@ function StatisticPage() {
         let start;
         let end;
         if (optionDate === null) {
-            if (date.length > 0) {
+            if (dateAttendance.length > 0) {
                 const offset = dateAttendance[0].getTimezoneOffset()
                 let qw = new Date(dateAttendance[0].getTime() - (offset * 60 * 1000))
                 start = qw.toISOString().split('T')[0]
