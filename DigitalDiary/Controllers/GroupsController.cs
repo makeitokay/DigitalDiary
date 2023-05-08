@@ -48,7 +48,9 @@ public class GroupsController : ControllerBase
 				Letter = g.Letter,
 				Number = g.Number,
 				Id = g.Id
-			});
+			})
+			.OrderBy(g => g.Number)
+			.ThenBy(g => g.Letter);
 
 		return Ok(dto);
 	}
