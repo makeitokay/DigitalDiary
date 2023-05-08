@@ -74,6 +74,10 @@ public class ReportsController : ControllerBase
 			}
 
 			var totalMarks = marks.Values.Sum();
+			if (totalMarks == 0)
+			{
+				continue;
+			}
 			var average = marks.Sum(m => 1.0 * m.Key * m.Value / totalMarks);
 
 			results[group.Key.Name] = new ReportSubjectDto
