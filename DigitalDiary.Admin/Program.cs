@@ -13,6 +13,18 @@ services.Configure<EmailConfig>(builder.Configuration.GetSection("Email"));
 services.AddRazorPages();
 services.AddControllers();
 
+services.AddCors(options =>
+{
+	options.AddPolicy("CORSPolicy", b =>
+	{
+		b
+			.AllowAnyOrigin()
+			.AllowAnyMethod()
+			.AllowAnyHeader();
+	});
+});
+
+
 var connectionString = builder.Configuration.GetConnectionString("Default");
 services.AddDbContext(connectionString);
 services.AddRepositories();
@@ -35,12 +47,13 @@ else
 }
 
 var app = builder.Build();
-
+app.UseCors("CORSPolicy");
 if (!app.Environment.IsDevelopment())
 {
 	app.UseExceptionHandler("/Error");
 	app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -52,5 +65,4 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
-
 app.Run();

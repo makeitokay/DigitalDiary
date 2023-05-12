@@ -1,4 +1,4 @@
-import {$authHost} from "./Index";
+import {$adminHost, $authHost} from "./Index";
 
 export const setGroup = async (letter, number) => {
     await $authHost.post('groups', {letter, number});
@@ -116,8 +116,18 @@ export const getStatisticAttendance = async (groupId = null, attendance = null, 
         params: {
             groupId: groupId,
             attendance: attendance,
-            start:start,
-            end:end
+            start: start,
+            end: end
         }
+    })
+}
+
+export const createSchool = async (schoolName, schoolCity, creatorEmail, creatorFirstName, creatorLastName) => {
+    await $adminHost.post('school-request/create', {
+        schoolName,
+        schoolCity,
+        creatorEmail,
+        creatorFirstName,
+        creatorLastName
     })
 }

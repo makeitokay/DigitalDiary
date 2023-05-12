@@ -36,7 +36,7 @@ function StatisticPage() {
         let start;
         let end;
         if (optionDate === null) {
-            if (date.length > 0) {
+            if (dateAttendance.length > 0) {
                 const offset = dateAttendance[0].getTimezoneOffset()
                 let qw = new Date(dateAttendance[0].getTime() - (offset * 60 * 1000))
                 start = qw.toISOString().split('T')[0]
@@ -134,14 +134,14 @@ function StatisticPage() {
             setCurrentGroup(e.value.group)
             setCurrentSubject(e.value.subject)
             setIsDisTeacherSelect(true)
-            getStatMarks(e.value.group, currentTeacher.value, e.value.subject)
+            getStatMarks(e.value.group, currentTeacher?.value, e.value.subject)
         }
     }
 
     function changeDate(e) {
         setDate(e)
         if (currentTeacher !== null || currentGroup !== null) {
-            getStatMarks(currentGroup, currentTeacher.value, currentSubject, e)
+            getStatMarks(currentGroup, currentTeacher?.value, currentSubject, e)
         }
     }
 
@@ -284,6 +284,7 @@ function StatisticPage() {
                                 {
                                     label: 'Статистика посещения',
                                     backgroundColor: '#0da9d9',
+
                                     data: Object.keys(dataForAttendance).map(key => (
                                         dataForAttendance[key]
                                     )),

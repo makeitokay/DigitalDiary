@@ -6,7 +6,9 @@ const $authHost = axios.create({
 const $host = axios.create({
     baseURL: process.env.REACT_APP_API_BASE_URL
 })
-
+const $adminHost = axios.create({
+    baseURL: 'http://localhost:5218/'
+})
 const authInterceptor = config => {
     config.headers.authorization = `Bearer ${localStorage.getItem('accessToken')}`
     return config
@@ -16,5 +18,6 @@ $authHost.interceptors.request.use(authInterceptor)
 
 export {
     $host,
-    $authHost
+    $authHost,
+    $adminHost
 }
