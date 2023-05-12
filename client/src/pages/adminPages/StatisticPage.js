@@ -134,14 +134,14 @@ function StatisticPage() {
             setCurrentGroup(e.value.group)
             setCurrentSubject(e.value.subject)
             setIsDisTeacherSelect(true)
-            getStatMarks(e.value.group, currentTeacher.value, e.value.subject)
+            getStatMarks(e.value.group, currentTeacher?.value, e.value.subject)
         }
     }
 
     function changeDate(e) {
         setDate(e)
         if (currentTeacher !== null || currentGroup !== null) {
-            getStatMarks(currentGroup, currentTeacher.value, currentSubject, e)
+            getStatMarks(currentGroup, currentTeacher?.value, currentSubject, e)
         }
     }
 

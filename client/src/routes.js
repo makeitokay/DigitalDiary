@@ -1,7 +1,7 @@
 import {
     ANNOUNCEMENT_PAGE_ROUTE, DAY_JOURNAL,
     DIARY_PAGE_ROUTE, JOURNAL_PAGE_ROUTE,
-    REGISTRATION_ROUTE, REPORT_QUARTER_PAGE_ROUTE,
+    REGISTRATION_ROUTE, REPORT_QUARTER_PAGE_ROUTE, SCHOOL_CREATE,
     SETTINGS_PAGE_ROUTE, STATISTIC_PAGE_ROUTE
 } from "./utils/Const";
 import AuthPage from "./pages/commonPages/AuthPage";
@@ -12,6 +12,7 @@ import StatisticPage from "./pages/adminPages/StatisticPage";
 import QuarterReportPage from "./pages/parentOrStudentPages/QuarterReportPage";
 import DiaryPage from "./pages/parentOrStudentPages/DiaryPage";
 import DayJournalPage from "./pages/DayJournalPage";
+import CreateSchoolPage from "./pages/commonPages/CreateSchoolPage";
 
 export const authCommonRoutes = [
     {
@@ -93,5 +94,9 @@ export const notAuthRoutes = [
     {
         path: REGISTRATION_ROUTE,
         Component: AuthPage
+    },
+    {
+        path: SCHOOL_CREATE,
+        Component: CreateSchoolPage
     }
 ]

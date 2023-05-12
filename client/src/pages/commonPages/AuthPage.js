@@ -5,7 +5,7 @@ import {login} from "../../http/UserAPI";
 import React, {useContext, useState} from "react";
 import {observer} from "mobx-react-lite"
 import {useNavigate} from "react-router-dom";
-import {ANNOUNCEMENT_PAGE_ROUTE} from "../../utils/Const";
+import {ANNOUNCEMENT_PAGE_ROUTE, SCHOOL_CREATE} from "../../utils/Const";
 import {UserContext} from "../../index";
 import UserStore from "../../store/UserStore";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -66,6 +66,9 @@ const AuthPage = observer(() => {
                 break;
         }
     }
+    function addSchool(){
+        history(SCHOOL_CREATE)
+    }
     console.log("dddd")
     return (
         <div>
@@ -95,9 +98,14 @@ const AuthPage = observer(() => {
                                                    onClick={_ => roleClick(roleUser)}>{roleUser}</Dropdown.Item>
                             )}
                         </DropdownButton>
-                        <Button onClick={click}>
-                            Войти
-                        </Button>
+                        <div style={{display: "flex", justifyContent: "space-between"}}>
+                            <Button onClick={click}>
+                                Войти
+                            </Button>
+                            <Button onClick={addSchool}>
+                                Создать школу
+                            </Button>
+                        </div>
                     </Form>
                 </Card>
             </Container>
