@@ -2,6 +2,7 @@
 services:
   nginx:
     image: makeitokay/digital_diary_nginx:latest
+    restart: always
     build:
       context: nginx
     ports:
@@ -16,6 +17,7 @@ services:
       - digital_diary_client
   digital_diary_admin:
     image: makeitokay/digital_diary_admin:latest
+    restart: always
     build:
       context: .
     environment:
@@ -24,6 +26,7 @@ services:
       - DIGITAL_DIARY_ConnectionStrings:Default=User ID=digitaldiary;Password=${POSTGRES_PASSWORD};Server=188.120.245.245;Port=5432;Database=digitaldiary;Pooling=true;
   digital_diary:
     image: makeitokay/digital_diary:latest
+    restart: always
     build:
       context: .
       target: DigitalDiary
@@ -33,6 +36,7 @@ services:
       - DIGITAL_DIARY_ConnectionStrings:Default=User ID=digitaldiary;Password=${POSTGRES_PASSWORD};Server=188.120.245.245;Port=5432;Database=digitaldiary;Pooling=true;
   digital_diary_client:
     image: makeitokay/digital_diary_client:latest
+    restart: always
     build:
       context: client
     environment:
