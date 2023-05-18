@@ -14,6 +14,7 @@ import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import {CChart} from "@coreui/react-chartjs";
 import {AttendanceEnum} from "../../store/AttendanceEnum";
+import axios from "axios";
 
 function StatisticPage() {
     const [date, setDate] = useState(new Date());
@@ -168,33 +169,36 @@ function StatisticPage() {
 
 
     useEffect(() => {
-        getGroupsAndSubjectsForJournal().then(data => {
+        axios.all(
+            [getGroupsAndSubjectsForJournal(),getAllTeacher(), getAllGroups()]
+        ).then(axios.spread((groupsAndSubjectsApi, teachersApi, groupsApi)=>{
+            // work with groupsAndSubjects
             let localGroupsAndSubjects = [{label: "Не выбрано", value: null}]
-            for (let i = 0; i < data.data.length; i++) {
+            for (let i = 0; i < groupsAndSubjectsApi.data.length; i++) {
                 localGroupsAndSubjects.push({
-                    value: {group: data.data[i].groupId, subject: data.data[i].subjectId},
-                    label: data.data[i].name
+                    value: {group: groupsAndSubjectsApi.data[i].groupId, subject: groupsAndSubjectsApi.data[i].subjectId},
+                    label: groupsAndSubjectsApi.data[i].name
                 })
             }
             setAvailableGroupsAndSubjects(localGroupsAndSubjects)
-        })
-        getAllTeacher().then(data => {
+
+            // work with teachers
             let localTeachers = [{label: "Не выбрано", value: null}]
-            for (let i = 0; i < data.data.length; i++) {
+            for (let i = 0; i < teachersApi.data.length; i++) {
                 localTeachers.push({
-                    value: data.data[i].id,
-                    label: data.data[i].firstName + " " + data.data[i].lastName
+                    value: teachersApi.data[i].id,
+                    label: teachersApi.data[i].firstName + " " + teachersApi.data[i].lastName
                 })
             }
             setAvailableTeachers(localTeachers)
-        })
-        getAllGroups().then(data => {
+
+            // work with groups
             let localGroups = []
-            for (let i = 0; i < data.data.length; i++) {
-                localGroups.push({value: data.data[i].id, label: data.data[i].number + data.data[i].letter})
+            for (let i = 0; i < groupsApi.data.length; i++) {
+                localGroups.push({value: groupsApi.data[i].id, label: groupsApi.data[i].number + groupsApi.data[i].letter})
             }
-            setAvailableGroups(localGroups.sort((x, y) => x.label > y.label ? 1 : x.label === y.label ? 0 : -1))
-        })
+            setAvailableGroups(localGroups)
+        }))
     }, [])
 
     return (
