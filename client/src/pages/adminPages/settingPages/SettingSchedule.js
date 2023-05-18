@@ -8,6 +8,7 @@ import Select from "react-select";
 import Form from "react-bootstrap/Form";
 import '../../../components/settingComponents/Schedule.css';
 import PacmanLoader from "react-spinners/ClipLoader";
+import axios from "axios";
 
 const SettingSchedule = () => {
     const firstColumn = [1, 2, 3];
@@ -20,33 +21,36 @@ const SettingSchedule = () => {
     const [loading, setLoading] = useState(false)
     useEffect(() => {
         setLoading(true)
-        getAllTeacher().then(data => {
-            for (let i = 0; i < data.data.length; i++) {
-                setTeachers(data.data)
+        axios.all(
+            [getAllTeacher(), getAllSubject(), getAllSchedule(groupId), getAllGroups()]
+        ).then(axios.spread((teachersApi, subjectsApi, schedulesApi, groupsApi) => {
+            //work with teachers
+            for (let i = 0; i < teachersApi.data.length; i++) {
+                setTeachers(teachersApi.data)
             }
-        })
-        getAllSubject().then(data => {
-            for (let i = 0; i < data.data.length; i++) {
-                setSubjects(data.data)
+            //work with subjects
+            for (let i = 0; i < subjectsApi.data.length; i++) {
+                setSubjects(subjectsApi.data)
             }
-        })
-        getAllSchedule(groupId).then(data => {
-            if (data !== null) {
+            //work with schedules
+            if (schedulesApi !== null) {
                 let i = 1;
                 setSchedulesByDay(schedulesByDay?.map(day => {
-                    day = data.data.items.find(day => day.dayOfWeek === i)
+                    day = schedulesApi.data.items.find(day => day.dayOfWeek === i)
                     ++i
                     return day
                 }))
             }
-        })
-        getAllGroups().then(data => {
+            //work with groups
             let localGroups = []
-            for (let i = 0; i < data.data.length; i++) {
-                localGroups.push({value: data.data[i].id, label: data.data[i].number + data.data[i].letter})
+            for (let i = 0; i < groupsApi.data.length; i++) {
+                localGroups.push({
+                    value: groupsApi.data[i].id,
+                    label: groupsApi.data[i].number + groupsApi.data[i].letter
+                })
             }
             setGroups(localGroups.sort((x, y) => x.label > y.label ? 1 : x.label === y.label ? 0 : -1))
-        })
+        }))
         setTimeout(() => {
             setLoading(false)
         }, 500)
@@ -67,7 +71,7 @@ const SettingSchedule = () => {
     }
 
     return (
-        <div >
+        <div>
             <Form.Group className="mb-3">
                 <Form.Label>Выберите класс</Form.Label>
                 <Select options={groups} onChange={changeGroup}/>

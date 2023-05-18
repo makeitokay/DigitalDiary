@@ -9,6 +9,7 @@ import {AttendanceEnum} from "../store/AttendanceEnum";
 import {useTable} from "react-table";
 import {useLocation, useNavigate} from "react-router-dom";
 import {DAY_JOURNAL} from "../utils/Const";
+import axios from "axios";
 
 const JournalPage = () => {
     const [subject, setSubject] = useState("")
@@ -65,12 +66,13 @@ const JournalPage = () => {
 
     useEffect(() => {
         if (DataFromDayJournal.state !== null) {
-            getJournal(DataFromDayJournal.state.group.id, DataFromDayJournal.state.subject.id, DataFromDayJournal.state.month).then(data => {
-                setJournal(data.data.items)
-            })
-            getStudentsByGroup(DataFromDayJournal.state.group.id).then(data => {
-                setStudents(data.data)
-            })
+            axios.all(
+                [getJournal(DataFromDayJournal.state.group.id, DataFromDayJournal.state.subject.id, DataFromDayJournal.state.month),
+                    getStudentsByGroup(DataFromDayJournal.state.group.id)]
+            ).then(axios.spread((journalApi, studentsByGroupApi)=>{
+                setJournal(journalApi.data.items)
+                setStudents(studentsByGroupApi.data)
+            }))
             setMonth({ label:MonthEnum[DataFromDayJournal.state.month], value: DataFromDayJournal.state.month})
             setPreloading(false)
         }

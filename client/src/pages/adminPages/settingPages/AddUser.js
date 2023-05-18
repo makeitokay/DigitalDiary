@@ -7,6 +7,7 @@ import AddTeacher from "./addUsersPages/AddTeacher";
 import AddAdmin from "./addUsersPages/AddAdmin";
 import {getAllGroups, getAllStudents} from "../../../http/ItemAPI";
 import {error} from "../../../components/Notifications";
+import axios from "axios";
 
 const AddUser = () => {
     const [role, setRole] = useState(RoleEnum.Parent)
@@ -20,11 +21,13 @@ const AddUser = () => {
         switch (role) {
             case RoleEnum.Student:
                 return (
-                    <AddStudent firstName={firstName} lastName={lastName} email={email} change={clickButton} allGroups={allGroups} getGroups={getGroups}/>
+                    <AddStudent firstName={firstName} lastName={lastName} email={email} change={clickButton}
+                                allGroups={allGroups} getGroups={getGroups}/>
                 )
             case RoleEnum.Parent:
                 return (
-                    <AddParent firstName={firstName} lastName={lastName} email={email} change={clickButton} allStudents={allStudents}/>
+                    <AddParent firstName={firstName} lastName={lastName} email={email} change={clickButton}
+                               allStudents={allStudents}/>
                 )
             case RoleEnum.Teacher:
                 return (
@@ -44,27 +47,25 @@ const AddUser = () => {
         setLastName('')
         setEmail('')
     }
-    function getGroups() {
-        getAllGroups().then(data => {
-            let array = data.data;
-            let local = []
-            for (let i = 0; i < array.length; i++) {
-                local.push({label: array[i].number + array[i].letter, value: array[i].id})
-            }
-            allGroups.value = local
-            setAllGroups(allGroups.value)
-        }).catch(function (_) {
-            error("Произошла ошибка.")
-        })
+
+    function getGroups(data) {
+        let array = data.data;
+        let local = []
+        for (let i = 0; i < array.length; i++) {
+            local.push({label: array[i].number + array[i].letter, value: array[i].id})
+        }
+        allGroups.value = local
+        setAllGroups(allGroups.value)
     }
-    useEffect(()=>{
-        getGroups()
-        getAllStudents().then(
-            data => {
-                setAllStudents(data.data)
-            }
-        )
-    },[])
+
+    useEffect(() => {
+        axios.all([getAllGroups(), getAllStudents()]).then(axios.spread((groupsApi, studentsApi) => {
+            getGroups(groupsApi)
+            setAllStudents(studentsApi.data)
+        })).catch(()=>{
+            error("Проблема с сервером")
+        })
+    }, [])
 
     return (
         <div>

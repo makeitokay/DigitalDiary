@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import {setStudent} from "../../../../http/ItemAPI";
+import {getAllGroups, setStudent} from "../../../../http/ItemAPI";
 import {error, success} from "../../../../components/Notifications";
 import Button from "react-bootstrap/Button";
 import CreatableSelect from "react-select/creatable";
 import Form from "react-bootstrap/Form";
 
-const AddStudent = ({firstName, lastName, email, change, allGroups ,getGroups}) => {
+const AddStudent = ({firstName, lastName, email, change, allGroups, getGroups}) => {
     const [group, setGroup] = useState("")
-
     function changeGroup(e) {
         setGroup(e.label)
     }
@@ -17,10 +16,12 @@ const AddStudent = ({firstName, lastName, email, change, allGroups ,getGroups}) 
             error("Заполните все поля.")
             return
         }
-        let letter = group.substring(group.length-1)
-        let number = group.substring(0, group.length-1)
+        let letter = group.substring(group.length - 1)
+        let number = group.substring(0, group.length - 1)
         setStudent(firstName, lastName, email, letter, number).then(_ => {
-                getGroups()
+                getAllGroups().then(data => {
+                    getGroups(data)
+                })
                 success("Ученик добавлен")
                 change()
             }
