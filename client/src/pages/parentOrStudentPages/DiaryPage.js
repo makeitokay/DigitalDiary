@@ -102,7 +102,7 @@ const DiaryPage = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {dayLessons.map(lesson => <DiaryLine order={lesson?.order} subject={lesson?.subject}
+                    {dayLessons.map(lesson => <DiaryLine key={lesson?.order} order={lesson?.order} subject={lesson?.subject}
                                                          mark={lesson?.mark} homework={lesson?.homework}/>)}
                     </tbody>
                 </Table>
@@ -164,12 +164,12 @@ const DiaryPage = () => {
             <Row>
                 <Col>
                     <div>
-                        {firstColumn.map((id) => <Day dayId={id}/>)}
+                        {firstColumn.map((id) => <Day key={id} dayId={id}/>)}
                     </div>
                 </Col>
                 <Col md={{offset: 1}}>
                     <div>
-                        {secondColumn.map((id) => <Day dayId={id}/>)}
+                        {secondColumn.map((id) => <Day key={id} dayId={id}/>)}
                     </div>
                 </Col>
             </Row>

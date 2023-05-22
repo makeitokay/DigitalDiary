@@ -155,7 +155,13 @@ const AddAnnouncementModal = ({close, show, reload}) => {
                                             placement="left"
                                             overlay={renderTooltip}
                                         >
-                                            <Button variant="success">Важно</Button>
+                                            <div style={{
+                                                border:"1px solid #a60d17",
+                                                borderRadius: "0.375rem",
+                                                padding: "0.375rem",
+                                                background:"#a60d17",
+                                                color:"white"
+                                            }}>Важно</div>
                                         </OverlayTrigger>
                                     </div>
                                 </Accordion.Header>
