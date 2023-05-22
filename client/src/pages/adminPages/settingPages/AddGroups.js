@@ -14,13 +14,15 @@ const AddGroups = () => {
     let mainNumber = useRef('');
 
     function SelectLetter({numberForm}) {
-        mainLetter = mainArray[Number(numberForm) - 1][0]
+        if (!mainArray[Number(numberForm) - 1].includes(mainLetter)){
+            mainLetter = mainArray[Number(numberForm) - 1][0]
+        }
         for (let i = 0; i < 11; i++) {
             if (i + 1 === Number(numberForm)) {
                 return (
-                    <Form.Select aria-label="Default select example" onChange={e => mainLetter = e.target.value}>
+                    <Form.Select aria-label="select" onChange={e => mainLetter = e.target.value} defaultValue={mainArray[i][0]}>
                         {mainArray[i]?.map(
-                            (letter) => letter === mainArray[i][0] ? <option selected key={letter}>{letter}</option> :
+                            (letter) => letter === mainArray[i][0] ? <option key={letter}>{letter}</option> :
                                 <option key={letter}>{letter}</option>
                         )
                         }
