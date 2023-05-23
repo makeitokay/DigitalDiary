@@ -36,6 +36,7 @@ const AddChild = ({array, change}) => {
                 className="basic-multi-select"
                 classNamePrefix="select"
                 onChange={setChange}
+                placeholder={"дети"}
             />
         </div>
     );

@@ -74,8 +74,7 @@ const AddAnnouncementModal = ({close, show, reload}) => {
         }).catch(function (_) {
             error("Не удалось добавить объявление.")
         })
-        reload(true)
-        close()
+        closeModal()
     }
 
     const renderTooltip = (props) => (
@@ -107,7 +106,7 @@ const AddAnnouncementModal = ({close, show, reload}) => {
                 for (let i = 0; i < data.data.length; i++) {
                     localGroups.push({value: data.data[i].id, label: data.data[i].number + data.data[i].letter})
                 }
-                setAvailableGroups(localGroups.sort((x, y) => x.label > y.label ? 1 : x.label === y.label ? 0 : -1))
+                setAvailableGroups(localGroups)
                 let localParallels = []
                 for (let i = 0; i < 11; i++) {
                     localParallels.push({label: i + 1, value: i + 1})
@@ -137,10 +136,10 @@ const AddAnnouncementModal = ({close, show, reload}) => {
                         <Accordion className="mb-3" defaultActiveKey="0">
                             <Accordion.Item eventKey="0">
                                 <Accordion.Header defaultValue={"slfksdl;fds"}>
-                                    {header === "" ? "Заголовок." : header}
+                                    {header === "" ? "Заголовок" : header}
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    <Form.Control className="mb-3" placeholder="Введите заголовoк." value={header}
+                                    <Form.Control className="mb-3" placeholder="Введите заголовoк" value={header}
                                                   onChange={e => setHeader(e.target.value)}/>
                                     <Form.Control className="text" as="textarea" value={text}
                                                   placeholder="Введите текст."
@@ -149,7 +148,7 @@ const AddAnnouncementModal = ({close, show, reload}) => {
                             </Accordion.Item>
                             <Accordion.Item eventKey="1">
                                 <Accordion.Header>
-                                    Область видимости.
+                                    Область видимости
                                     <div className="overlay">
                                         <OverlayTrigger
                                             placement="left"
@@ -171,14 +170,14 @@ const AddAnnouncementModal = ({close, show, reload}) => {
                                         Можно заполнить не все поля.
                                     </div>
                                     <Form.Group>
-                                        <Form.Label>Выберите определенные классы для оповещения.</Form.Label>
-                                        <Select isMulti className="mb-3" options={availableGroups}
+                                        <Form.Label>Выберите определенные классы для оповещения</Form.Label>
+                                        <Select placeholder={"класс"} isMulti className="mb-3" options={availableGroups}
                                                 onChange={addGroups}/>
-                                        <Form.Label>Выберите определенную параллель для оповещения.</Form.Label>
-                                        <Select isMulti className="mb-3" options={availableParallels}
+                                        <Form.Label>Выберите определенную параллель для оповещения</Form.Label>
+                                        <Select placeholder={"параллель"} isMulti className="mb-3" options={availableParallels}
                                                 onChange={addParallels}/>
-                                        <Form.Label>Выберите тип пользователя для оповещения.</Form.Label>
-                                        <Select isMulti className="mb-3" options={availableUserRoles}
+                                        <Form.Label>Выберите тип пользователя для оповещения</Form.Label>
+                                        <Select placeholder={"тип"} isMulti className="mb-3" options={availableUserRoles}
                                                 onChange={addUserRole}/>
                                     </Form.Group>
                                 </Accordion.Body>
