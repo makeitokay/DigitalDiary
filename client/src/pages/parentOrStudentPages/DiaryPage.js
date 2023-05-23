@@ -144,20 +144,20 @@ const DiaryPage = () => {
                 <Stack direction="horizontal">
                     <Form className="mb-3 me-3">
                         <Form.Group>
-                            <Form.Label>Выбор ученика.</Form.Label>
-                            <Select options={availableChildren} onChange={selectChild}/>
+                            <Form.Label>Выбор ученика</Form.Label>
+                            <Select options={availableChildren} onChange={selectChild} placeholder={"ученик"}/>
                         </Form.Group>
                     </Form>
                     <Form className="mb-3 me-3">
                         <Form.Group>
-                            <Form.Label>Выбор недели.</Form.Label>
-                            <Select options={availableWeeks} onChange={selectWeek} value={week}/>
+                            <Form.Label>Выбор недели</Form.Label>
+                            <Select options={availableWeeks} onChange={selectWeek} value={week} placeholder={"неделя"}/>
                         </Form.Group>
                     </Form>
                 </Stack>
                 : <Form className="mb-3 me-3">
                     <Form.Group>
-                        <Form.Label>Выбор недели.</Form.Label>
+                        <Form.Label>Выбор недели</Form.Label>
                         <Select className="selector" options={availableWeeks} onChange={selectWeek} value={week}/>
                     </Form.Group>
                 </Form>}

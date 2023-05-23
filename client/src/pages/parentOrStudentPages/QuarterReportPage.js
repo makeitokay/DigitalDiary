@@ -47,12 +47,12 @@ const QuarterReportPage = () => {
                 {userRole === RoleEnum.Parent ?
                     <Form.Group className="sel">
                         <Form.Label>Ученик</Form.Label>
-                        <Select options={availableChildren} onChange={e => setCurrentChild(e)}/>
+                        <Select options={availableChildren} onChange={e => setCurrentChild(e)} placeholder={"ученик"}/>
                     </Form.Group>
                     : <div/>}
                 <Form.Group className="sel">
                     <Form.Label>Четверть</Form.Label>
-                    <Select options={availableQuarters} onChange={changeQuarter} value={currentQuarter}/>
+                    <Select options={availableQuarters} onChange={changeQuarter} value={currentQuarter} placeholder={"четверть"}/>
                 </Form.Group>
             </Stack>
             <QuarterReportTable childId={currentChild} currentQuarter={currentQuarter?.value}

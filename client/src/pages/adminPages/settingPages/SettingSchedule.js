@@ -49,7 +49,7 @@ const SettingSchedule = () => {
                     label: groupsApi.data[i].number + groupsApi.data[i].letter
                 })
             }
-            setGroups(localGroups.sort((x, y) => x.label > y.label ? 1 : x.label === y.label ? 0 : -1))
+            setGroups(localGroups)
         }))
         setTimeout(() => {
             setLoading(false)
@@ -74,7 +74,7 @@ const SettingSchedule = () => {
         <div>
             <Form.Group className="mb-3">
                 <Form.Label>Выберите класс</Form.Label>
-                <Select options={groups} onChange={changeGroup}/>
+                <Select options={groups} onChange={changeGroup} placeholder={"класс"}/>
             </Form.Group>
             {loading ?
                 <div className="clip">

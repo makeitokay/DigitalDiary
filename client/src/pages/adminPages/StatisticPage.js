@@ -212,12 +212,12 @@ function StatisticPage() {
                                 <Form>
                                     <Stack direction="horizontal">
                                         <Form.Group className="me-4 mb-3">
-                                            <Form.Label>Учитель.</Form.Label>
+                                            <Form.Label>Учитель</Form.Label>
                                             <Select options={availableTeachers} id="teacherSel" onChange={changeTeacher}
                                                     isDisabled={isDisTeacherSelect}></Select>
                                         </Form.Group>
                                         <Form.Group className="me-4 mb-3">
-                                            <Form.Label>Класс и группа.</Form.Label>
+                                            <Form.Label>Класс и группа</Form.Label>
                                             <Select options={availableGroupsAndSubjects} id="groupsAndSubjectSel"
                                                     isDisabled={isDisGroupAndSubjectSelect}
                                                     onChange={changeGroupAndSubject}></Select>
@@ -236,12 +236,12 @@ function StatisticPage() {
                                 <Form>
                                     <Stack direction="horizontal">
                                         <Form.Group className="me-4 mb-3">
-                                            <Form.Label>Класс.</Form.Label>
+                                            <Form.Label>Класс</Form.Label>
                                             <Select options={availableGroups} id="teacherSel"
                                                     onChange={changeGroup}></Select>
                                         </Form.Group>
                                         <Form.Group className="me-4 mb-3">
-                                            <Form.Label>Вид пропуска.</Form.Label>
+                                            <Form.Label>Вид пропуска</Form.Label>
                                             <Select options={Object.keys(AttendanceEnum).map(attendance => (
                                                 {label: AttendanceEnum[attendance], value: attendance}
                                             ))} id="groupsAndSubjectSel" onChange={changeTypeAttendance}></Select>

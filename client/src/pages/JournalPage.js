@@ -102,6 +102,7 @@ const JournalPage = () => {
                     label: data.data[i].name
                 })
             }
+            localGroupsAndSubjects.sort((a,b)=> (a.label).localeCompare(b.label))
             setAvailableGroupsAndSubjects(localGroupsAndSubjects)
         })
     }, [])
@@ -166,7 +167,7 @@ const JournalPage = () => {
                         <Form.Label>Выберите класс и предмет</Form.Label>
                         <Select options={availableGroupsAndSubjects} defaultValue={
                             {
-                                label: DataFromDayJournal.state !== null ? DataFromDayJournal.state?.subject.label + ", " + DataFromDayJournal.state?.group.label : null,
+                                label: DataFromDayJournal.state !== null ? DataFromDayJournal.state?.subject.label + ", " + DataFromDayJournal.state?.group.label : "класс и предмет",
                                 value: {
                                     group: DataFromDayJournal.state?.group.id,
                                     subject: DataFromDayJournal.state?.subject.id
@@ -177,7 +178,7 @@ const JournalPage = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Выберите месяц</Form.Label>
-                        <Select options={availableMonths} onChange={chooseMonth} value={month}/>
+                        <Select options={availableMonths} onChange={chooseMonth} value={month} placeholder={"месяц"}/>
                     </Form.Group>
                 </Stack>
             </Form>
